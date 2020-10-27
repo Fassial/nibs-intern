@@ -1,0 +1,8 @@
+# dir
+/data
+/rsconnect
+
+# file
+*.csv
+app_*
+
