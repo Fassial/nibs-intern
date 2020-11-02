@@ -1,0 +1,9 @@
+# dir
+/data
+/figs
+/results
+
+# file
+*.Rmd
+*.R
+
