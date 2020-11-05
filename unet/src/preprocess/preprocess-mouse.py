@@ -1,29 +1,30 @@
 """
 Created on 09:43, Nov. 4th, 2020
 Author: fassial
-Filename: preprocess.py
+Filename: preprocess-mouse.py
 """
 # dep
 import os
 import cv2
 import shutil
+import numpy as np
 # local dep
 
 # macro
-DATASET = os.path.join(os.getcwd(), "..", "data")
+DATASET = os.path.join(os.getcwd(), "..", "..", "data", "mouse")
 RESULTS_SPLIT = os.path.join(DATASET, "split_data")
-RESULTS_BINARY= os.path.join(DATASET, "binary_data")
+RESULTS_GRAY  = os.path.join(DATASET, "gray_data")
 RESULTS_LABEL = os.path.join(DATASET, "label_data")
 DATASET_TRAIN = os.path.join(DATASET, "train")
 DATASET_TEST  = os.path.join(DATASET, "test")
 FRAM_FORMAT = "%d-%d-%d.png"
 
 # def split_dataset func
-def split_dataset(src_path = DATASET, res_path = {"split_data":RESULTS_SPLIT, "binary_data":RESULTS_BINARY}):
+def split_dataset(src_path = DATASET, res_path = {"split_data":RESULTS_SPLIT, "gray_data":RESULTS_GRAY}):
     # get video.list & sort
     videos = os.listdir(src_path); videos = list(filter(lambda f:f[-4:] in [".avi"], videos))
     # videos.sort(key=lambda x:int(x[-2:-1]))
-    # mkdir split_data & binary_data
+    # mkdir split_data & gray_data
     for subdir in res_path.keys():
         if (os.path.exists(res_path[subdir])): shutil.rmtree(res_path[subdir])
         os.mkdir(res_path[subdir])
@@ -41,12 +42,9 @@ def split_dataset(src_path = DATASET, res_path = {"split_data":RESULTS_SPLIT, "b
             if (success == True):
                 # save frame
                 cv2.imwrite(os.path.join(res_path["split_data"], FRAM_FORMAT % ((n_fram/(video_fps*60)), (n_fram/video_fps)%60, n_fram%video_fps)), frame)
-                # save binary_frame
+                # save gray_frame
                 frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                frame_gray = cv2.medianBlur(frame_gray, 5)
-                frame_bin = cv2.adaptiveThreshold(frame_gray,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
-                    cv2.THRESH_BINARY,3,5)
-                cv2.imwrite(os.path.join(res_path["binary_data"], FRAM_FORMAT % ((n_fram/(video_fps*60)), (n_fram/video_fps)%60, n_fram%video_fps)), frame_bin)
+                cv2.imwrite(os.path.join(res_path["gray_data"], FRAM_FORMAT % ((n_fram/(video_fps*60)), (n_fram/video_fps)%60, n_fram%video_fps)), frame_gray)
             n_fram += 1
         video_cap.release()
 
@@ -55,7 +53,7 @@ def split_dataset(src_path = DATASET, res_path = {"split_data":RESULTS_SPLIT, "b
 # data
 #  |-mouse.avi
 #  |-split_data
-#  |-binary_data
+#  |-gray_data
 #  |-label_data
 
 # def gen_dataset func
@@ -63,7 +61,7 @@ def split_dataset(src_path = DATASET, res_path = {"split_data":RESULTS_SPLIT, "b
 # data
 #  |-mouse.avi
 #  |-split_data
-#  |-binary_data
+#  |-gray_data
 #  |-label_data
 #  |-train
 #     |-img
@@ -71,7 +69,7 @@ def split_dataset(src_path = DATASET, res_path = {"split_data":RESULTS_SPLIT, "b
 #  |-test
 #     |-img
 def gen_dataset(dataset_cfg = {
-    "split_data": RESULTS_SPLIT,
+    "gray_data": RESULTS_GRAY,
     "label_data": RESULTS_LABEL,
     "train": DATASET_TRAIN,
     "test": DATASET_TEST
@@ -90,30 +88,30 @@ def gen_dataset(dataset_cfg = {
     # gen dataset
     # get filelists
     train_filelists = os.listdir(dataset_cfg["label_data"])
-    all_filelists = os.listdir(dataset_cfg["split_data"])
+    all_filelists = os.listdir(dataset_cfg["gray_data"])
     test_filelists = list(set(all_filelists).difference(set(train_filelists)))
     # separate train frame
     for train_file in train_filelists:
-        img = cv2.imread(os.path.join(dataset_cfg["split_data"], train_file))
+        img = cv2.imread(os.path.join(dataset_cfg["gray_data"], train_file))
         label = cv2.imread(os.path.join(dataset_cfg["label_data"], train_file))
         row_step, col_step = img.shape[0]//n_row, img.shape[1]//n_col
         for i in range(n_row):
             for j in range(n_col):
-                img_roi = img[(i*row_step):((i+1)*row_step), (j*col_step):((j+1)*col_step)]
+                img_roi = img[(i*row_step):((i+1)*row_step), (j*col_step):((j+1)*col_step)]; img_roi = cv2.cvtColor(img_roi, cv2.COLOR_BGR2GRAY)
                 cv2.imwrite(os.path.join(dataset_cfg["train"], "img", os.path.splitext(train_file)[0]+"-"+str((i*n_col)+j)+os.path.splitext(train_file)[1]), img_roi)
-                label_roi = label[(i*row_step):((i+1)*row_step), (j*col_step):((j+1)*col_step)]
+                label_roi = label[(i*row_step):((i+1)*row_step), (j*col_step):((j+1)*col_step)]; label_roi = cv2.cvtColor(label_roi, cv2.COLOR_BGR2GRAY)
                 cv2.imwrite(os.path.join(dataset_cfg["train"], "label", os.path.splitext(train_file)[0]+"-"+str((i*n_col)+j)+os.path.splitext(train_file)[1]), label_roi)
     # separate test frame
     for test_file in test_filelists:
-        img = cv2.imread(os.path.join(dataset_cfg["split_data"], test_file))
+        img = cv2.imread(os.path.join(dataset_cfg["gray_data"], test_file))
         row_step, col_step = img.shape[0]//n_row, img.shape[1]//n_col
         for i in range(n_row):
             for j in range(n_col):
-                img_roi = img[(i*row_step):((i+1)*row_step), (j*col_step):((j+1)*col_step)]
+                img_roi = img[(i*row_step):((i+1)*row_step), (j*col_step):((j+1)*col_step)]; img_roi = cv2.cvtColor(img_roi, cv2.COLOR_BGR2GRAY)
                 cv2.imwrite(os.path.join(dataset_cfg["test"], "img", os.path.splitext(test_file)[0]+"-"+str((i*n_col)+j)+os.path.splitext(test_file)[1]), img_roi)
     return
 
 if __name__ == "__main__":
-    # split_dataset()
+    split_dataset()
     gen_dataset()
 
