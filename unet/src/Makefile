@@ -1,3 +1,6 @@
+prep:
+	cd preprocess && python preprocess-mouse.py
+
 run:
 	python main.py
 
