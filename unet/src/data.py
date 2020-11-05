@@ -1,3 +1,9 @@
+###################################
+# Modified on 17:05, Nov. 5th, 2020
+# Modifier: fassial
+# Filename: data.py
+###################################
+# dep
 from __future__ import print_function
 from keras.preprocessing.image import ImageDataGenerator
 import numpy as np 
@@ -5,8 +11,9 @@ import os
 import glob
 import skimage.io as io
 import skimage.transform as trans
-import matplotlib.pyplot as plt
+# local dep
 
+# macro
 Sky = [128,128,128]
 Building = [128,0,0]
 Pole = [192,192,128]
@@ -19,11 +26,10 @@ Car = [64,0,128]
 Pedestrian = [64,64,0]
 Bicyclist = [0,128,192]
 Unlabelled = [0,0,0]
-
 COLOR_DICT = np.array([Sky, Building, Pole, Road, Pavement,
-                          Tree, SignSymbol, Fence, Car, Pedestrian, Bicyclist, Unlabelled])
+    Tree, SignSymbol, Fence, Car, Pedestrian, Bicyclist, Unlabelled])
 
-
+# def adjustData func
 def adjustData(img,mask,flag_multi_class,num_class):
     if(flag_multi_class):
         img = img / 255
@@ -44,11 +50,11 @@ def adjustData(img,mask,flag_multi_class,num_class):
         mask[mask <= 0.5] = 0
     return (img,mask)
 
-
-
+# def trainGenerator func
 def trainGenerator(batch_size,train_path,image_folder,mask_folder,aug_dict,image_color_mode = "grayscale",
-                    mask_color_mode = "grayscale",image_save_prefix  = "image",mask_save_prefix  = "mask",
-                    flag_multi_class = False,num_class = 2,save_to_dir = None,target_size = (256,256),seed = 1):
+    mask_color_mode = "grayscale",image_save_prefix  = "image",mask_save_prefix  = "mask",
+    flag_multi_class = False,num_class = 2,save_to_dir = None,target_size = (256,256),seed = 1
+):
     '''
     can generate image and mask at the same time
     use the same seed for image_datagen and mask_datagen to ensure the transformation for image and mask is the same
@@ -81,8 +87,7 @@ def trainGenerator(batch_size,train_path,image_folder,mask_folder,aug_dict,image
         img,mask = adjustData(img,mask,flag_multi_class,num_class)
         yield (img,mask)
 
-
-
+# def testGenerator func
 def testGenerator(test_path,target_size = (256,256),flag_multi_class = False,as_gray = True):
     test_filelists = os.listdir(test_path); test_filelists.sort()
     for test_file in test_filelists:
@@ -93,7 +98,7 @@ def testGenerator(test_path,target_size = (256,256),flag_multi_class = False,as_
         img = np.reshape(img,(1,)+img.shape)
         yield img
 
-
+# def geneTrainNpy func
 def geneTrainNpy(image_path,mask_path,flag_multi_class = False,num_class = 2,image_prefix = "image",mask_prefix = "mask",image_as_gray = True,mask_as_gray = True):
     image_name_arr = glob.glob(os.path.join(image_path,"%s*.png"%image_prefix))
     image_arr = []
@@ -110,7 +115,7 @@ def geneTrainNpy(image_path,mask_path,flag_multi_class = False,num_class = 2,ima
     mask_arr = np.array(mask_arr)
     return image_arr,mask_arr
 
-
+# def labelVisualize func
 def labelVisualize(num_class,color_dict,img):
     img = img[:,:,0] if len(img.shape) == 3 else img
     img_out = np.zeros(img.shape + (3,))
@@ -118,8 +123,7 @@ def labelVisualize(num_class,color_dict,img):
         img_out[img == i,:] = color_dict[i]
     return img_out / 255
 
-
-
+# def saveResult func
 def saveResult(save_path,npyfile,filelists,flag_multi_class = False,num_class = 2):
     for i,item in enumerate(npyfile):
         img = labelVisualize(num_class,COLOR_DICT,item) if flag_multi_class else item[:,:,0]

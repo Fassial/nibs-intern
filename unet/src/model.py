@@ -1,3 +1,9 @@
+###################################
+# Modified on 17:08, Nov. 5th, 2020
+# Modifier: fassial
+# Filename: model.py
+###################################
+# dep
 import numpy as np 
 import os
 import skimage.io as io
@@ -8,8 +14,9 @@ from keras.layers import *
 from keras.optimizers import *
 from keras.callbacks import ModelCheckpoint, LearningRateScheduler
 from keras import backend as keras
+# local dep
 
-
+# def unet model
 def unet(pretrained_weights = None,input_size = (256,256,1)):
     inputs = Input(input_size)
     conv1 = Conv2D(64, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(inputs)
@@ -56,11 +63,10 @@ def unet(pretrained_weights = None,input_size = (256,256,1)):
 
     model.compile(optimizer = Adam(lr = 1e-4), loss = 'binary_crossentropy', metrics = ['accuracy'])
     
-    #model.summary()
+    # model.summary()
 
     if(pretrained_weights):
     	model.load_weights(pretrained_weights)
 
     return model
-
 
