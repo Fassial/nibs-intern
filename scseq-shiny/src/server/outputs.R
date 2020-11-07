@@ -410,19 +410,22 @@ gen_output.DE_ctrl_panel_factor_1 <- function(input, server.params, server.event
             shiny::selectInput(
                 inputId = "factor_1",
                 label = "Find markers by:",
-                choices = c("", "Cell type"="cell_type")
+                choices = c("", "Cell type"="cell_type"),
+                selected = ""
             )
         } else if (input$test_perform == "Grouped comparison") {
             shiny::selectInput(
                 inputId = "factor_1",
                 label = "Define cell groups:",
-                choices = c("",cat_vars)
+                choices = c("",cat_vars),
+                selected = ""
             )
         } else if (input$test_perform == "Conserved") {
             shiny::selectInput(
                 inputId = "factor_1",
                 label = "Conserved markers:",
-                choices = c("","Cell Type"="cell_type")
+                choices = c("","Cell Type"="cell_type"),
+                selected = ""
             )
         }
     })
@@ -445,7 +448,8 @@ gen_output.DE_ctrl_panel_factor_2 <- function(input, server.params, server.event
             shiny::selectInput(
                 inputId = "factor_2",
                 label = "",
-                choices = c("",cat_vars)
+                choices = c("",cat_vars),
+                selected = ""
             )
         }
     })
@@ -468,7 +472,8 @@ gen_output.DE_ctrl_panel_factor_3 <- function(input, server.params, server.event
             shiny::selectInput(
                 inputId = "factor_3",
                 label = "",
-                choices = c("",cat_vars)
+                choices = c("",cat_vars),
+                selected = ""
             )
         }
     })
@@ -491,7 +496,8 @@ gen_output.DE_ctrl_panel_factor_4 <- function(input, server.params, server.event
             shiny::selectInput(
                 inputId = "factor_4",
                 label = "",
-                choices = c("",cat_vars)
+                choices = c("",cat_vars),
+                selected = ""
             )
         }
     })
@@ -511,7 +517,7 @@ gen_output.DE_ctrl_panel_left_level_1 <- function(input, server.params, server.e
         if (input$test_perform == "Multiple") {
             # renders nothing
         } else {
-            if (input$factor_1 == "") {
+            if (length(input$factor_1) == 0 || input$factor_1 == "") {
                 shiny::selectInput(
                     inputId = "level_left_1",
                     label = "Group 1:",
@@ -545,7 +551,7 @@ gen_output.DE_ctrl_panel_left_level_2 <- function(input, server.params, server.e
         if (input$test_perform != "Grouped comparison") {
             # renders nothing
         } else if (!is.null(input$factor_2)) {
-            if (input$factor_2 == "") {
+            if (length(input$factor_2) == 0 || input$factor_2 == "") {
                 shiny::selectInput(
                     inputId = "level_left_2",
                     label = "",
@@ -580,7 +586,7 @@ gen_output.DE_ctrl_panel_left_level_3 <- function(input, server.params, server.e
         if (input$test_perform != "Grouped comparison") {
             # renders nothing
         } else if (!is.null(input$factor_3)) {
-            if (input$factor_3 == "") {
+            if (length(input$factor_3) == 0 || input$factor_3 == "") {
                 shiny::selectInput(
                     inputId = "level_left_3",
                     label = "",
@@ -615,7 +621,7 @@ gen_output.DE_ctrl_panel_left_level_4 <- function(input, server.params, server.e
         if (input$test_perform != "Grouped comparison") {
             # renders nothing
         } else if (!is.null(input$factor_4)) {
-            if (input$factor_4 == "") {
+            if (length(input$factor_4) == 0 || input$factor_4 == "") {
                 shiny::selectInput(
                     inputId = "level_left_4",
                     label = "",
@@ -651,7 +657,7 @@ gen_output.DE_ctrl_panel_right_level_1 <- function(input, server.params, server.
         if (input$test_perform == "Multiple") {
             # renders nothing
         } else {
-            if (input$factor_1 == "") {
+            if (length(input$factor_1) == 0 || input$factor_1 == "") {
                 shiny::selectInput(
                     inputId = "level_right_1",
                     label = "Group 2:",
@@ -684,7 +690,7 @@ gen_output.DE_ctrl_panel_right_level_2 <- function(input, server.params, server.
         if (input$test_perform != "Grouped comparison") {
             # renders nothing
         } else if (!is.null(input$factor_2)) {
-            if (input$factor_2 == "") {
+            if (length(input$factor_2) == 0 || input$factor_2 == "") {
                 shiny::selectInput(
                     inputId = "level_right_2",
                     label = "",
@@ -718,7 +724,7 @@ gen_output.DE_ctrl_panel_right_level_3 <- function(input, server.params, server.
         if (input$test_perform != "Grouped comparison"){
           # renders nothing
         } else if (!is.null(input$factor_3)) {
-            if (input$factor_3 == "") {
+            if (length(input$factor_3) == 0 || input$factor_3 == "") {
                 shiny::selectInput(
                     inputId = "level_right_3",
                     label = "",
@@ -753,7 +759,7 @@ gen_output.DE_ctrl_panel_right_level_4 <- function(input, server.params, server.
         if (input$test_perform != "Grouped comparison") {
             # renders nothing
         } else if (!is.null(input$factor_4)) {
-            if (input$factor_4 == "") {
+            if (length(input$factor_4) == 0 || input$factor_4 == "") {
                 shiny::selectInput(
                     inputId = "level_right_4",
                     label = "",
