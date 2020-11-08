@@ -82,7 +82,7 @@ gen_body <- function(cells, markers) {
                                 inputId = "vars_to_fetch", label = "Variables extracted by hover:", multiple = TRUE,
                                 choices = c(rownames(cells),names(cells@meta.data)),
                                 selected = markers
-                            ),actionButton("button", "An action button"),actionLink("button", "An action link")
+                            ),actionButton("button", "An action button"),actionButton("button", "An action button"),actionButton("button", "An action button"),actionButton("button", "An action button"),actionButton("button", "An action button")
                         )
                     ),
                     # show dimplot
@@ -132,12 +132,12 @@ gen_body <- function(cells, markers) {
                     )),
                     column(8, wellPanel(
                         fluidRow(
-                            column(12, uiOutput("de.ctrl.panel"))
+                            column(12, uiOutput("de.ctrl.panel.add"))
                         ),
                         # hr
                         hr(),
                         fluidRow(
-                            column(12, uiOutput("de.ctrl.panel.add"))
+                            column(12, uiOutput("de.ctrl.panel"))
                         )
                     ))
                 ),

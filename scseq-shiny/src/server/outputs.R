@@ -344,6 +344,10 @@ gen_output.preview_left <- function(input, server.params, server.envs) {
     cat_vars <- server.params$cat_vars
     # gen output.preview_left
     output.preview_left <- shiny::renderPlot({
+        # init server envs
+        de.ctrl.panel.types <- server.envs$envs$de.ctrl.panel.types
+        de.ctrl.panel.conds.left <- server.envs$envs$de.ctrl.panel.conds.left
+        de.ctrl.panel.conds.right <- server.envs$envs$de.ctrl.panel.conds.right
         if (input$test_perform == "Multiple") {
             if (input$factor_1 == "") {
                 Seurat::DimPlot(cells,
@@ -357,8 +361,14 @@ gen_output.preview_left <- function(input, server.params, server.envs) {
                 ) + Seurat::NoLegend()
             }
         } else {
-            f <- c("f1"=input$factor_1, "f2"=input$factor_2, "f3"=input$factor_3, "f4"=input$factor_4)
-            l <- c("l1"=input$level_left_1, "l2"=input$level_left_2, "l3"=input$level_left_3, "l4"=input$level_left_4)
+            f <- de.ctrl.panel.types
+            l <- lapply(seq_len(length(de.ctrl.panel.types)), function(i) {
+                cond.left <- de.ctrl.panel.conds.left[i]
+                if (cond.left == SELECT.INPUT.NONE) {
+                    cond.left <- ""
+                }
+                return(cond.left)
+            })
             # get cells chosen
             cells.hl_preview <- parse_cells_chosen(f, l, server.params = server.params)
             # plot output
@@ -382,9 +392,19 @@ gen_output.preview_right <- function(input, server.params, server.envs) {
     cat_vars <- server.params$cat_vars
     # gen output.preview_right
     output.preview_right <- shiny::renderPlot({
+        # init server envs
+        de.ctrl.panel.types <- server.envs$envs$de.ctrl.panel.types
+        de.ctrl.panel.conds.left <- server.envs$envs$de.ctrl.panel.conds.left
+        de.ctrl.panel.conds.right <- server.envs$envs$de.ctrl.panel.conds.right
         if (input$test_perform != "Multiple") {
-            f <- c("f1"=input$factor_1, "f2"=input$factor_2, "f3"=input$factor_3, "f4"=input$factor_4)
-            l <- c("l1"=input$level_right_1, "l2"=input$level_right_2, "l3"=input$level_right_3, "l4"=input$level_right_4)
+            f <- de.ctrl.panel.types
+            l <- lapply(seq_len(length(de.ctrl.panel.types)), function(i) {
+                cond.right <- de.ctrl.panel.conds.right[i]
+                if (cond.right == SELECT.INPUT.NONE) {
+                    cond.right <- ""
+                }
+                return(cond.right)
+            })
             # get cells chosen
             cells.hl_preview <- parse_cells_chosen(f, l, server.params = server.params)
             # plot output
@@ -407,12 +427,12 @@ gen_output.de.ctrl.panel <- function(input, server.params, server.envs) {
     num_vars <- server.params$num_vars
     cat_vars <- server.params$cat_vars
     # init server envs
-    de.ctrl.panel.lists <- server.envs$vars$de.ctrl.panel.lists
+    de.ctrl.panel.types <- server.envs$vars$de.ctrl.panel.types
     # gen output.de.ctrl.panel
     output.de.ctrl.panel <- shiny::renderUI({
         de.ctrl.panel.entry <- ""
-        if (length(de.ctrl.panel.lists) > 0) {for (i in (1:length(de.ctrl.panel.lists))) {
-            print(paste0(i, de.ctrl.panel.lists[i]))
+        if (length(de.ctrl.panel.types) > 0) {for (i in (1:length(de.ctrl.panel.types))) {
+            print(paste0(i, de.ctrl.panel.types[i]))
             de.ctrl.panel.entry <- paste0(de.ctrl.panel.entry, gen_comp.de.ctrl.panel.entry(
                 input = input,
                 server.params = server.params,
