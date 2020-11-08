@@ -38,7 +38,7 @@ parse_cells_chosen <- function(f, l, server.params){
         f_use <- f[which(l!="")]
         l_use <- l[which(l!="")]
         # parse expression condition
-        expr_condition <- recursive_paste0(expr_condition = "", f_use, l_use, server.params = server.params); print(expr_condition)
+        expr_condition <- recursive_paste0(expr_condition = "", f_use, l_use, server.params = server.params)
         # extract cell names
         cells_selected <- eval(parse(
             text= paste0("Seurat::WhichCells(cells, expression = ",expr_condition,")")

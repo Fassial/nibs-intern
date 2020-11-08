@@ -82,7 +82,7 @@ gen_body <- function(cells, markers) {
                                 inputId = "vars_to_fetch", label = "Variables extracted by hover:", multiple = TRUE,
                                 choices = c(rownames(cells),names(cells@meta.data)),
                                 selected = markers
-                            )
+                            ),actionButton("button", "An action button"),actionLink("button", "An action link")
                         )
                     ),
                     # show dimplot
@@ -97,7 +97,7 @@ gen_body <- function(cells, markers) {
                 tabName = "de_analysis",
                 # preview of cells
                 column(8,
-                    offset = 3,
+                    offset = 4,
                     wellPanel(
                         fluidRow(
                             column(6, plotOutput("preview_left")),
@@ -112,7 +112,7 @@ gen_body <- function(cells, markers) {
                 hr(),
                 # control panels
                 fluidRow(
-                    column(3, wellPanel(
+                    column(4, wellPanel(
                         selectInput(
                             inputId = "test_perform",
                             label = "Test:",
@@ -132,24 +132,12 @@ gen_body <- function(cells, markers) {
                     )),
                     column(8, wellPanel(
                         fluidRow(
-                            column(3, offset = 1, uiOutput("DE_ctrl_panel_factor_1")),
-                            column(3, offset = 1, uiOutput("DE_ctrl_panel_left_level_1")),
-                            column(3, uiOutput("DE_ctrl_panel_right_level_1"))
+                            column(12, uiOutput("de.ctrl.panel"))
                         ),
+                        # hr
+                        hr(),
                         fluidRow(
-                            column(3, offset = 1, uiOutput("DE_ctrl_panel_factor_2")),
-                            column(3, offset = 1, uiOutput("DE_ctrl_panel_left_level_2")),
-                            column(3, uiOutput("DE_ctrl_panel_right_level_2"))
-                        ),
-                        fluidRow(
-                            column(3, offset = 1, uiOutput("DE_ctrl_panel_factor_3")),
-                            column(3, offset = 1, uiOutput("DE_ctrl_panel_left_level_3")),
-                            column(3, uiOutput("DE_ctrl_panel_right_level_3"))
-                        ),
-                        fluidRow(
-                            column(3, offset = 1, uiOutput("DE_ctrl_panel_factor_4")),
-                            column(3, offset = 1, uiOutput("DE_ctrl_panel_left_level_4")),
-                            column(3, uiOutput("DE_ctrl_panel_right_level_4"))
+                            column(12, uiOutput("de.ctrl.panel.add"))
                         )
                     ))
                 ),

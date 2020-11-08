@@ -12,31 +12,43 @@ source(file.path(DIR.SERVER, "outputs.R"))
 source(file.path(DIR.SERVER, "events.R"))
 
 # macro
+SELECT.INPUT.NONE = "--please select--"
 
 # def gen_server func
 gen_server <- function(server.params) {
     # gen server
     server <- function(input, output, session) {
-        # set server.events
+        # init server params
+        cells <- server.params$cells
+        metadata <- server.params$metadata
+        char_vars <- server.params$char_vars
+        num_vars <- server.params$num_vars
+        cat_vars <- server.params$cat_vars
+        # set server.envs
         result <- gen_event.result(
             input = input,
             server.params = server.params
         )
-        server.events <- list(
-            result = result
+        server.envs <- list(
+            envs = shiny::reactiveValues(
+                de.ctrl.panel.lists = NULL
+            ),
+            events = list(
+                result = result
+            )
         )
         ## first tabItem "overview"
         # dimplot
         output$dimplot <- gen_output.dimplot(
             input = input,
             server.params = server.params,
-            server.events = server.events
+            server.envs = server.envs
         )
         # hover plotly
         output$hoverplot <- gen_output.hoverplot(
             input = input,
             server.params = server.params,
-            server.events = server.events
+            server.envs = server.envs
         )
   
         ## some conditional controls on side-bar inputs
@@ -70,7 +82,7 @@ gen_server <- function(server.params) {
         output$conditional_highlight = gen_output.conditional_highlight(
             input = input,
             server.params = server.params,
-            server.events = server.events
+            server.envs = server.envs
         )
   
         #---------------------------------------------------------------
@@ -80,98 +92,99 @@ gen_server <- function(server.params) {
         output$downloadResult <- function(
             input = input,
             server.params = server.params,
-            server.events = server.events
+            server.envs = server.envs
         )
   
         output$de_result <- gen_output.de_result(
             input = input,
             server.params = server.params,
-            server.events = server.events
+            server.envs = server.envs
         )
   
         output$preview_left <- gen_output.preview_left(
             input = input,
             server.params = server.params,
-            server.events = server.events
+            server.envs = server.envs
         )
 
         output$preview_right <- gen_output.preview_right(
             input = input,
             server.params = server.params,
-            server.events = server.events
+            server.envs = server.envs
         )
 
-        output$DE_ctrl_panel_factor_1 <- gen_output.DE_ctrl_panel_factor_1(
-            input = input,
-            server.params = server.params,
-            server.events = server.events
-        )
+        #output$de.ctrl.panel <- gen_output.de.ctrl.panel(
+        #    input = input,
+        #    server.params = server.params,
+        #    server.envs = server.envs
+        #)
+        output$de.ctrl.panel <- shiny::renderUI({
+            de.ctrl.panel.lists <- server.envs$envs$de.ctrl.panel.lists
+            ## set de.ctrl.panel
+            de.ctrl.panel.title <- "shiny::fluidRow(
+                column(2, offset = 0, div(style=\"
+                    text-align:right;
+                \", shiny::helpText(\"Find markers by:\"))),
+                column(4, offset = 0, div(style=\"
+                    text-align:left;
+                \", shiny::helpText(\"Marker 1:\"))),
+                column(4, offset = 0, div(style=\"
+                    text-align:left;
+                \", shiny::helpText(\"Marker 2:\")))
+            )"
+            de.ctrl.panel.entrys <- ""
+            if (length(de.ctrl.panel.lists) > 0) {for (i in (1:length(de.ctrl.panel.lists))) {
+                print(paste0(i, de.ctrl.panel.lists[i]))
+                de.ctrl.panel.entrys <- paste0(de.ctrl.panel.entrys, ",", gen_comp.de.ctrl.panel.entry(
+                    input = input,
+                    server.params = server.params,
+                    server.envs = server.envs,
+                    entry.no = i
+                ))
+            }}
+            # set de.ctrl.panel
+            de.ctrl.panel <- paste0("shiny::fluidRow(",
+                paste0(de.ctrl.panel.title, de.ctrl.panel.entrys),
+            ")")
+            shiny::fluidRow(
+                eval(parse(text = de.ctrl.panel))
+            )
+        })
+        ## onclick event
+        # de.ctrl.panel
+        de.ctrl.panel.delete.button.events <- reactive({
+            print("HERE!")
+            de.ctrl.panel.lists.length <- server.envs$vars$de.ctrl.panel.lists.length
+            if (de.ctrl.panel.lists.length > 0) {for (i in (1:de.ctrl.panel.lists.length)) {
+                print("AGAIN")
+                shinyjs::onclick(id = paste0("de.ctrl.panel.entry.delete.button", i), {
+                    server.envs$envs$de.ctrl.panel.lists <- server.envs$envs$de.ctrl.panel.lists[-i]
+                })
+            }}
+        })
 
-        output$DE_ctrl_panel_factor_2 <- gen_output.DE_ctrl_panel_factor_2(
+        output$de.ctrl.panel.add <- gen_output.de.ctrl.panel.add(
             input = input,
             server.params = server.params,
-            server.events = server.events
+            server.envs = server.envs
         )
-
-        output$DE_ctrl_panel_factor_3 <- gen_output.DE_ctrl_panel_factor_3(
-            input = input,
-            server.params = server.params,
-            server.events = server.events
-        )
-
-        output$DE_ctrl_panel_factor_4 <- gen_output.DE_ctrl_panel_factor_4(
-            input = input,
-            server.params = server.params,
-            server.events = server.events
-        )
-
-        output$DE_ctrl_panel_left_level_1 <- gen_output.DE_ctrl_panel_left_level_1(
-            input = input,
-            server.params = server.params,
-            server.events = server.events
-        )
-
-        output$DE_ctrl_panel_left_level_2 <- gen_output.DE_ctrl_panel_left_level_2(
-            input = input,
-            server.params = server.params,
-            server.events = server.events
-        )
-
-        output$DE_ctrl_panel_left_level_3 <- gen_output.DE_ctrl_panel_left_level_3(
-            input = input,
-            server.params = server.params,
-            server.events = server.events
-        )
-
-        output$DE_ctrl_panel_left_level_4 <- gen_output.DE_ctrl_panel_left_level_4(
-            input = input,
-            server.params = server.params,
-            server.events = server.events
-        )
-
-        output$DE_ctrl_panel_right_level_1 <- gen_output.DE_ctrl_panel_right_level_1(
-            input = input,
-            server.params = server.params,
-            server.events = server.events
-        )
-
-        output$DE_ctrl_panel_right_level_2 <- gen_output.DE_ctrl_panel_right_level_2(
-            input = input,
-            server.params = server.params,
-            server.events = server.events
-        )
-
-        output$DE_ctrl_panel_right_level_3 <- gen_output.DE_ctrl_panel_right_level_3(
-            input = input,
-            server.params = server.params,
-            server.events = server.events
-        )
-
-        output$DE_ctrl_panel_right_level_4 <- gen_output.DE_ctrl_panel_right_level_4(
-            input = input,
-            server.params = server.params,
-            server.events = server.events
-        )
+        ## onclick event
+        # de.ctrl.panel.add
+        shinyjs::onclick(id = "de.ctrl.panel.add.button", {
+            de.ctrl.panel.lists <- server.envs$envs$de.ctrl.panel.lists
+            if (input$de.ctrl.panel.add.type == SELECT.INPUT.NONE) {
+                # do nothing
+            } else if (is.null(de.ctrl.panel.lists)) {
+                de.ctrl.panel.lists <- array(input$de.ctrl.panel.add.type)
+            } else {
+                if (!(input$de.ctrl.panel.add.type %in% de.ctrl.panel.lists)) {
+                    de.ctrl.panel.lists <- array(c(de.ctrl.panel.lists, input$de.ctrl.panel.add.type))
+                }
+            }
+            # update server.envs$envs
+            server.envs$envs$de.ctrl.panel.lists <- de.ctrl.panel.lists
+            print(server.envs$envs$de.ctrl.panel.lists)
+        })
     }
     return(server)
 }

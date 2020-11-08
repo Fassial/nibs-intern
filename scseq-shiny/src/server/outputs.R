@@ -10,11 +10,13 @@ library(Seurat)
 # local dep
 DIR.SERVER <- file.path(getwd(), "server")
 source(file.path(DIR.SERVER, "utils.R"))
+source(file.path(DIR.SERVER, "components.R"))
 
 # macro
+SELECT.INPUT.NONE = "--please select--"
 
 # def gen_output.dimplot func
-gen_output.dimplot <- function(input, server.params, server.events) {
+gen_output.dimplot <- function(input, server.params, server.envs) {
     # init server params
     cells <- server.params$cells
     metadata <- server.params$metadata
@@ -167,7 +169,7 @@ gen_output.dimplot <- function(input, server.params, server.events) {
 }
 
 # def gen_output.hoverplot func
-gen_output.hoverplot <- function(input, server.params, server.events) {
+gen_output.hoverplot <- function(input, server.params, server.envs) {
     # init server params
     cells <- server.params$cells
     metadata <- server.params$metadata
@@ -249,7 +251,7 @@ gen_output.hoverplot <- function(input, server.params, server.events) {
 }
 
 # def gen_output.conditional_highlight func
-gen_output.conditional_highlight <- function(input, server.params, server.events) {
+gen_output.conditional_highlight <- function(input, server.params, server.envs) {
     # init server params
     cells <- server.params$cells
     metadata <- server.params$metadata
@@ -280,7 +282,7 @@ gen_output.conditional_highlight <- function(input, server.params, server.events
 }
 
 # def gen_output.downloadResult func
-gen_output.downloadResult <- function(input, server.params, server.events) {
+gen_output.downloadResult <- function(input, server.params, server.envs) {
     # init server params
     cells <- server.params$cells
     metadata <- server.params$metadata
@@ -288,7 +290,7 @@ gen_output.downloadResult <- function(input, server.params, server.events) {
     num_vars <- server.params$num_vars
     cat_vars <- server.params$cat_vars
     # init server events
-    result <- server.events$result
+    result <- server.envs$events$result
     # gen output.downloadResult
     output.downloadResult <- shiny::downloadHandler(
         filename = function() {
@@ -302,7 +304,7 @@ gen_output.downloadResult <- function(input, server.params, server.events) {
 }
 
 # def gen_output.de_result func
-gen_output.de_result <- function(input, server.params, server.events) {
+gen_output.de_result <- function(input, server.params, server.envs) {
     # init server params
     cells <- server.params$cells
     metadata <- server.params$metadata
@@ -310,7 +312,7 @@ gen_output.de_result <- function(input, server.params, server.events) {
     num_vars <- server.params$num_vars
     cat_vars <- server.params$cat_vars
     # init server events
-    result <- server.events$result
+    result <- server.envs$events$result
     # gen output.de_result
     output.de_result <- DT::renderDT({  # https://github.com/rstudio/shiny/issues/2653
         DT::datatable(result(),
@@ -333,7 +335,7 @@ gen_output.de_result <- function(input, server.params, server.events) {
 }
 
 # def gen_output.preview_left func
-gen_output.preview_left <- function(input, server.params, server.events) {
+gen_output.preview_left <- function(input, server.params, server.envs) {
     # init server params
     cells <- server.params$cells
     metadata <- server.params$metadata
@@ -371,7 +373,7 @@ gen_output.preview_left <- function(input, server.params, server.events) {
 }
 
 # def gen_output.preview_right func
-gen_output.preview_right <- function(input, server.params, server.events) {
+gen_output.preview_right <- function(input, server.params, server.envs) {
     # init server params
     cells <- server.params$cells
     metadata <- server.params$metadata
@@ -396,389 +398,57 @@ gen_output.preview_right <- function(input, server.params, server.events) {
     return(output.preview_right)
 }
 
-# def gen_output.DE_ctrl_panel_factor_1 func
-gen_output.DE_ctrl_panel_factor_1 <- function(input, server.params, server.events) {
+# def gen_output.de.ctrl.panel func
+gen_output.de.ctrl.panel <- function(input, server.params, server.envs) {
     # init server params
     cells <- server.params$cells
     metadata <- server.params$metadata
     char_vars <- server.params$char_vars
     num_vars <- server.params$num_vars
     cat_vars <- server.params$cat_vars
-    # gen output.DE_ctrl_panel_factor_1
-    output.DE_ctrl_panel_factor_1 <- shiny::renderUI({
-        if (input$test_perform == "Multiple") {
-            shiny::selectInput(
-                inputId = "factor_1",
-                label = "Find markers by:",
-                choices = c("", "Cell type"="cell_type"),
-                selected = ""
-            )
-        } else if (input$test_perform == "Grouped comparison") {
-            shiny::selectInput(
-                inputId = "factor_1",
-                label = "Define cell groups:",
-                choices = c("",cat_vars),
-                selected = ""
-            )
-        } else if (input$test_perform == "Conserved") {
-            shiny::selectInput(
-                inputId = "factor_1",
-                label = "Conserved markers:",
-                choices = c("","Cell Type"="cell_type"),
-                selected = ""
-            )
-        }
+    # init server envs
+    de.ctrl.panel.lists <- server.envs$vars$de.ctrl.panel.lists
+    # gen output.de.ctrl.panel
+    output.de.ctrl.panel <- shiny::renderUI({
+        de.ctrl.panel.entry <- ""
+        if (length(de.ctrl.panel.lists) > 0) {for (i in (1:length(de.ctrl.panel.lists))) {
+            print(paste0(i, de.ctrl.panel.lists[i]))
+            de.ctrl.panel.entry <- paste0(de.ctrl.panel.entry, gen_comp.de.ctrl.panel.entry(
+                input = input,
+                server.params = server.params,
+                server.envs = server.envs,
+                entry.no = i
+            ))
+        }}
     })
-    return(output.DE_ctrl_panel_factor_1)
+    return(output.de.ctrl.panel)
 }
 
-# def gen_output.DE_ctrl_panel_factor_2 func
-gen_output.DE_ctrl_panel_factor_2 <- function(input, server.params, server.events) {
+# def gen_output.de.ctrl.panel.add func
+gen_output.de.ctrl.panel.add <- function(input, server.params, server.envs) {
     # init server params
     cells <- server.params$cells
     metadata <- server.params$metadata
     char_vars <- server.params$char_vars
     num_vars <- server.params$num_vars
     cat_vars <- server.params$cat_vars
-    # gen output.DE_ctrl_panel_factor_2
-    output.DE_ctrl_panel_factor_2 <- shiny::renderUI({
-        if (input$test_perform != "Grouped comparison"){
-            # renders nothing
-        } else if (!is.null(input$level_left_1) && input$level_left_1 != "" && !is.null(input$level_right_1) && input$level_right_1 != "") {
-            shiny::selectInput(
-                inputId = "factor_2",
-                label = "",
-                choices = c("",cat_vars),
-                selected = ""
-            )
-        }
+    # gen output.de.ctrl.panel.add
+    output.de.ctrl.panel.add <- shiny::renderUI({
+        fluidRow(
+            column(2, offset = 3, div(style="
+                text-align:right;
+            ", shiny::helpText("Find markers by:"))),
+            column(3, offset = 0, shiny::selectInput(
+                inputId = "de.ctrl.panel.add.type",
+                label = NULL,
+                choices = c(SELECT.INPUT.NONE, cat_vars)
+            )),
+            column(1, offset = 0, shiny::actionButton(
+                inputId = "de.ctrl.panel.add.button",
+                label = "Add"
+            ))
+        )
     })
-    return(output.DE_ctrl_panel_factor_2)
-}
-
-# def gen_output.DE_ctrl_panel_factor_3 func
-gen_output.DE_ctrl_panel_factor_3 <- function(input, server.params, server.events) {
-    # init server params
-    cells <- server.params$cells
-    metadata <- server.params$metadata
-    char_vars <- server.params$char_vars
-    num_vars <- server.params$num_vars
-    cat_vars <- server.params$cat_vars
-    # gen output.DE_ctrl_panel_factor_3
-    output.DE_ctrl_panel_factor_3 <- shiny::renderUI({
-        if (input$test_perform != "Grouped comparison"){
-            # renders nothing
-        } else if (!is.null(input$level_left_2) && input$level_left_2 != "" && !is.null(input$level_right_2) && input$level_right_2 != "") {
-            shiny::selectInput(
-                inputId = "factor_3",
-                label = "",
-                choices = c("",cat_vars),
-                selected = ""
-            )
-        }
-    })
-    return(output.DE_ctrl_panel_factor_3)
-}
-
-# def gen_output.DE_ctrl_panel_factor_4 func
-gen_output.DE_ctrl_panel_factor_4 <- function(input, server.params, server.events) {
-    # init server params
-    cells <- server.params$cells
-    metadata <- server.params$metadata
-    char_vars <- server.params$char_vars
-    num_vars <- server.params$num_vars
-    cat_vars <- server.params$cat_vars
-    # gen output.DE_ctrl_panel_factor_4
-    output.DE_ctrl_panel_factor_4 <- shiny::renderUI({
-        if (input$test_perform != "Grouped comparison"){
-            # renders nothing
-        } else if (!is.null(input$level_left_3) && input$level_left_3 != "" && !is.null(input$level_right_3) && input$level_right_3 != "") {
-            shiny::selectInput(
-                inputId = "factor_4",
-                label = "",
-                choices = c("",cat_vars),
-                selected = ""
-            )
-        }
-    })
-    return(output.DE_ctrl_panel_factor_4)
-}
-
-# def gen_output.DE_ctrl_panel_left_level_1 func
-gen_output.DE_ctrl_panel_left_level_1 <- function(input, server.params, server.events) {
-    # init server params
-    cells <- server.params$cells
-    metadata <- server.params$metadata
-    char_vars <- server.params$char_vars
-    num_vars <- server.params$num_vars
-    cat_vars <- server.params$cat_vars
-    # gen output.DE_ctrl_panel_left_level_1
-    output.DE_ctrl_panel_left_level_1 <- shiny::renderUI({
-        if (input$test_perform == "Multiple") {
-            # renders nothing
-        } else {
-            if (length(input$factor_1) == 0 || input$factor_1 == "") {
-                shiny::selectInput(
-                    inputId = "level_left_1",
-                    label = "Group 1:",
-                    choices = c("")
-                )
-            } else {
-                flevels <- levels(factor(eval(parse(
-                    text= paste0("metadata %>% .[[\'",input$factor_1,"\']]")
-                ))))
-                shiny::selectInput(
-                    inputId = "level_left_1",
-                    label = "Group 1:",
-                    choices = c("",flevels)
-                )
-            }
-        }
-    })
-    return(output.DE_ctrl_panel_left_level_1)
-}
-
-# def gen_output.DE_ctrl_panel_left_level_2 func
-gen_output.DE_ctrl_panel_left_level_2 <- function(input, server.params, server.events) {
-    # init server params
-    cells <- server.params$cells
-    metadata <- server.params$metadata
-    char_vars <- server.params$char_vars
-    num_vars <- server.params$num_vars
-    cat_vars <- server.params$cat_vars
-    # gen output.DE_ctrl_panel_left_level_2
-    output.DE_ctrl_panel_left_level_2 <- shiny::renderUI({
-        if (input$test_perform != "Grouped comparison") {
-            # renders nothing
-        } else if (!is.null(input$factor_2)) {
-            if (length(input$factor_2) == 0 || input$factor_2 == "") {
-                shiny::selectInput(
-                    inputId = "level_left_2",
-                    label = "",
-                    choices = c("")
-                )
-            } else {
-                flevels <- levels(factor(eval(parse(
-                    text= paste0("metadata %>%
-                                                          filter(",input$factor_1,"==\'",input$level_left_1,"\') %>% 
-                                                          .[[\'",input$factor_2,"\']]")))))
-                shiny::selectInput(
-                    inputId = "level_left_2",
-                    label = "",
-                    choices = c("",flevels)
-                )
-            }
-        }
-    })
-    return(output.DE_ctrl_panel_left_level_2)
-}
-
-# def gen_output.DE_ctrl_panel_left_level_3 func
-gen_output.DE_ctrl_panel_left_level_3 <- function(input, server.params, server.events) {
-    # init server params
-    cells <- server.params$cells
-    metadata <- server.params$metadata
-    char_vars <- server.params$char_vars
-    num_vars <- server.params$num_vars
-    cat_vars <- server.params$cat_vars
-    # gen output.DE_ctrl_panel_left_level_3
-    output.DE_ctrl_panel_left_level_3 <- shiny::renderUI({
-        if (input$test_perform != "Grouped comparison") {
-            # renders nothing
-        } else if (!is.null(input$factor_3)) {
-            if (length(input$factor_3) == 0 || input$factor_3 == "") {
-                shiny::selectInput(
-                    inputId = "level_left_3",
-                    label = "",
-                    choices = c("")
-                )
-            } else {
-                flevels <- levels(factor(eval(parse(text= paste0("metadata %>%
-                    filter(",input$factor_1,"==\'",input$level_left_1,"\') %>% 
-                    filter(",input$factor_2,"==\'",input$level_left_2,"\') %>%
-                    .[[\'",input$factor_3,"\']]")))))
-                shiny::selectInput(
-                    inputId = "level_left_3",
-                    label = "",
-                    choices = c("",flevels)
-                )
-            }
-        }
-    })
-    return(output.DE_ctrl_panel_left_level_3)
-}
-
-# def gen_output.DE_ctrl_panel_left_level_4 func
-gen_output.DE_ctrl_panel_left_level_4 <- function(input, server.params, server.events) {
-    # init server params
-    cells <- server.params$cells
-    metadata <- server.params$metadata
-    char_vars <- server.params$char_vars
-    num_vars <- server.params$num_vars
-    cat_vars <- server.params$cat_vars
-    # gen output.DE_ctrl_panel_left_level_4
-    output.DE_ctrl_panel_left_level_4 <- shiny::renderUI({
-        if (input$test_perform != "Grouped comparison") {
-            # renders nothing
-        } else if (!is.null(input$factor_4)) {
-            if (length(input$factor_4) == 0 || input$factor_4 == "") {
-                shiny::selectInput(
-                    inputId = "level_left_4",
-                    label = "",
-                    choices = c("")
-                )
-            } else {
-                flevels <- levels(factor(eval(parse(text= paste0("metadata %>% 
-                    filter(",input$factor_1,"==\'",input$level_left_1,"\') %>% 
-                    filter(",input$factor_2,"==\'",input$level_left_2,"\') %>%
-                    filter(",input$factor_3,"==\'",input$level_left_3,"\') %>%
-                    .[[\'",input$factor_4,"\']]")))))
-                shiny::selectInput(
-                    inputId = "level_left_4",
-                    label = "",
-                    choices = c("",flevels)
-                )
-            }
-        }
-    })
-    return(output.DE_ctrl_panel_left_level_4)
-}
-
-# def gen_output.DE_ctrl_panel_right_level_1 func
-gen_output.DE_ctrl_panel_right_level_1 <- function(input, server.params, server.events) {
-    # init server params
-    cells <- server.params$cells
-    metadata <- server.params$metadata
-    char_vars <- server.params$char_vars
-    num_vars <- server.params$num_vars
-    cat_vars <- server.params$cat_vars
-    # gen output.DE_ctrl_panel_right_level_1
-    output.DE_ctrl_panel_right_level_1 <- shiny::renderUI({
-        if (input$test_perform == "Multiple") {
-            # renders nothing
-        } else {
-            if (length(input$factor_1) == 0 || input$factor_1 == "") {
-                shiny::selectInput(
-                    inputId = "level_right_1",
-                    label = "Group 2:",
-                    choices = c("")
-                )
-            } else {
-                flevels <- levels(factor(eval(parse(text= paste0("metadata %>% 
-                    .[[\'",input$factor_1,"\']]")))))
-                shiny::selectInput(
-                    inputId = "level_right_1",
-                    label = "Group 2:",
-                    choices = c("",flevels)
-                )
-            }
-        }
-    })
-    return(output.DE_ctrl_panel_right_level_1)
-}
-
-# def gen_output.DE_ctrl_panel_right_level_2 func
-gen_output.DE_ctrl_panel_right_level_2 <- function(input, server.params, server.events) {
-    # init server params
-    cells <- server.params$cells
-    metadata <- server.params$metadata
-    char_vars <- server.params$char_vars
-    num_vars <- server.params$num_vars
-    cat_vars <- server.params$cat_vars
-    # gen output.DE_ctrl_panel_right_level_2
-    output.DE_ctrl_panel_right_level_2 <- shiny::renderUI({
-        if (input$test_perform != "Grouped comparison") {
-            # renders nothing
-        } else if (!is.null(input$factor_2)) {
-            if (length(input$factor_2) == 0 || input$factor_2 == "") {
-                shiny::selectInput(
-                    inputId = "level_right_2",
-                    label = "",
-                    choices = c("")
-                )
-            } else {
-                flevels <- levels(factor(eval(parse(text= paste0("metadata %>% 
-                    filter(",input$factor_1,"==\'",input$level_right_1,"\') %>% 
-                    .[[\'",input$factor_2,"\']]")))))
-                shiny::selectInput(
-                    inputId = "level_right_2",
-                    label = "",
-                    choices = c("",flevels)
-                )
-            }
-        }
-    })
-    return(output.DE_ctrl_panel_right_level_2)
-}
-
-# def gen_output.DE_ctrl_panel_right_level_3 func
-gen_output.DE_ctrl_panel_right_level_3 <- function(input, server.params, server.events) {
-    # init server params
-    cells <- server.params$cells
-    metadata <- server.params$metadata
-    char_vars <- server.params$char_vars
-    num_vars <- server.params$num_vars
-    cat_vars <- server.params$cat_vars
-    # gen output.DE_ctrl_panel_right_level_3
-    output.DE_ctrl_panel_right_level_3 <- shiny::renderUI({
-        if (input$test_perform != "Grouped comparison"){
-          # renders nothing
-        } else if (!is.null(input$factor_3)) {
-            if (length(input$factor_3) == 0 || input$factor_3 == "") {
-                shiny::selectInput(
-                    inputId = "level_right_3",
-                    label = "",
-                    choices = c("")
-                )
-            } else {
-                flevels <- levels(factor(eval(parse(text= paste0("metadata %>% 
-                    filter(",input$factor_1,"==\'",input$level_right_1,"\') %>% 
-                    filter(",input$factor_2,"==\'",input$level_right_2,"\') %>%
-                    .[[\'",input$factor_3,"\']]")))))
-                shiny::selectInput(
-                    inputId = "level_right_3",
-                    label = "",
-                    choices = c("",flevels)
-                )
-            }
-        }
-    })
-    return(output.DE_ctrl_panel_right_level_3)
-}
-
-# def gen_output.DE_ctrl_panel_right_level_4 func
-gen_output.DE_ctrl_panel_right_level_4 <- function(input, server.params, server.events) {
-    # init server params
-    cells <- server.params$cells
-    metadata <- server.params$metadata
-    char_vars <- server.params$char_vars
-    num_vars <- server.params$num_vars
-    cat_vars <- server.params$cat_vars
-    # gen output.DE_ctrl_panel_right_level_4
-    output.DE_ctrl_panel_right_level_4 <- shiny::renderUI({
-        if (input$test_perform != "Grouped comparison") {
-            # renders nothing
-        } else if (!is.null(input$factor_4)) {
-            if (length(input$factor_4) == 0 || input$factor_4 == "") {
-                shiny::selectInput(
-                    inputId = "level_right_4",
-                    label = "",
-                    choices = c("")
-                )
-            } else {
-                flevels <- levels(factor(eval(parse(text= paste0("metadata %>% 
-                    filter(",input$factor_1,"==\'",input$level_right_1,"\') %>% 
-                    filter(",input$factor_2,"==\'",input$level_right_2,"\') %>%
-                    filter(",input$factor_3,"==\'",input$level_right_3,"\') %>%
-                    .[[\'",input$factor_4,"\']]")))))
-                shiny::selectInput(
-                    inputId = "level_right_4",
-                    label = "",
-                    choices = c("",flevels)
-                )
-            }
-        }
-    })
-    return(output.DE_ctrl_panel_right_level_4)
+    return(output.de.ctrl.panel.add)
 }
 
