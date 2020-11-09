@@ -9,7 +9,6 @@ library(Seurat)
 # local dep
 
 # macro
-DIR.ROOT <- file.path(getwd(), "..")
 DIR.DATA <- file.path(DIR.ROOT, "data")
 
 # def preprocess func

@@ -7,7 +7,9 @@
 library(shiny)
 library(shinyjs)
 # local dep
-DIR.SERVER <- file.path(getwd(), "server")
+DIR.ROOT <- file.path(getwd())
+DIR.SRC <- file.path(DIR.ROOT, "src")
+DIR.SERVER <- file.path(DIR.SRC, "server")
 source(file.path(DIR.SERVER, "outputs.R"))
 source(file.path(DIR.SERVER, "events.R"))
 

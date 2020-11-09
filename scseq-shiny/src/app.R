@@ -7,14 +7,15 @@
 library(rdrop2)
 library(dplyr)
 # local dep
-DIR.ROOT <- getwd()
-DIR.UI <- file.path(DIR.ROOT, "ui")
-DIR.SERVER <- file.path(DIR.ROOT, "server")
+DIR.ROOT <- file.path(getwd())
+DIR.SRC <- file.path(DIR.ROOT, "src")
+DIR.UI <- file.path(DIR.SRC, "ui")
+DIR.SERVER <- file.path(DIR.SRC, "server")
 source(file.path(DIR.UI, "ui.R"))
 source(file.path(DIR.SERVER, "server.R"))
 
 # macro
-DIR.DATA <- file.path(getwd(), "..", "data")
+DIR.DATA <- file.path(getwd(), "data")
 FILE.DATA <- file.path(DIR.DATA, "cells_preprocessed.rds")
 
 # init page
@@ -58,7 +59,4 @@ server.params <- list(
 )
 # init server
 server <- gen_server(server.params = server.params)
-
-# run the application 
-shinyApp(ui = ui, server = server)
 
