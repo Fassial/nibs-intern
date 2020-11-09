@@ -1,6 +1,8 @@
 run: scseq-shiny.R
-	Rscript -e 'library(shiny);runApp("scseq-shiny.R")'
+	cp scseq-shiny.R app.R
+	Rscript -e 'library(shiny);runApp("app.R")'
 
 clean:
 	rm -rf ._*
+	rm -rf *.zip
 
