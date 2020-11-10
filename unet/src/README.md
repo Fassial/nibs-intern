@@ -62,9 +62,9 @@ You will see the predicted results of test image in data/membrane/test
 
 Use the trained model to do segmentation on test images, the result is statisfactory.
 
-![img/0test.png](img/0test.png)
+![img/gray-1.png](img/gray-1.png)
 
-![img/0label.png](img/0label.png)
+![img/predict-1.png](img/predict-1.png)
 
 
 ## About Keras
