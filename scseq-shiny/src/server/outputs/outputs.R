@@ -41,6 +41,11 @@ gen_server.outputs <- function(input, server.params, server.envs, output) {
         output = output
     )
     # tab.3
-    # TODO
+    gen_server.outputs.tab.3(
+        input = input,
+        server.params = server.params,
+        server.envs = server.envs,
+        output = output
+    )
 }
 

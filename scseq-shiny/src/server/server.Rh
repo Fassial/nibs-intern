@@ -11,6 +11,7 @@ source(file.path(DIR.SRC, "defs.Rh"))
 DIR.SERVER.OUTPUTS <- file.path(DIR.SERVER, "outputs")
 
 # macro
+TEXT.INPUT.NONE   <- ""
 BUTTON.INPUT.NONE <- ""
 SELECT.INPUT.NONE <- "--please select--"
 

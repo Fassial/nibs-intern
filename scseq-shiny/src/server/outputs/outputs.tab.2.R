@@ -5,7 +5,6 @@
 ###################################
 # dep
 library(shiny)
-library(plotly)
 library(Seurat)
 library(shinyjs)
 # local dep
