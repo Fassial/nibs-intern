@@ -7,20 +7,24 @@
 library(shinyjs)
 library(shinydashboard)
 # local dep
+DIR.ROOT <- file.path(getwd())
+DIR.SRC <- file.path(DIR.ROOT, "src")
+source(file.path(DIR.SRC, "defs.Rh"))
+source(file.path(DIR.UI, "ui.Rh"))
 
 # macro
 
-# def gen_sidebar func
-gen_sidebar <- function() {
+# def gen_ui.sidebar func
+gen_ui.sidebar <- function() {
     # gen sidebar
-    sidebar <- dashboardSidebar(
+    sidebar <- shinydashboard::dashboardSidebar(
         # use shinyjs to disable/enable certain inputs
         shinyjs::useShinyjs(),
         # sidebar menu
-        sidebarMenu(
-            menuItem("Overview", tabName = "overview", icon = icon("dashboard")),
-            menuItem("DE analysis", tabName = "de_analysis", icon = icon("th"))
-            # menuItem("Debug", tabName = "debug", icon = icon("th"))
+        shinydashboard::sidebarMenu(
+            shinydashboard::menuItem("Overview", tabName = "tab-1", icon = icon("dashboard")),
+            shinydashboard::menuItem("DE analysis", tabName = "tab-2", icon = icon("th")),
+            shinydashboard::menuItem("tab-3", tabName = "tab-3", icon = icon("th"))
         )
     )
     return(sidebar)

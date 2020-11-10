@@ -7,33 +7,34 @@
 library(shiny)
 library(shinyjs)
 # local dep
+DIR.ROOT <- file.path(getwd())
+DIR.SRC <- file.path(DIR.ROOT, "src")
+source(file.path(DIR.SRC, "defs.Rh"))
+source(file.path(DIR.SERVER, "server.Rh"))
 
 # macro
-SELECT.INPUT.NONE = "--please select--"
 
-# def gen_comp.de.ctrl.panel.entry func
-gen_comp.de.ctrl.panel.entry <- function(input, server.params, server.envs, entry.no) {
+# def gen_server.comp.de.ctrl.panel.entry func
+gen_server.comp.de.ctrl.panel.entry <- function(input, server.params, server.envs, entry.no) {
     # init server params
     cells <- server.params$cells
-    metadata <- server.params$metadata
-    char_vars <- server.params$char_vars
-    num_vars <- server.params$num_vars
-    cat_vars <- server.params$cat_vars
+    # set metadata
+    metadata <- cells@meta.data
     # init server envs
     de.ctrl.panel.types <- server.envs$envs$de.ctrl.panel.types
     de.ctrl.panel.conds.left <- server.envs$envs$de.ctrl.panel.conds.left
     de.ctrl.panel.conds.right <- server.envs$envs$de.ctrl.panel.conds.right
     ## gen de.ctrl.panel.entry
     # gen factor
-    factor <- shiny::column(2, offset = 0, div(style="
+    factor <- shiny::column(2, offset = 0, shiny::div(style="
         text-align:right;
     ", shiny::helpText(paste0(de.ctrl.panel.types[entry.no], ":"))))
     # get factor.levels
     factor.levels <- levels(factor(eval(parse(
-        text = paste0("metadata %>% .[[\'",de.ctrl.panel.types[entry.no],"\']]")
+        text = paste0("metadata %>% .[[\'", de.ctrl.panel.types[entry.no], "\']]")
     ))))
     # gen cond.left
-    cond.left <- shiny::column(4, offset = 0, gen_comp.de.ctrl.panel.entry.cond(
+    cond.left <- shiny::column(4, offset = 0, gen_server.comp.de.ctrl.panel.entry.cond(
         input = input,
         server.params = server.params,
         server.envs = server.envs,
@@ -41,7 +42,7 @@ gen_comp.de.ctrl.panel.entry <- function(input, server.params, server.envs, entr
         cond.type = "left"
     ))
     # gen cond.right
-    cond.right <- shiny::column(4, offset = 0, gen_comp.de.ctrl.panel.entry.cond(
+    cond.right <- shiny::column(4, offset = 0, gen_server.comp.de.ctrl.panel.entry.cond(
         input = input,
         server.params = server.params,
         server.envs = server.envs,
@@ -60,10 +61,6 @@ gen_comp.de.ctrl.panel.entry <- function(input, server.params, server.envs, entr
         server.envs$envs$de.ctrl.panel.types <- server.envs$envs$de.ctrl.panel.types[-entry.no]
         server.envs$envs$de.ctrl.panel.conds.left <- server.envs$envs$de.ctrl.panel.conds.left[-entry.no]
         server.envs$envs$de.ctrl.panel.conds.right <- server.envs$envs$de.ctrl.panel.conds.right[-entry.no]
-        print("comp.delete:")
-        print(server.envs$envs$de.ctrl.panel.types)
-        print(server.envs$envs$de.ctrl.panel.conds.left)
-        print(server.envs$envs$de.ctrl.panel.conds.right)
     })
     # gen de.ctrl.panel.entry
     de.ctrl.panel.entry <- shiny::fluidRow(
@@ -75,21 +72,19 @@ gen_comp.de.ctrl.panel.entry <- function(input, server.params, server.envs, entr
     return(de.ctrl.panel.entry)
 }
 
-# def gen_comp.de.ctrl.panel.entry.cond func
-gen_comp.de.ctrl.panel.entry.cond <- function(input, server.params, server.envs, entry.no, cond.type) {
+# def gen_server.comp.de.ctrl.panel.entry.cond func
+gen_server.comp.de.ctrl.panel.entry.cond <- function(input, server.params, server.envs, entry.no, cond.type) {
     # init server params
     cells <- server.params$cells
-    metadata <- server.params$metadata
-    char_vars <- server.params$char_vars
-    num_vars <- server.params$num_vars
-    cat_vars <- server.params$cat_vars
-    # get de.ctrl.panel.types
+    # set metadata
+    metadata <- cells@meta.data
+    # init server envs
     de.ctrl.panel.types <- server.envs$envs$de.ctrl.panel.types
     de.ctrl.panel.conds.left <- server.envs$envs$de.ctrl.panel.conds.left
     de.ctrl.panel.conds.right <- server.envs$envs$de.ctrl.panel.conds.right
     # get factor.levels
     factor.levels <-  levels(factor(eval(parse(
-        text = paste0("metadata %>% .[[\'",de.ctrl.panel.types[entry.no],"\']]")
+        text = paste0("metadata %>% .[[\'", de.ctrl.panel.types[entry.no], "\']]")
     ))))
     # gen cond.buttons
     cond.buttons <- lapply(seq_len(length(factor.levels)), function(i) {
@@ -129,7 +124,7 @@ gen_comp.de.ctrl.panel.entry.cond <- function(input, server.params, server.envs,
             } else {
                 server.envs$envs$de.ctrl.panel.conds.right[entry.no] <- factor.levels[i]
             }
-            print(factor.levels[i])
+            # print(factor.levels[i])
         })
     })
     # gen de.ctrl.panel.entry.cond

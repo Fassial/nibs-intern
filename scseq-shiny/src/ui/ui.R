@@ -8,24 +8,24 @@ library(shinydashboard)
 # local dep
 DIR.ROOT <- file.path(getwd())
 DIR.SRC <- file.path(DIR.ROOT, "src")
-DIR.UI <- file.path(DIR.SRC, "ui")
+source(file.path(DIR.SRC, "defs.Rh"))
+source(file.path(DIR.UI, "ui.Rh"))
 source(file.path(DIR.UI, "header.R"))
 source(file.path(DIR.UI, "sidebar.R"))
-source(file.path(DIR.UI, "body.R"))
+source(file.path(DIR.UI.BODY, "body.R"))
 
 # macro
 
 # def gen_ui func
-gen_ui <- function(cells, markers) {
+gen_ui <- function(ui.params) {
     # gen components
-    header <- gen_header()
-    sidebar <- gen_sidebar()
-    body <- gen_body(
-        cells = cells,
-        markers = markers
+    header <- gen_ui.header()
+    sidebar <- gen_ui.sidebar()
+    body <- gen_ui.body(
+        ui.params = ui.params
     )
     # gen ui
-    ui <- dashboardPage(header, sidebar, body)
+    ui <- shinydashboard::dashboardPage(header, sidebar, body)
     return(ui)
 }
 

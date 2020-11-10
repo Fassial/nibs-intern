@@ -1,0 +1,16 @@
+###################################
+# Created on 09:34, Nov. 10th, 2020
+# Author: fassial
+# Filename: server.Rh
+###################################
+# dep
+# local dep
+DIR.ROOT <- file.path(getwd())
+DIR.SRC <- file.path(DIR.ROOT, "src")
+source(file.path(DIR.SRC, "defs.Rh"))
+DIR.SERVER.OUTPUTS <- file.path(DIR.SERVER, "outputs")
+
+# macro
+BUTTON.INPUT.NONE <- ""
+SELECT.INPUT.NONE <- "--please select--"
+

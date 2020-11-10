@@ -1,0 +1,14 @@
+###################################
+# Created on 09:39, Nov. 10th, 2020
+# Author: fassial
+# Filename: defs.Rh
+###################################
+# dep
+# local dep
+
+# macro
+DIR.ROOT <- file.path(getwd())
+DIR.SRC <- file.path(DIR.ROOT, "src")
+DIR.UI <- file.path(DIR.SRC, "ui")
+DIR.SERVER <- file.path(DIR.SRC, "server")
+

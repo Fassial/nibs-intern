@@ -6,45 +6,63 @@
 # dep
 library(Seurat)
 # local dep
+DIR.ROOT <- file.path(getwd())
+DIR.SRC <- file.path(DIR.ROOT, "src")
+source(file.path(DIR.SRC, "defs.Rh"))
+source(file.path(DIR.SERVER, "server.Rh"))
 
 # macro
 
-# def recursive_paste0 func
-recursive_paste0 <- function(expr_condition, f_use, l_use, server.params) {
+# def server.rec_paste0 func
+server.rec_paste0 <- function(server.params, expr.cond, factor.lists, value.lists) {
     # init server params
     # takes valid input$factors and input$levels, construct a condition
     # clause that is passed to WhichCells(expression =...)
-    if (length(f_use) == 0) {
-        return(expr_condition)
-    } else if (length(f_use) == 1) {
-        expr_condition = paste0(expr_condition, f_use[1],"==","\'",l_use[1],"\'")
-        f_use = f_use[-1]; l_use = l_use[-1]
-        return(recursive_paste0(expr_condition, f_use, l_use))
+    if (length(factor.lists) == 0) {
+        return(expr.cond)
+    } else if (length(factor.lists) == 1) {
+        expr.cond = paste0(expr.cond, factor.lists[1],"==","\'",value.lists[1],"\'")
+        factor.lists = factor.lists[-1]; value.lists = value.lists[-1]
+        return(server.rec_paste0(
+            server.params = server.params,
+            expr.cond = expr.cond,
+            factor.lists = factor.lists,
+            value.lists = value.lists
+        ))
     } else {
-        expr_condition = paste0(expr_condition, f_use[1],"==","\'",l_use[1],"\'", " & ")
-        f_use = f_use[-1]; l_use = l_use[-1]
-        return (recursive_paste0(expr_condition, f_use, l_use))
+        expr.cond = paste0(expr.cond, factor.lists[1],"==","\'",value.lists[1],"\'", " & ")
+        factor.lists = factor.lists[-1]; value.lists = value.lists[-1]
+        return(server.rec_paste0(
+            server.params = server.params,
+            expr.cond = expr.cond,
+            factor.lists = factor.lists,
+            value.lists = value.lists
+        ))
     }
 }
 
-# def parse_cells_chosen func
-parse_cells_chosen <- function(f, l, server.params){
+# def server.select_cells func
+server.select_cells <- function(server.params, factor.lists, value.lists){
     # init server params
     cells <- server.params$cells
     # initialize vector to store cells to be selected
-    cells_selected <- ""
-    if (any(l!="")) {
+    cells.selected <- ""
+    if (any(value.lists!="")) {
         # parse factor and levels
-        f_use <- f[which(l!="")]
-        l_use <- l[which(l!="")]
+        factor.lists <- factor.lists[which(value.lists!="")]
+        value.lists <- value.lists[which(value.lists!="")]
         # parse expression condition
-        expr_condition <- recursive_paste0(expr_condition = "", f_use, l_use, server.params = server.params)
+        expr.cond <- server.rec_paste0(
+            server.params = server.params,
+            expr.cond = "",
+            factor.lists = factor.lists,
+            value.lists = value.lists
+        )
         # extract cell names
-        cells_selected <- eval(parse(
-            text= paste0("Seurat::WhichCells(cells, expression = ",expr_condition,")")
+        cells.selected <- eval(parse(
+            text= paste0("Seurat::WhichCells(cells, expression = ", expr.cond, ")")
         ))
-        # print(cells_selected)
     }
-    return(cells_selected)
+    return(cells.selected)
 }
 

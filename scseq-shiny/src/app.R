@@ -4,23 +4,19 @@
 # Filename: app.R
 ###################################
 # dep
-library(rdrop2)
-library(dplyr)
 # local dep
 DIR.ROOT <- file.path(getwd())
 DIR.SRC <- file.path(DIR.ROOT, "src")
-DIR.UI <- file.path(DIR.SRC, "ui")
-DIR.SERVER <- file.path(DIR.SRC, "server")
+source(file.path(DIR.SRC, "defs.Rh"))
 source(file.path(DIR.UI, "ui.R"))
 source(file.path(DIR.SERVER, "server.R"))
 
 # macro
-DIR.DATA <- file.path(getwd(), "data")
+DIR.DATA <- file.path(DIR.ROOT, "data")
 FILE.DATA <- file.path(DIR.DATA, "cells_preprocessed.rds")
 
-# init page
+## init page
 cells <- readRDS(FILE.DATA)
-metadata <- cells@meta.data
 # Additional variables may not fit into the space
 markers <- c(
     "Gh","Prl","Pomc","Tbx19","Pax7",
@@ -31,11 +27,11 @@ markers <- c(
     "nFeature_RNA","cell_type"
 )
 # Character type metadata
-char_vars <- names(which(sapply(cells@meta.data, is.character)))
+char.vars <- names(which(sapply(cells@meta.data, is.character)))
 # Numeric metadata
-num_vars <- c(names(which(sapply(cells@meta.data, is.numeric))), rownames(cells))
+num.vars <- c(names(which(sapply(cells@meta.data, is.numeric))), rownames(cells))
 # Categorical metadata
-cat_vars <- c(
+cat.vars <- c(
     "Cell Type"="cell_type",
     "Treatment"="treat",
     "Dose"="dose",
@@ -44,18 +40,22 @@ cat_vars <- c(
     "Library"="codename",
     "Mouse"="mouse",
     "Serum"="serum"
-)  
+)
 
+# init ui.params
+ui.params <- list(
+    cells = cells,
+    markers = markers
+)
 # init ui
-ui <- gen_ui(cells = cells, markers = markers)
+ui <- gen_ui(ui.params = ui.params)
 
 # init server.params
 server.params <- list(
     cells = cells,
-    metadata = metadata,
-    char_vars = char_vars,
-    num_vars = num_vars,
-    cat_vars = cat_vars
+    char.vars = char.vars,
+    num.vars = num.vars,
+    cat.vars = cat.vars
 )
 # init server
 server <- gen_server(server.params = server.params)

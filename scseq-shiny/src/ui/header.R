@@ -6,13 +6,17 @@
 # dep
 library(shinydashboard)
 # local dep
+DIR.ROOT <- file.path(getwd())
+DIR.SRC <- file.path(DIR.ROOT, "src")
+source(file.path(DIR.SRC, "defs.Rh"))
+source(file.path(DIR.UI, "ui.Rh"))
 
 # macro
 
-# def gen_header func
-gen_header <- function() {
+# def gen_ui.header func
+gen_ui.header <- function() {
     # gen header
-    header <- dashboardHeader(title = "Pituitary scRNAseq")
+    header <- shinydashboard::dashboardHeader(title = "Pituitary scRNAseq")
     return(header)
 }
 
