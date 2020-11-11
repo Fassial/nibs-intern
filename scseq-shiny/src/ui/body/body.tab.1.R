@@ -127,8 +127,8 @@ gen_ui.body.tab.1.panel.5 <- function(ui.params) {
     # gen body.tab.1.panel.5
     body.tab.1.panel.5 <- shiny::column(12, offset = 0, shiny::wellPanel(shiny::fluidRow(
         shiny::column(12, offset = 0, shiny::helpText("tab.1.panel.5")),
-        shinydashboard::box(shiny::plotOutput("tab.1.panel.5.output.1"), height = 400),
-        shinydashboard::box(plotly::plotlyOutput("tab.1.panel.5.output.2"), height = 400)
+        shiny::column(12, offset = 0, shinydashboard::box(shiny::plotOutput("tab.1.panel.5.output.1"))),
+        # shiny::column(12, offset = 0, shinydashboard::box(plotly::plotlyOutput("tab.1.panel.5.output.2"), height = 400))
     )))
     return(body.tab.1.panel.5)
 }

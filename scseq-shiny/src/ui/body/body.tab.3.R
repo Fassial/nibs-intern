@@ -36,9 +36,10 @@ gen_ui.body.tab.3.panel.2 <- function(ui.params) {
     cells <- ui.params$cells
     # set group.types & cell.types
     group.types <- c(
-        "stim"="stim"
+        "stim"="stim",
+        "leiden clusters"="ct_state_leiden"
     )
-    cell.types <- levels(unique(cells$cell_type))
+    cell.types <- levels(unique(cells$cell_type_refined))
     # gen body.tab.3.panel.2
     body.tab.3.panel.2 <- shiny::column(12, offset = 0, shiny::wellPanel(shiny::fluidRow(
         shiny::column(12, offset = 0, shiny::helpText("tab.3.panel.2")),

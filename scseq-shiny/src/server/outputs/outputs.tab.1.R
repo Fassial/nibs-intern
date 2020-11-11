@@ -370,10 +370,10 @@ gen_server.outputs.tab.1 <- function(input, server.params, server.envs, output) 
         server.params = server.params,
         server.envs = server.envs
     )
-    output$tab.1.panel.5.output.2 <- gen_server.output.ov.plot.panel.hoverplot(
-        input = input,
-        server.params = server.params,
-        server.envs = server.envs
-    )
+    # output$tab.1.panel.5.output.2 <- gen_server.output.ov.plot.panel.hoverplot(
+    #     input = input,
+    #     server.params = server.params,
+    #     server.envs = server.envs
+    # )
 }
 

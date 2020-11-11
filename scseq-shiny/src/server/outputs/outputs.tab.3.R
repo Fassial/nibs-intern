@@ -73,7 +73,7 @@ gen_server.output.ge.plot.panel.groupplot <- function(input, server.params, serv
             # render nothing
         } else {
             Seurat::VlnPlot(
-                object = cells[which(cells$cell_type==input$ge.ctrl.panel.cell.type)],
+                object = cells[,which(cells$cell_type_refined==input$ge.ctrl.panel.cell.type)],
                 features = c(ge.ctrl.panel.gene.type),
                 group.by = input$ge.ctrl.panel.group.type
             )
