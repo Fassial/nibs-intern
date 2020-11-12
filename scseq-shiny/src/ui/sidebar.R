@@ -24,7 +24,7 @@ gen_ui.sidebar <- function() {
         shinydashboard::sidebarMenu(
             shinydashboard::menuItem("Overview", tabName = "tab-1", icon = icon("dashboard")),
             shinydashboard::menuItem("DE analysis", tabName = "tab-2", icon = icon("th")),
-            shinydashboard::menuItem("tab-3", tabName = "tab-3", icon = icon("th"))
+            shinydashboard::menuItem("Violin Plots", tabName = "tab-3", icon = icon("th"))
         )
     )
     return(sidebar)

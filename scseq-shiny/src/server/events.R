@@ -21,16 +21,16 @@ gen_server.event.de.result <- function(input, server.params, server.envs) {
     # init server params
     cells <- server.params$cells
     # gen event.de.result
-    event.de.result <- shiny::eventReactive(input$de.analyze.button, {
+    event.de.result <- shiny::eventReactive(input$de.ctrl.panel.analyze.button, {
         # init server envs
         de.ctrl.panel.types <- server.envs$envs$de.ctrl.panel.types
         de.ctrl.panel.conds.left <- server.envs$envs$de.ctrl.panel.conds.left
         de.ctrl.panel.conds.right <- server.envs$envs$de.ctrl.panel.conds.right
-        if (input$de.perform == "Multiple") {
+        if (input$de.ctrl.panel.de.type == "Multiple") {
             # find markers by cell_type
             Seurat::Idents(cells) <- "cell_type"
             de.result <- Seurat::FindAllMarkers(cells)
-        } else if (input$de.perform == "Conserved") {
+        } else if (input$de.ctrl.panel.de.type == "Conserved") {
             # find conserved markers
             if (de.ctrl.panel.conds.right[1] == "") {
                 shiny::withProgress(message = "Computing in progress. Please wait.", {
@@ -48,7 +48,7 @@ gen_server.event.de.result <- function(input, server.params, server.envs) {
                     )
                 })
             }
-        } else if (input$de.perform == "Grouped comparison") {
+        } else if (input$de.ctrl.panel.de.type == "Grouped comparison") {
             # get factor.lists & value.lists
             factor.lists <- de.ctrl.panel.types
             value.lists.left <- de.ctrl.panel.conds.left

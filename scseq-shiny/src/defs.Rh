@@ -9,6 +9,7 @@
 # macro
 DIR.ROOT <- file.path(getwd())
 DIR.SRC <- file.path(DIR.ROOT, "src")
+DIR.IMG <- file.path(DIR.ROOT, "img")
 DIR.UI <- file.path(DIR.SRC, "ui")
 DIR.SERVER <- file.path(DIR.SRC, "server")
 

@@ -207,12 +207,12 @@ gen_server.output.de.plot.panel.result <- function(input, server.params, server.
     return(output.de.plot.panel.result)
 }
 
-# def gen_server.output.de.download.panel.result func
-gen_server.output.de.download.panel.result <- function(input, server.params, server.envs) {
+# def gen_server.output.de.ctrl.panel.download.button func
+gen_server.output.de.ctrl.panel.download.button <- function(input, server.params, server.envs) {
     # init server events
     de.result <- server.envs$events$de.result
-    # gen output.de.download.panel.result
-    output.de.download.panel.result <- shiny::downloadHandler(
+    # gen output.de.ctrl.panel.download.button
+    output.de.ctrl.panel.download.button <- shiny::downloadHandler(
         filename = function() {
             paste("data-", Sys.Date(), ".csv", sep="")
         },
@@ -220,12 +220,18 @@ gen_server.output.de.download.panel.result <- function(input, server.params, ser
             write.csv(de.result(), file)
         }
     )
-    return(output.de.download.panel.result)
+    return(output.de.ctrl.panel.download.button)
 }
 
 # def gen_server.outputs.tab.2 func
 gen_server.outputs.tab.2 <- function(input, server.params, server.envs, output) {
     ## set tab.2 outputs
+    # set tab.2.panel.1
+    output$tab.2.panel.1.output.4 <- gen_server.output.de.ctrl.panel.download.button(
+        input = input,
+        server.params = server.params,
+        server.envs = server.envs
+    )
     # set tab.2.panel.2
     output$tab.2.panel.2.output.1 <- gen_server.output.de.plot.panel.preview.left(
         input = input,

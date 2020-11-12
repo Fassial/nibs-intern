@@ -261,89 +261,6 @@ gen_server.output.ov.plot.panel.dimplot <- function(input, server.params, server
     return(output.ov.plot.panel.dimplot)
 }
 
-# def gen_server.output.ov.plot.panel.hoverplot func
-gen_server.output.ov.plot.panel.hoverplot <- function(input, server.params, server.envs) {
-    # init server params
-    cells <- server.params$cells
-    # gen output.ov.plot.panel.hoverplot
-    output.ov.plot.panel.hoverplot <- plotly::renderPlotly({
-        Seurat::DefaultAssay(cells) <- "RNA"
-        if ((length(input$ov.ctrl.panel.assay.type) == 0)
-         || (length(input$ov.ctrl.panel.plot.type) == 0)
-         || (length(input$ov.ctrl.panel.fetch.vars) == 0)
-         || (length(input$ov.ctrl.panel.feature.type) == 0)) {
-            # render nothing
-        } else if (input$ov.ctrl.panel.assay.type == "Integrated") {
-            if (input$ov.ctrl.panel.plot.type == "UMAP") {
-                Seurat::HoverLocator(
-                    Seurat::DimPlot(cells,
-                        reduction = "umap.int"
-                    ) + Seurat::NoLegend(),
-                    information = Seurat::FetchData(cells,
-                        vars = input$ov.ctrl.panel.fetch.vars,
-                        slot = "counts"
-                    )
-                )
-            } else if (input$ov.ctrl.panel.plot.type == "TSNE") {
-                Seurat::HoverLocator(
-                    Seurat::DimPlot(cells,
-                        reduction = "tsne.int"
-                    ) + Seurat::NoLegend(),
-                    information = Seurat::FetchData(cells,
-                        vars = input$ov.ctrl.panel.fetch.vars,
-                        slot = "counts"
-                    )
-                )
-            } else if (input$ov.ctrl.panel.plot.type == "GENE") {
-                Seurat::HoverLocator(
-                    Seurat::FeaturePlot(cells,
-                        reduction = "umap.int",
-                        input$ov.ctrl.panel.feature.type
-                    ),
-                    information = Seurat::FetchData(cells,
-                        vars = input$ov.ctrl.panel.fetch.vars,
-                        slot = "counts"
-                    )
-                )
-            }
-        } else if (input$ov.ctrl.panel.assay.type == "Un-integrated") {
-            if (input$ov.ctrl.panel.plot.type == "UMAP") {
-                Seurat::HoverLocator(
-                    Seurat::DimPlot(cells,
-                        reduction = "umap"
-                    ) + Seurat::NoLegend(),
-                    information = Seurat::FetchData(cells,
-                        vars = input$ov.ctrl.panel.fetch.vars,
-                        slot = "counts"
-                    )
-                )
-            } else if (input$ov.ctrl.panel.plot.type == "TSNE") {
-                Seurat::HoverLocator(
-                    Seurat::DimPlot(cells,
-                        reduction = "tsne"
-                    ) + Seurat::NoLegend(),
-                    information = Seurat::FetchData(cells,
-                        vars = input$ov.ctrl.panel.fetch.vars,
-                        slot = "counts"
-                    )
-                )
-            } else if (input$ov.ctrl.panel.plot.type == "GENE") {
-                Seurat::HoverLocator(
-                    Seurat::FeaturePlot(cells,
-                        reduction = "umap",
-                        input$ov.ctrl.panel.feature.type
-                    ),
-                    information = Seurat::FetchData(cells,
-                        vars = input$ov.ctrl.panel.fetch.vars,
-                        slot = "counts"
-                    )
-                )
-            }
-        }
-    })
-    return(output.ov.plot.panel.hoverplot)
-}
-
 # def gen_server.outputs.tab.1 func
 gen_server.outputs.tab.1 <- function(input, server.params, server.envs, output) {
     ## set tab.1 outputs
@@ -364,16 +281,11 @@ gen_server.outputs.tab.1 <- function(input, server.params, server.envs, output) 
         server.params = server.params,
         server.envs = server.envs
     )
-    # set tab.1.panel.5
-    output$tab.1.panel.5.output.1 <- gen_server.output.ov.plot.panel.dimplot(
+    # set tab.1.panel.4
+    output$tab.1.panel.4.output.1 <- gen_server.output.ov.plot.panel.dimplot(
         input = input,
         server.params = server.params,
         server.envs = server.envs
     )
-    # output$tab.1.panel.5.output.2 <- gen_server.output.ov.plot.panel.hoverplot(
-    #     input = input,
-    #     server.params = server.params,
-    #     server.envs = server.envs
-    # )
 }
 

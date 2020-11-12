@@ -100,37 +100,12 @@ gen_ui.body.tab.1.panel.3 <- function(ui.params) {
 
 # def gen_ui.body.tab.1.panel.4 func
 gen_ui.body.tab.1.panel.4 <- function(ui.params) {
-    # init ui params
-    cells <- ui.params$cells
-    markers <- ui.params$markers
-    # set fetch.vars
-    fetch.vars <- c(
-        rownames(cells),
-        rownames(cells@meta.data)
-    )
     # gen body.tab.1.panel.4
     body.tab.1.panel.4 <- shiny::column(12, offset = 0, shiny::wellPanel(shiny::fluidRow(
         shiny::column(12, offset = 0, shiny::helpText("tab.1.panel.4")),
-        shiny::column(12, offset = 0, shiny::fluidRow(shiny::column(12, offset = 0, shiny::selectInput(
-            inputId = "ov.ctrl.panel.fetch.vars",
-            label = "Variables extracted by hover:",
-            multiple = TRUE,
-            choices = fetch.vars,
-            selected = markers
-        ))))
+        shiny::column(12, offset = 0, shiny::plotOutput("tab.1.panel.4.output.1"))
     )))
     return(body.tab.1.panel.4)
-}
-
-# def gen_ui.body.tab.1.panel.5 func
-gen_ui.body.tab.1.panel.5 <- function(ui.params) {
-    # gen body.tab.1.panel.5
-    body.tab.1.panel.5 <- shiny::column(12, offset = 0, shiny::wellPanel(shiny::fluidRow(
-        shiny::column(12, offset = 0, shiny::helpText("tab.1.panel.5")),
-        shiny::column(12, offset = 0, shinydashboard::box(shiny::plotOutput("tab.1.panel.5.output.1"))),
-        # shiny::column(12, offset = 0, shinydashboard::box(plotly::plotlyOutput("tab.1.panel.5.output.2"), height = 400))
-    )))
-    return(body.tab.1.panel.5)
 }
 
 # def gen_ui.body.tab.1 func
@@ -145,14 +120,12 @@ gen_ui.body.tab.1 <- function(ui.params, tab.name = "tab-1") {
                 # tab.1.panel.2
                 gen_ui.body.tab.1.panel.2(ui.params = ui.params),
                 # tab.1.panel.3
-                gen_ui.body.tab.1.panel.3(ui.params = ui.params),
-                # tab.1.panel.4
-                gen_ui.body.tab.1.panel.4(ui.params = ui.params)
+                gen_ui.body.tab.1.panel.3(ui.params = ui.params)
             )),
             ## plot panels
             shiny::column(8, offset = 0, shiny::fluidRow(
-                # tab.1.panel.5
-                gen_ui.body.tab.1.panel.5(ui.params = ui.params)
+                # tab.1.panel.4
+                gen_ui.body.tab.1.panel.4(ui.params = ui.params)
             ))
         )
     )

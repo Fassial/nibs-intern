@@ -12,14 +12,20 @@ library(shinydashboard)
 
 # def gen_ui.body.tab.3.panel.1 func
 gen_ui.body.tab.3.panel.1 <- function(ui.params) {
+    # init ui params
+    cells <- ui.params$cells
+    # set gene.types
+    gene.types <- rownames(cells)
     # gen body.tab.3.panel.1
     body.tab.3.panel.1 <- shiny::column(12, offset = 0, shiny::wellPanel(shiny::fluidRow(
         shiny::column(12, offset = 0, shiny::helpText("tab.3.panel.1")),
         shiny::column(4, offset = 0, shiny::fluidRow(
-            shiny::column(12, offset = 0, shiny::textInput(
+            shiny::column(12, offset = 0, shiny::selectInput(
                 inputId = "ge.ctrl.panel.gene.type",
                 label = NULL,
-                value = ""
+                choices = gene.types,
+                selected = "Gh",
+                multiple = FALSE
             )),
             shiny::column(12, offset = 0, shiny::uiOutput("tab.3.panel.1.output.2"))
         )),
@@ -34,36 +40,60 @@ gen_ui.body.tab.3.panel.1 <- function(ui.params) {
 gen_ui.body.tab.3.panel.2 <- function(ui.params) {
     # init ui params
     cells <- ui.params$cells
-    # set group.types & cell.types
+    # set cell.types
+    cell.types <- levels(unique(cells$cell_type_refined))
+    # gen body.tab.3.panel.2
+    body.tab.3.panel.2 <- shiny::column(12, offset = 0, shiny::wellPanel(style = "
+        background-color:#ecf0f5;
+        border: 0px;
+        padding: 0px;
+        margin: 0px;
+        box-shadow: none;
+    ", shiny::fluidRow(
+        # shiny::column(12, offset = 0, shiny::helpText("tab.3.panel.2")),
+        shiny::column(12, offset = 0, shiny::fluidRow(style = "
+            height: 100%;
+        ", 
+            shiny::column(4, offset = 0, style="height:100%;text-align:right;", shiny::helpText("Cell type:")),
+            shiny::column(4, offset = 0, style="height:100%;", shiny::selectInput(
+                inputId = "ge.ctrl.panel.cell.type",
+                label = NULL,
+                choices = c(SELECT.INPUT.NONE, cell.types),
+                selected = SELECT.INPUT.NONE
+            )),
+            shiny::column(4, offset = 0, style="height:100%;text-align:left;", shiny::imageOutput(
+                outputId = "tab.3.panel.2.output.2",
+                height = "100%"
+            ))
+        ))
+    )))
+    return(body.tab.3.panel.2)
+}
+
+# def gen_ui.body.tab.3.panel.3 func
+gen_ui.body.tab.3.panel.3 <- function(ui.params) {
+    # set group.types
     group.types <- c(
         "stim"="stim",
         "leiden clusters"="ct_state_leiden"
     )
-    cell.types <- levels(unique(cells$cell_type_refined))
-    # gen body.tab.3.panel.2
-    body.tab.3.panel.2 <- shiny::column(12, offset = 0, shiny::wellPanel(shiny::fluidRow(
-        shiny::column(12, offset = 0, shiny::helpText("tab.3.panel.2")),
+    # gen body.tab.3.panel.3
+    body.tab.3.panel.3 <- shiny::column(12, offset = 0, shiny::wellPanel(shiny::fluidRow(
+        shiny::column(12, offset = 0, shiny::helpText("tab.3.panel.3")),
         shiny::column(4, offset = 0, shiny::fluidRow(
             shiny::column(12, offset = 0, shiny::helpText("Group type:")),
             shiny::column(12, offset = 0, shiny::selectInput(
                 inputId = "ge.ctrl.panel.group.type",
                 label = NULL,
-                choices = c(SELECT.INPUT.NONE, group.types),
-                selected = SELECT.INPUT.NONE
-            )),
-            shiny::column(12, offset = 0, shiny::helpText("Cell type:")),
-            shiny::column(12, offset = 0, shiny::selectInput(
-                inputId = "ge.ctrl.panel.cell.type",
-                label = NULL,
-                choices = c(SELECT.INPUT.NONE, cell.types),
-                selected = SELECT.INPUT.NONE
+                choices = group.types,
+                selected = "ct_state_leiden"
             ))
         )),
         shiny::column(8, offset = 0, shiny::fluidRow(
-            shiny::column(12, offset = 0, shiny::plotOutput("tab.3.panel.2.output.3"))
+            shiny::column(12, offset = 0, shiny::plotOutput("tab.3.panel.3.output.3"))
         ))
     )))
-    return(body.tab.3.panel.2)
+    return(body.tab.3.panel.3)
 }
 
 # def gen_ui.body.tab.3 func
@@ -75,7 +105,9 @@ gen_ui.body.tab.3 <- function(ui.params, tab.name = "tab-3") {
             # tab.3.panel.1
             gen_ui.body.tab.3.panel.1(ui.params = ui.params),
             # tab.3.panel.2
-            gen_ui.body.tab.3.panel.2(ui.params = ui.params)
+            gen_ui.body.tab.3.panel.2(ui.params = ui.params),
+            # tab.3.panel.3
+            gen_ui.body.tab.3.panel.3(ui.params = ui.params)
         )
     )
     return(body.tab.3)

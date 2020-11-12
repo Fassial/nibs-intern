@@ -57,6 +57,22 @@ gen_server.output.ge.plot.panel.cellplot <- function(input, server.params, serve
     return(output.ge.plot.panel.cellplot)
 }
 
+# def gen_server.output.ge.ctrl.panel.arrow.down func
+gen_server.output.ge.ctrl.panel.arrow.down <- function(input, server.params, server.envs) {
+    # set filename
+    filename <- normalizePath(file.path(DIR.IMG, "arrow.down.png"))
+    # gen output.ge.ctrl.panel.arrow.down
+    output.ge.ctrl.panel.arrow.down <- shiny::renderImage({
+        list(
+            src = filename,
+            alt = "ge.ctrl.panel.arrow.down",
+            height = "100%",
+            width = "auto"
+        )
+    }, deleteFile = FALSE)
+    return(output.ge.ctrl.panel.arrow.down)
+}
+
 # def gen_server.output.ge.plot.panel.groupplot func
 gen_server.output.ge.plot.panel.groupplot <- function(input, server.params, server.envs) {
     # init server params
@@ -97,7 +113,13 @@ gen_server.outputs.tab.3 <- function(input, server.params, server.envs, output) 
         server.envs = server.envs
     )
     # set tab.3.panel.2
-    output$tab.3.panel.2.output.3 <- gen_server.output.ge.plot.panel.groupplot(
+    output$tab.3.panel.2.output.2 <- gen_server.output.ge.ctrl.panel.arrow.down(
+        input = input,
+        server.params = server.params,
+        server.envs = server.envs
+    )
+    # set tab.3.panel.3
+    output$tab.3.panel.3.output.3 <- gen_server.output.ge.plot.panel.groupplot(
         input = input,
         server.params = server.params,
         server.envs = server.envs
