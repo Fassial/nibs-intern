@@ -37,14 +37,14 @@ gen_ui.body.tab.2.panel.1 <- function(ui.params) {
                 text-align:center;
             ",  shiny::actionButton(
                 inputId = "de.ctrl.panel.analyze.button",
-                label = "Analyze Differential Expression",
+                label = "Analyze",
                 class = "btn-primary"
             ))),
             shiny::column(6, offset = 0, shiny::div(style="
                 text-align:center;
             ",  shiny::downloadButton(
                 outputId = "tab.2.panel.1.output.4",
-                label = "Download Differential Expression",
+                label = "Download",
                 class = "btn-primary",
                 easyClose = TRUE,
                 title = "de.result.table"
