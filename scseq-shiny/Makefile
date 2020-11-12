@@ -6,3 +6,6 @@ clean:
 	rm -rf ._*
 	rm -rf *.zip
 
+install:
+	cp -r * ../../shiny-server/
+
