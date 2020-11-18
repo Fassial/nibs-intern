@@ -51,6 +51,7 @@ def expr(seed = 1):
         name=os.path.splitext(os.path.basename(fname))[0]
     ) for fname in db_fnames]
     ## Phase I: Inference of co-expression modules
+    print("Phase I: Inference of co-expression modules")
     # get & save adj
     adj = grnboost2(
         expression_data = sce,
@@ -61,14 +62,19 @@ def expr(seed = 1):
     adj.to_csv(adj_fname, index=False, sep="\t")
     # derive potential regulomes from these co-expression modules
     modules = list(modules_from_adjacencies(adj, sce))
+    print("Phase I complete!")
     ## Phase II: Prune modules for targets with cis regulatory footprints (aka RcisTarget)
+    print("Phase II: Prune modules for targets with cis regulatory footprints (aka RcisTarget)")
     # get & save motifs
     motifs = prune2df(dbs, modules, ma_fname); motifs.to_csv(motifs_fname)
     # get & save regulons
     regulons = df2regulons(motifs); regulons.to_csv(regulons_fname)
+    print("Phase II complete!")
     ## Phase III: Cellular regulon enrichment matrix (aka AUCell)
+    print("Phase III: Cellular regulon enrichment matrix (aka AUCell)")
     auc_mtx = aucell(sce, regulons, num_workers = 1); auc_mtx.to_csv(auc_fname)
-    sns.clustermap(auc_mtx, figsize=(12,12))
+    # sns.clustermap(auc_mtx, figsize=(12,12))
+    print("Phase III complete!")
 
 # def main func
 def main():
