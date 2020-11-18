@@ -5,6 +5,7 @@
 ###################################
 # dep
 import os
+import sys
 import glob
 import random
 import seaborn as sns
@@ -16,6 +17,7 @@ from pyscenic.prune import prune2df, df2regulons
 from pyscenic.aucell import aucell
 # local dep
 import utils
+import infer_grn
 
 # macro
 DIR_ROOT = os.path.join(os.getcwd(), "..")
@@ -45,7 +47,7 @@ def expr(seed = 1):
     sce = utils.get_data_lm(
         sce_fname = sce_fname
     )
-    tf_names = load_tf_names(tf_fname)
+    tf_names = load_tf_names(tf_fname); print(f"Loaded {len(tf_names)} TFs...", file = sys.stdout)
     dbs = [RankingDatabase(
         fname=fname,
         name=os.path.splitext(os.path.basename(fname))[0]
@@ -53,11 +55,10 @@ def expr(seed = 1):
     ## Phase I: Inference of co-expression modules
     print("Phase I: Inference of co-expression modules")
     # get & save adj
-    adj = grnboost2(
-        expression_data = sce,
+    adj = infer_grn.infer_grn(
+        sce_fname = sce_fname,
         tf_names = tf_names,
-        verbose = True,
-        seed = seed
+        rand_seed = seed
     )
     adj.to_csv(adj_fname, index=False, sep="\t")
     # derive potential regulomes from these co-expression modules

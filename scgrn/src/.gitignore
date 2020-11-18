@@ -3,4 +3,5 @@
 /dask-worker-space
 
 # file
+*.bak
 
