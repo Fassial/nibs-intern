@@ -13,6 +13,9 @@ docker: $(DIR_SCRIPT)/docker.sh
 
 clean:
 	rm -rf *.out
-	rm -rf $(DIR_OUTPUT)
 	cd $(DIR_SCRIPT) && make clean
+
+clean-deep:
+	make clean
+	rm -rf $(DIR_OUTPUT)
 
