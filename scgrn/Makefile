@@ -3,11 +3,16 @@
 DIR_ROOT=$(shell pwd)
 DIR_SCRIPT=$(DIR_ROOT)/script
 DIR_OUTPUT=$(DIR_ROOT)/output
-DIR_KEYS=$(DIR_ROOT)/keys
+# macro for workstation
+WORKSTAT_IP=192.168.18.19
+WORKSTAT_USER=luolab
 # macro for hpc
 HPC_IP=10.12.100.88
 HPC_USER=zhenghui
 HPC_OUTPUT=~/DATA/nibs-intern/scgrn/output
+
+contact:
+	ssh $(HPC_USER)@$(HPC_IP)
 
 scgrn: $(DIR_SCRIPT)/scgrn.sh
 	cd $(DIR_SCRIPT) && sh ./scgrn.sh
@@ -16,7 +21,7 @@ scgrn-hpc: $(DIR_SCRIPT)/scgrn.sh
 	cd $(DIR_SCRIPT) && sbatch ./scgrn.sh
 
 update:
-	scp -i $(DIR_KEYS)/id_rsa -r $(HPC_USER)@$(HPC_IP):$(HPC_OUTPUT) $(DIR_ROOT)
+	scp -r $(HPC_USER)@$(HPC_IP):$(HPC_OUTPUT) $(DIR_ROOT)
 
 docker: $(DIR_SCRIPT)/docker.sh
 	sh $(DIR_SCRIPT)/docker.sh
