@@ -36,7 +36,7 @@ for seeddir in ${DIR_OUTPUT}/*; do
         pyscenic aucell \
         ${DIR_DATA}/pituitary_filtered.loom \
         ${seeddir}/${REGULONS_FNAME} \
-        --output ${seeddir}/pituitary_SCENIC.loom \
+        --output ${seeddir}/${AUC_FNAME} \
         --num_workers 16
     echo "Phase III complete!"
 done
