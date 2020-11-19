@@ -43,7 +43,7 @@ def expr(seed = 1):
     adj_fname = os.path.join(DIR_OUTPUT_SEED, "adjacencies.tsv")
     motifs_fname = os.path.join(DIR_OUTPUT_SEED, "motifs.csv")
     regulons_fname = os.path.join(DIR_OUTPUT_SEED, "regulons.csv")
-    auc_fname = os.path.join(DIR_OUTPUT_SEED, "aucell.csv")
+    auc_fname = os.path.join(DIR_OUTPUT_SEED, "auc-mtx.csv")
     # get sce & tf_names & dbs
     sce = utils.get_data_lm(
         sce_fname = sce_fname

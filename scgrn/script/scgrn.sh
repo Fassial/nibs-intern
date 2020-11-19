@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# macro
+DIR_ROOT=$(pwd)
+DIR_SRC=$(DIR_ROOT)/src
+
 #SBATCH -J scgrn
 #SBATCH -p q_cn
 #SBATCH -n 1
@@ -12,6 +16,6 @@
 # <<< module load complete <<<
 
 # >>> excute cmd >>>
-python ../src/scgrn.py
+python $(DIR_SRC)/scgrn.py
 # <<< excute cmd complete <<<
 
