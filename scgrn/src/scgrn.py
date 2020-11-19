@@ -36,7 +36,7 @@ def expr(seed = 1):
     # set input fnames
     sce_fname = os.path.join(DIR_DATA, "pituitary_filtered.loom")
     tf_fname = os.path.join(DIR_RESOURCE, "mm_mgi_tfs.txt")
-    db_fnames = glob.glob(os.path.join(DIR_RESOURCE, "mm10-*.mc9nr.feather"))
+    db_fnames = glob.glob(os.path.join(DIR_RESOURCE, "mm10_*.mc9nr.feather"))
     ma_fname = os.path.join(DIR_RESOURCE, "motifs-v9-nr.mgi-m0.001-o0.0.tbl")
     # set output fnames
     adj_fname = os.path.join(DIR_OUTPUT_SEED, "adjacencies.tsv")
