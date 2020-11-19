@@ -22,7 +22,7 @@ for seeddir in ${DIR_OUTPUT}/*; do
     echo "Processing "${seeddir##*/}"..."
     docker run -it -v $PWD:$PWD aertslab/pyscenic:0.9.18 \
         pyscenic ctx \
-        ${DIR_OUTPUT}/seed-0/${ADJ_FNAME} \
+        ${seeddir}/${ADJ_FNAME} \
         ${DIR_RESOURCE}/mm10__refseq-r80__10kb_up_and_down_tss.mc9nr.feather \
         ${DIR_RESOURCE}/mm10__refseq-r80__500bp_up_and_100bp_down_tss.mc9nr.feather \
         --annotations_fname ${DIR_RESOURCE}/motifs-v9-nr.mgi-m0.001-o0.0.tbl \
