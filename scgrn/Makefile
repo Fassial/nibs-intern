@@ -10,10 +10,10 @@ HPC_USER=zhenghui
 HPC_OUTPUT=~/DATA/nibs-intern/scgrn/output
 
 scgrn: $(DIR_SCRIPT)/scgrn.sh
-	sh $(DIR_SCRIPT)/scgrn.sh
+	cd $(DIR_SCRIPT) && sh ./scgrn.sh
 
 scgrn-hpc: $(DIR_SCRIPT)/scgrn.sh
-	sbatch $(DIR_SCRIPT)/scgrn.sh
+	cd $(DIR_SCRIPT) && sbatch ./scgrn.sh
 
 update:
 	scp -i $(DIR_KEYS)/id_rsa -r $(HPC_USER)@$(HPC_IP):$(HPC_OUTPUT) $(DIR_ROOT)
