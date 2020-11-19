@@ -3,10 +3,10 @@ DIR_SCRIPT=$(DIR_ROOT)/script
 DIR_OUTPUT=$(DIR_ROOT)/output
 
 scgrn: $(DIR_SCRIPT)/scgrn.sh
-	sh $(DIR_SCRIPT)/scgrn.sh
+	cd $(DIR_SCRIPT) && sh ./scgrn.sh
 
 scgrn-hpc: $(DIR_SCRIPT)/scgrn.sh
-	sbatch $(DIR_SCRIPT)/scgrn.sh
+	cd $(DIR_SCRIPT) && sbatch ./scgrn.sh
 
 docker: $(DIR_SCRIPT)/docker.sh
 	sh $(DIR_SCRIPT)/docker.sh

@@ -21,7 +21,7 @@ import utils
 import infer_grn
 
 # macro
-DIR_ROOT = os.path.join(os.getcwd())
+DIR_ROOT = os.path.join(os.getcwd(), "..")
 DIR_DATA = os.path.join(DIR_ROOT, "data")
 DIR_RESOURCE = os.path.join(DIR_ROOT, "resource")
 DIR_OUTPUT = os.path.join(DIR_ROOT, "output")
