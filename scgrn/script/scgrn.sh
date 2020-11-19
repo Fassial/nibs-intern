@@ -2,7 +2,7 @@
 
 # macro
 DIR_ROOT=$(pwd)
-DIR_SRC=$(DIR_ROOT)/src
+DIR_SRC=${DIR_ROOT}/src
 
 #SBATCH -J scgrn
 #SBATCH -p q_cn
@@ -16,6 +16,6 @@ DIR_SRC=$(DIR_ROOT)/src
 # <<< module load complete <<<
 
 # >>> excute cmd >>>
-python $(DIR_SRC)/scgrn.py
+python ${DIR_SRC}/scgrn.py
 # <<< excute cmd complete <<<
 
