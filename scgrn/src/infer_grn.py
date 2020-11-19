@@ -41,7 +41,7 @@ def infer_partial_grn(target_gene_index):
     return n
 
 # def infer_grn func
-def infer_grn(sce_fname, tf_names, method = "grnboost2", num_workers = 16, sparse = False, rand_seed = 0):
+def infer_grn(sce_fname, tf_names, method = "grnboost2", num_workers = 32, sparse = False, rand_seed = 0):
     # set global
     global exp_matrix, gene_names, tf_matrix, tf_matrix_gene_names, method_params, seed
     seed = rand_seed

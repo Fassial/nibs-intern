@@ -3,13 +3,12 @@
 #SBATCH -J scgrn
 #SBATCH -p q_cn
 #SBATCH -n 1
-#SBATCH -c 48
+#SBATCH -c 32
 #SBATCH -o scgrn.out
 #SBATCH -e scgrn.err
 
 # >>> module load >>>
-# module load python/3.6.2
-module load scenic/0.10.0
+# load nothing, use local env
 # <<< module load complete <<<
 
 # >>> excute cmd >>>
