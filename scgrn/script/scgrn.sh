@@ -4,7 +4,6 @@
 #SBATCH -p q_cn
 #SBATCH -n 1
 #SBATCH -c 32
-#SBATCH --mem-per-cpu 8G
 #SBATCH -o scgrn.out
 #SBATCH -e scgrn.err
 
