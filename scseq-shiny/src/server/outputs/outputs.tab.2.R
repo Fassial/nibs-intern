@@ -41,26 +41,24 @@ gen_server.output.de.ctrl.panel.add <- function(input, server.params, server.env
     # de.ctrl.panel.add
     shinyjs::onclick(id = "de.ctrl.panel.add.button", {
         # init server envs
-        de.ctrl.panel.types <- server.envs$envs$de.ctrl.panel.types
-        de.ctrl.panel.conds.left <- server.envs$envs$de.ctrl.panel.conds.left
-        de.ctrl.panel.conds.right <- server.envs$envs$de.ctrl.panel.conds.right
+        de.ctrl.panel.conds <- server.envs$envs$de.ctrl.panel.conds
         if (input$de.ctrl.panel.add.type == SELECT.INPUT.NONE) {
             # do nothing
-        } else if (is.null(de.ctrl.panel.types)) {
-            de.ctrl.panel.types <- array(input$de.ctrl.panel.add.type)
-            de.ctrl.panel.conds.left <- array(BUTTON.INPUT.NONE)
-            de.ctrl.panel.conds.right <- array(BUTTON.INPUT.NONE)
+        } else if (length(de.ctrl.panel.conds) == 0) {
+            # update server.envs$envs$de.ctrl.panel.conds
+            server.envs$envs$de.ctrl.panel.conds[[input$de.ctrl.panel.add.type]] <- list(
+                cond.left = BUTTON.INPUT.NONE,
+                cond.right = BUTTON.INPUT.NONE
+            )
         } else {
-            if (!(input$de.ctrl.panel.add.type %in% de.ctrl.panel.types)) {
-                de.ctrl.panel.types <- array(c(de.ctrl.panel.types, input$de.ctrl.panel.add.type))
-                de.ctrl.panel.conds.left <- array(c(de.ctrl.panel.conds.left, BUTTON.INPUT.NONE))
-                de.ctrl.panel.conds.right <- array(c(de.ctrl.panel.conds.right, BUTTON.INPUT.NONE))
+            if (!(input$de.ctrl.panel.add.type %in% names(server.envs$envs$de.ctrl.panel.conds))) {
+                # update server.envs$envs$de.ctrl.panel.conds
+                server.envs$envs$de.ctrl.panel.conds[[input$de.ctrl.panel.add.type]] <- list(
+                    cond.left = BUTTON.INPUT.NONE,
+                    cond.right = BUTTON.INPUT.NONE
+                )
             }
         }
-        # update server.envs$envs
-        server.envs$envs$de.ctrl.panel.types <- de.ctrl.panel.types
-        server.envs$envs$de.ctrl.panel.conds.left <- de.ctrl.panel.conds.left
-        server.envs$envs$de.ctrl.panel.conds.right <- de.ctrl.panel.conds.right
     })
     return(output.de.ctrl.panel.add)
 }
@@ -70,7 +68,7 @@ gen_server.output.de.ctrl.panel.entries <- function(input, server.params, server
     # gen output.de.ctrl.panel.entries
     output.de.ctrl.panel.entries <- shiny::renderUI({
         # init server envs
-        de.ctrl.panel.types <- server.envs$envs$de.ctrl.panel.types
+        de.ctrl.panel.conds <- server.envs$envs$de.ctrl.panel.conds
         ## set de.ctrl.panel.entries
         # set de.ctrl.panel.entries.title
         de.ctrl.panel.entries.title <- list(shiny::fluidRow(
@@ -85,12 +83,12 @@ gen_server.output.de.ctrl.panel.entries <- function(input, server.params, server
             ", shiny::helpText("Marker 2:")))
         ))
         # set de.ctrl.panel.entries.content
-        de.ctrl.panel.entries.content <- lapply(seq_len(length(de.ctrl.panel.types)), function(i) {
+        de.ctrl.panel.entries.content <- lapply(names(de.ctrl.panel.conds), function(name) {
             gen_server.comp.de.ctrl.panel.entry(
                 input = input,
                 server.params = server.params,
                 server.envs = server.envs,
-                entry.no = i
+                entry.name = name
             )
         })
         # gen de.ctrl.panel.entries
@@ -107,10 +105,9 @@ gen_server.output.de.plot.panel.preview.left <- function(input, server.params, s
     # gen output.de.plot.panel.preview.left
     output.de.plot.panel.preview.left <- shiny::renderPlot({
         # init server envs
-        de.ctrl.panel.types <- server.envs$envs$de.ctrl.panel.types
-        de.ctrl.panel.conds.left <- server.envs$envs$de.ctrl.panel.conds.left
+        de.ctrl.panel.conds <- server.envs$envs$de.ctrl.panel.conds
         if (input$de.ctrl.panel.de.type == "Multiple") {
-            if (length(de.ctrl.panel.types) == 0) {
+            if (length(de.ctrl.panel.conds) == 0) {
                 Seurat::DimPlot(cells,
                     reduction = input$de.ctrl.panel.preview.type,
                     cells.highlight = ""
@@ -118,13 +115,13 @@ gen_server.output.de.plot.panel.preview.left <- function(input, server.params, s
             } else {
                 Seurat::DimPlot(cells,
                     reduction = input$de.ctrl.panel.preview.type,
-                    group.by = de.ctrl.panel.types[1]
+                    group.by = names(de.ctrl.panel.conds)[1]
                 ) + Seurat::NoLegend()
             }
         } else {
-            f <- de.ctrl.panel.types
-            l <- lapply(seq_len(length(de.ctrl.panel.types)), function(i) {
-                cond.left <- de.ctrl.panel.conds.left[i]
+            f <- names(de.ctrl.panel.conds)
+            l <- lapply(names(de.ctrl.panel.conds), function(name) {
+                cond.left <- de.ctrl.panel.conds[[name]]$cond.left
                 if (cond.left == SELECT.INPUT.NONE) {
                     cond.left <- ""
                 }
@@ -154,12 +151,11 @@ gen_server.output.de.plot.panel.preview.right <- function(input, server.params, 
     # gen output.de.plot.panel.preview.right
     output.de.plot.panel.preview.right <- shiny::renderPlot({
         # init server envs
-        de.ctrl.panel.types <- server.envs$envs$de.ctrl.panel.types
-        de.ctrl.panel.conds.right <- server.envs$envs$de.ctrl.panel.conds.right
+        de.ctrl.panel.conds <- server.envs$envs$de.ctrl.panel.conds
         if (input$de.ctrl.panel.de.type != "Multiple") {
-            f <- de.ctrl.panel.types
-            l <- lapply(seq_len(length(de.ctrl.panel.types)), function(i) {
-                cond.right <- de.ctrl.panel.conds.right[i]
+            f <- names(de.ctrl.panel.conds)
+            l <- lapply(names(de.ctrl.panel.conds), function(name) {
+                cond.right <- de.ctrl.panel.conds[[name]]$cond.right
                 if (cond.right == SELECT.INPUT.NONE) {
                     cond.right <- ""
                 }

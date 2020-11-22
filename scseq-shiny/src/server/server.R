@@ -27,9 +27,7 @@ gen_server <- function(server.params) {
         # init server envs
         server.envs <- list(
             envs = shiny::reactiveValues(
-                de.ctrl.panel.types = NULL,
-                de.ctrl.panel.conds.left = NULL,
-                de.ctrl.panel.conds.right = NULL,
+                de.ctrl.panel.conds = list(),
                 ge.ctrl.panel.gene.type = TEXT.INPUT.NONE
             ),
             events = list(onload.reg.table = shiny::reactiveValues(
