@@ -23,36 +23,46 @@ gen_server.event.de.result <- function(input, server.params, server.envs) {
     # gen event.de.result
     event.de.result <- shiny::eventReactive(input$de.ctrl.panel.analyze.button, {
         # init server envs
-        de.ctrl.panel.types <- server.envs$envs$de.ctrl.panel.types
-        de.ctrl.panel.conds.left <- server.envs$envs$de.ctrl.panel.conds.left
-        de.ctrl.panel.conds.right <- server.envs$envs$de.ctrl.panel.conds.right
+        de.ctrl.panel.conds <- server.envs$envs$de.ctrl.panel.conds
         if (input$de.ctrl.panel.de.type == "Multiple") {
             # find markers by cell_type
             Seurat::Idents(cells) <- "cell_type"
             de.result <- Seurat::FindAllMarkers(cells)
         } else if (input$de.ctrl.panel.de.type == "Conserved") {
             # find conserved markers
-            if (de.ctrl.panel.conds.right[1] == "") {
+            if (de.ctrl.panel.conds[[1]]$cond.right == "") {
                 shiny::withProgress(message = "Computing in progress. Please wait.", {
                     de.result <- Seurat::FindConservedMarkers(cells,
-                        ident.1 = de.ctrl.panel.conds.left[1],
+                        ident.1 = de.ctrl.panel.conds[[1]]$cond.left,
                         grouping.var = "stim"
                     )
                 })
             } else {
                 shiny::withProgress(message = "Computing in progress. Please wait.", {
                     de.result <- Seurat::FindConservedMarkers(cells,
-                        ident.1 = de.ctrl.panel.conds.left[1],
-                        ident.2 = de.ctrl.panel.conds.right[1],
+                        ident.1 = de.ctrl.panel.conds[[1]]$cond.left,
+                        ident.2 = de.ctrl.panel.conds[[1]]$cond.right,
                         grouping.var = "stim"
                     )
                 })
             }
         } else if (input$de.ctrl.panel.de.type == "Grouped comparison") {
             # get factor.lists & value.lists
-            factor.lists <- de.ctrl.panel.types
-            value.lists.left <- de.ctrl.panel.conds.left
-            value.lists.right <- de.ctrl.panel.conds.right
+            factor.lists <- names(de.ctrl.panel.conds)
+            value.lists.left <- lapply(names(de.ctrl.panel.conds), function(name) {
+                cond.left <- de.ctrl.panel.conds[[name]]$cond.left
+                if (cond.left == SELECT.INPUT.NONE) {
+                    cond.left <- ""
+                }
+                return(cond.left)
+            })
+            value.lists.right <- lapply(names(de.ctrl.panel.conds), function(name) {
+                cond.right <- de.ctrl.panel.conds[[name]]$cond.right
+                if (cond.right == SELECT.INPUT.NONE) {
+                    cond.right <- ""
+                }
+                return(cond.right)
+            })
             # get cells.selected
             cells.selected.left <- server.select_cells(
                 server.params = server.params,
