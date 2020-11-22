@@ -29,7 +29,7 @@ gen_server.output.ge.ctrl.panel.gene.button <- function(input, server.params, se
     })
     # reg onclick event
     shinyjs::onclick(id = "ge.ctrl.panel.gene.button", {
-        server.envs$envs$ge.ctrl.panel.gene.type <- input$ge.ctrl.panel.gene.type
+        server.envs$envs$ge.ctrl.panel.gene.type <- input$ge_ctrl_panel_gene_type
     })
     return(output.ge.ctrl.panel.gene.button)
 }
@@ -77,19 +77,22 @@ gen_server.output.ge.ctrl.panel.arrow.down <- function(input, server.params, ser
 gen_server.output.ge.plot.panel.groupplot <- function(input, server.params, server.envs) {
     # init server params
     cells <- server.params$cells
+    # set gene.types & cell.types
+    gene.types <- rownames(cells)
+    cell.types <- levels(unique(cells$cell_type_refined))
     # gen output.ge.plot.panel.groupplot
     output.ge.plot.panel.groupplot <- shiny::renderPlot({
         # init server env
         ge.ctrl.panel.gene.type <- server.envs$envs$ge.ctrl.panel.gene.type
         # gen VlnPlot
         # gen VlnPlot
-        if (((length(ge.ctrl.panel.gene.type) == 0) || (ge.ctrl.panel.gene.type == TEXT.INPUT.NONE))
+        if (((length(ge.ctrl.panel.gene.type) == 0) || (!(ge.ctrl.panel.gene.type %in% gene.types)))
          || ((length(input$ge.ctrl.panel.group.type) == 0) || (input$ge.ctrl.panel.group.type == SELECT.INPUT.NONE))
-         || ((length(input$ge.ctrl.panel.cell.type) == 0) || (input$ge.ctrl.panel.cell.type == SELECT.INPUT.NONE))) {
+         || ((length(input$ge_ctrl_panel_cell_type) == 0) || (!(input$ge_ctrl_panel_cell_type %in% cell.types)))) {
             # render nothing
         } else {
             Seurat::VlnPlot(
-                object = cells[,which(cells$cell_type_refined==input$ge.ctrl.panel.cell.type)],
+                object = cells[,which(cells$cell_type_refined==input$ge_ctrl_panel_cell_type)],
                 features = c(ge.ctrl.panel.gene.type),
                 group.by = input$ge.ctrl.panel.group.type
             )

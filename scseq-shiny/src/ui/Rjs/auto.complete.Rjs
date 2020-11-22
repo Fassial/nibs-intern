@@ -1,0 +1,112 @@
+###################################
+# Created on 17:55, Nov. 21st, 2020
+# Author: fassial
+# Filename: auto.complete.Rjs
+###################################
+# dep
+library(shinyjs)
+# local dep
+
+# macro
+
+# def Rjs.auto.complete var
+Rjs.auto.complete <- '
+// def shinyjs.createStyle func
+shinyjs.createStyle = function(params) {
+    // set default
+    var defaultParams = {
+        style_id: null,
+        style_content: null
+    };
+    // get params
+    params = shinyjs.getParams(params, defaultParams);
+
+    // setup style-id
+    var style_ac = $("#"+params.style_id);
+    // check whether exists in head
+    if (!style_ac.length > 0) {
+        var style_content = "<style id=" + params.style_id + "></style>";
+        $(document).find("head").append(style_content);
+        style_ac = $("#"+params.style_id);
+    }
+    style_ac.append(params.style_content);
+    console.log("Add " + params.style_content + " complete!");
+}
+
+// def shinyjs.autoComplete func
+shinyjs.autoComplete = function(params) {
+    // set default
+    var defaultParams = {
+        id: null,
+        contents: [],
+        maxlen: 10
+    };
+    // get params
+    params = shinyjs.getParams(params, defaultParams);
+
+    // get width & height of id
+    var id = "#"+params.id; console.log($(id).attr("id")); console.log($(id)); console.log($(id)[0].className);
+    var width = $(id)[0].clientWidth; console.log(width);
+    var height = $(id)[0].clientHeight; console.log(height);
+    // set suggest
+    var suggest = "<ul id=" + params.id + "-suggest style=\'\\
+        display: none;\\
+        position: absolute;\\
+        width: " + width + "px;\\
+        background-color: white;\\
+        padding: 0px;\\
+        margin: 0px;\\
+        z-index: 1;\\
+    \'></ul>";
+    var style_suggest = id + "-suggest li{\\
+        display: block;\\
+        height:" + height + ";\\
+        margin: 0px;\\
+        color: rgb(66, 139, 202);\\
+        text-align: left;\\
+        padding:1px\\
+    }";
+    style_suggest += id + "-suggest li:hover{\\
+        cursor: pointer;\\
+        margin: 0px;\\
+        background-color: rgb(227,227,227);\\
+    }";
+    $(id).after(suggest);
+    shinyjs.createStyle({style_id: "style-auto-complete", style_content: style_suggest});
+    // bind event
+    $(id).bind("keyup click", function(e) {
+        var input_value = $(this).val();
+        var num = 0;
+        if (input_value != "") {
+            // set suggests
+            html = "";
+            for (var i = 0; i < params.contents.length; ++i) {
+                if (params.contents[i].indexOf(input_value)>-1) {
+                    html += "<li>" + params.contents[i] + "</li>";
+                    num++;
+                }
+                if (num > params.maxlen-1) {break;}
+            }
+            if (html != "") {
+                $(id+"-suggest").show();
+                $(id+"-suggest").html(html);
+                $(id+"-suggest li").css(style_suggest);
+                $(id+"-suggest li").bind("click", function(e) {
+                    $(id).val($(e.target).html());
+                    $(id).trigger("keyup");
+                    $(id+"-suggest").hide();
+                });
+            }
+        } else {
+            $(id+"-suggest").hide();
+        }
+    });
+    $(id).blur(function() {
+        setTimeout(function() {
+            $(id+"-suggest").hide();
+        }, 150);
+    });
+    console.log(params.id + "\\n" + params.contents);
+}
+'
+

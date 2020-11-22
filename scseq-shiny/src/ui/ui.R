@@ -18,6 +18,9 @@ source(file.path(DIR.UI.BODY, "body.R"))
 
 # def gen_ui func
 gen_ui <- function(ui.params) {
+    # record start_time
+    print("Initing ui...")
+    start_time <- Sys.time()
     # gen components
     header <- gen_ui.header()
     sidebar <- gen_ui.sidebar()
@@ -25,7 +28,14 @@ gen_ui <- function(ui.params) {
         ui.params = ui.params
     )
     # gen ui
-    ui <- shinydashboard::dashboardPage(header, sidebar, body)
+    ui <- shinydashboard::dashboardPage(
+        header = header,
+        sidebar = sidebar,
+        body = body
+    )
+    # record end_time
+    end_time <- Sys.time()
+    print(paste0("Init ui runs for ", as.numeric(end_time-start_time), "s."))
     return(ui)
 }
 

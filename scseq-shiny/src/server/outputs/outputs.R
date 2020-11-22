@@ -5,7 +5,6 @@
 ##################################
 # dep
 library(shiny)
-library(plotly)
 library(Seurat)
 # local dep
 DIR.ROOT <- file.path(getwd())

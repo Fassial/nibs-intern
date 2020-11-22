@@ -5,7 +5,7 @@
 ##################################
 # dep
 library(shiny)
-library(plotly)
+library(shinyjs)
 library(shinydashboard)
 # local dep
 DIR.ROOT <- file.path(getwd())
@@ -16,6 +16,7 @@ source(file.path(DIR.UI.BODY, "body.Rh"))
 source(file.path(DIR.UI.BODY, "body.tab.1.R"))
 source(file.path(DIR.UI.BODY, "body.tab.2.R"))
 source(file.path(DIR.UI.BODY, "body.tab.3.R"))
+source(file.path(DIR.UI.RJS, "auto.complete.Rjs"))
 
 # macro
 
@@ -24,6 +25,8 @@ gen_ui.body <- function(ui.params) {
     # init ui params
     # gen body
     body <- shinydashboard::dashboardBody(
+        shinyjs::useShinyjs(),
+        shinyjs::extendShinyjs(text = Rjs.auto.complete, functions = c("autoComplete")),
         shinydashboard::tabItems(
             # tab.1
             gen_ui.body.tab.1(ui.params = ui.params),

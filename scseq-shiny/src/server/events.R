@@ -78,3 +78,73 @@ gen_server.event.de.result <- function(input, server.params, server.envs) {
     return(event.de.result)
 }
 
+## def p-onload event
+# def gen_server.event.onload.ov.ctrl.panel.gene.type func
+gen_server.event.onload.ov.ctrl.panel.gene.type <- function(input, server.params, server.envs) {
+    # init server params
+    cells <- server.params$cells
+    # set gene.types
+    gene.types <- rownames(cells)
+    # gen event.onload.ov.ctrl.panel.gene.type
+    shinyjs::onevent(event = "click", id = "ov_ctrl_panel_gene_type", {
+        if (!server.envs$events$onload.reg.table$ov.ctrl.panel.gene.type) {
+            js$autoComplete(id = "ov_ctrl_panel_gene_type", contents = gene.types)
+            server.envs$events$onload.reg.table$ov.ctrl.panel.gene.type <- TRUE
+        }
+    })
+}
+
+# def gen_server.event.onload.ge.ctrl.panel.gene.type func
+gen_server.event.onload.ge.ctrl.panel.gene.type <- function(input, server.params, server.envs) {
+    # init server params
+    cells <- server.params$cells
+    # set gene.types
+    gene.types <- rownames(cells)
+    # gen event.onload.ge.ctrl.panel.gene.type
+    shinyjs::onevent(event = "click", id = "ge_ctrl_panel_gene_type", {
+        if (!server.envs$events$onload.reg.table$ge.ctrl.panel.gene.type) {
+            js$autoComplete(id = "ge_ctrl_panel_gene_type", contents = gene.types)
+            server.envs$events$onload.reg.table$ge.ctrl.panel.gene.type <- TRUE
+        }
+    })
+}
+
+# def gen_server.event.onload.ge.ctrl.panel.cell.type func
+gen_server.event.onload.ge.ctrl.panel.cell.type <- function(input, server.params, server.envs) {
+    # init server params
+    cells <- server.params$cells
+    # set cell.types
+    cell.types <- levels(unique(cells$cell_type_refined))
+    # gen event.onload.ge.ctrl.panel.cell.type
+    shinyjs::onevent(event = "click", id = "ge_ctrl_panel_cell_type", {
+        if (!server.envs$events$onload.reg.table$ge.ctrl.panel.cell.type) {
+            js$autoComplete(id = "ge_ctrl_panel_cell_type", contents = cell.types)
+            server.envs$events$onload.reg.table$ge.ctrl.panel.cell.type <- TRUE
+        }
+    })
+}
+
+# def gen_server.event.onload func
+gen_server.event.onload <- function(input, server.params, server.envs) {
+    ## gen onload event for tab1
+    # gen event.onload.ov.ctrl.panel.gene.type
+    gen_server.event.onload.ov.ctrl.panel.gene.type(
+        input = input,
+        server.params = server.params,
+        server.envs = server.envs
+    )
+    ## gen onload event for tab3
+    # gen event.onload.ge.ctrl.panel.gene.type
+    gen_server.event.onload.ge.ctrl.panel.gene.type(
+        input = input,
+        server.params = server.params,
+        server.envs = server.envs
+    )
+    # gen event.onload.ge.ctrl.panel.cell.type
+    gen_server.event.onload.ge.ctrl.panel.cell.type(
+        input = input,
+        server.params = server.params,
+        server.envs = server.envs
+    )
+}
+

@@ -9,6 +9,7 @@ DIR.ROOT <- file.path(getwd())
 DIR.SRC <- file.path(DIR.ROOT, "src")
 source(file.path(DIR.SRC, "defs.Rh"))
 DIR.UI.BODY <- file.path(DIR.UI, "body")
+DIR.UI.RJS <- file.path(DIR.UI, "Rjs")
 
 # macro
 

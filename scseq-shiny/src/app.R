@@ -14,8 +14,11 @@ source(file.path(DIR.SERVER, "server.R"))
 # macro
 DIR.DATA <- file.path(DIR.ROOT, "data")
 FILE.DATA <- file.path(DIR.DATA, "cells_preprocessed.rds")
+# FILE.DATA <- file.path(DIR.DATA, "cells_test.rds")
 
 ## init page
+print("Initing page...")
+start_time <- Sys.time()
 cells <- readRDS(FILE.DATA)
 # Additional variables may not fit into the space
 markers <- c(
@@ -41,6 +44,9 @@ cat.vars <- c(
     "Mouse"="mouse",
     "Serum"="serum"
 )
+# print time of initing page
+end_time <- Sys.time()
+print(paste0("Init page runs for ", as.numeric(end_time-start_time), "s."))
 
 # init ui.params
 ui.params <- list(
