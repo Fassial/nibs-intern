@@ -81,7 +81,7 @@ shinyjs.autoComplete = function(params) {
             // set suggests
             html = "";
             for (var i = 0; i < params.contents.length; ++i) {
-                if (params.contents[i].indexOf(input_value)>-1) {
+                if (params.contents[i].toLowerCase().indexOf(input_value.toLowerCase())>-1) {
                     html += "<li>" + params.contents[i] + "</li>";
                     num++;
                 }

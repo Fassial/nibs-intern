@@ -50,7 +50,7 @@ gen_server.output.ge.plot.panel.cellplot <- function(input, server.params, serve
             Seurat::VlnPlot(
                 object = cells,
                 features = c(ge.ctrl.panel.gene.type),
-                group.by = "cell_type"
+                group.by = "cell_type_refined"
             )
         }
     })
