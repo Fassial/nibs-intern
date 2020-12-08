@@ -1,0 +1,12 @@
+##################################
+# Created on 13:05, Dec. 7th, 2020
+# Author: fassial
+# Filename: scseq.Rh
+##################################
+# dep
+# local dep
+
+# macro
+DIR.ROOT <- file.path(getwd())
+DIR.UTILS <- file.path(DIR.ROOT, "utils")
+

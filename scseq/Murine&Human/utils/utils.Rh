@@ -1,0 +1,15 @@
+##################################
+# Created on 16:43, Dec. 6th, 2020
+# Author: fassial
+# Filename: utils.Rh
+##################################
+# dep
+# local dep
+DIR.ROOT <- file.path(getwd())
+source(file.path(DIR.ROOT, "scseq.Rh"))
+source(file.path(DIR.UTILS, "read_dataset.R"))
+source(file.path(DIR.UTILS, "qc.R"))
+source(file.path(DIR.UTILS, "scseq.R"))
+
+# macro
+

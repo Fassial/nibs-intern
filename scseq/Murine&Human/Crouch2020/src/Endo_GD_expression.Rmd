@@ -1,0 +1,313 @@
+---
+title: "Endothelial GD expression"
+author: "Ruiyu Ray Wang"
+date: "11/3/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+wd = '/Users/Ray/Documents/Work/scRNAseq/EC & Single-Cell Sequencing'
+READ_CACHE = TRUE
+```
+```{r}
+library(Seurat)
+library(org.Mm.eg.db)
+library(scater)
+library(ggplot2)
+library(RColorBrewer)
+library(awesomeSC)
+```
+
+## LPS condition
+### Duan et al. 2018
+```{r}
+if (READ_CACHE){
+  cells.int <- readRDS(file = file.path(wd, "LPS Treatment", "Duan 2018", "cells.int.annotated.rds"))
+} else {
+  SA01 <- read.csv(file = file.path(wd, "LPS Treatment", "Dxuan 2018", "GSM3070094_SA01.csv.gz"), row.names = 1)
+  cells <- CreateSeuratObject(SA01); cells$treat <- "Saline"; rm(SA01)
+  SA02 <- read.csv(file = file.path(wd, "LPS Treatment", "Duan 2018", "GSM3070095_SA02.csv.gz"), row.names = 1)
+  cells.SA02 <- CreateSeuratObject(SA02); cells.SA02$treat <- "Saline"; cells <- merge(cells, cells.SA02); rm(SA02, cells.SA02)
+  SA03 <- read.csv(file = file.path(wd, "LPS Treatment", "Duan 2018", "GSM3070096_SA03.csv.gz"), row.names = 1)
+  cells.SA03 <- CreateSeuratObject(SA03); cells.SA03$treat <- "Saline"; cells <- merge(cells, cells.SA03); rm(SA03, cells.SA03)
+  LPS01 <- read.csv(file = file.path(wd, "LPS Treatment", "Duan 2018", "GSM3070097_LPS01.csv.gz"), row.names = 1)
+  cells.LPS01 <- CreateSeuratObject(LPS01); cells.LPS01$treat <- "LPS"; cells <- merge(cells, cells.LPS01); rm(LPS01, cells.LPS01)
+  LPS02 <- read.csv(file = file.path(wd, "LPS Treatment", "Duan 2018", "GSM3070098_LPS02.csv.gz"), row.names = 1)
+  cells.LPS02 <- CreateSeuratObject(LPS02); cells.LPS02$treat <- "LPS"; cells <- merge(cells, cells.LPS02); rm(LPS02, cells.LPS02)
+  LPS03 <- read.csv(file = file.path(wd, "LPS Treatment", "Duan 2018", "GSM3070099_LPS03.csv.gz"), row.names = 1)
+  cells.LPS03 <- CreateSeuratObject(LPS03); cells.LPS03$treat <- "LPS"; cells <- merge(cells, cells.LPS03); rm(LPS03, cells.LPS03)
+}
+```
+
+### QC by scater
+
+Convert to SingleCellExperiment object, convert row names, and run scater QC pipeline.
+```{r}
+cells.sce <- as.SingleCellExperiment(cells)
+
+# Rename rows from ENSEMBL ID to gene SYMBOL
+gn <- mapIds(x = org.Mm.eg.db, keys = rownames(cells.sce), column = "SYMBOL", keytype = "ENSEMBL", multiVals = "first")  # 5606 NAs produced
+# anno <- loadGencodeAnno()
+# rn <- rownames(cells.sce)
+# gn <- anno$gene_short_name[match(rn, anno$stable_id)]  # 276 NAs produced
+rownames(cells.sce) <- gn
+
+# Prune rows with NA names
+cells.sce <- cells.sce[!is.na(rownames(cells.sce)),]
+```
+
+Perform QC steps.
+```{r}
+# Remove unexpressed genes to save memory and computation time
+keep_feature <- rowSums(as.matrix(counts(cells.sce)) > 0) > 0
+cells.sce <- cells.sce[keep_feature, ]
+```
+
+Cell level QC.
+```{r}
+per.cell <- perCellQCMetrics(cells.sce)
+summary(per.cell$sum)
+summary(per.cell$detected)
+colData(cells.sce) <- cbind(colData(cells.sce), per.cell)  # store to colData()
+```
+```{r quickPerCellQC}
+do_quickPerCellQC = TRUE
+
+if (do_quickPerCellQC){
+  qc.stats <- quickPerCellQC(per.cell)
+  colSums(as.matrix(qc.stats))
+}
+cells.filtered <- cells.sce[,!qc.stats$discard]
+```
+
+Feature-level QC.
+```{r perFeatureQCMetrics}
+per.feat <- perFeatureQCMetrics(cells.filtered)
+summary(per.feat$mean)
+summary(per.feat$detected)
+```
+```{r filtering features}
+keep_feature <- nexprs(cells.filtered, byrow=TRUE) > 0
+cells.filtered <- cells.filtered[keep_feature,]
+dim(cells.filtered)
+```
+
+Variable QC: omitted.
+
+### Seurat pipeline
+
+Convert from SCE object to Seurat obejct.
+```{r}
+cells <- as.Seurat(cells.filtered)
+```
+
+Run integration pipeline.
+```{r}
+# Split object by treatment: Saline or LPS
+cells.list <- SplitObject(cells, split.by = "treat")
+# Iteratively perform Normalization and Feature Selection
+cells.list <- lapply(X = cells.list, FUN = function(x){
+  x <- NormalizeData(x)
+  x <- FindVariableFeatures(x, selection.method = "vst", nfeatures = 2000)
+})
+# Find anchors
+cells.anchors <- FindIntegrationAnchors(cells.list, dims = 1:30)
+# Perform integration
+cells.int <- IntegrateData(anchorset = cells.anchors, dims = 1:30)
+```
+
+
+```{r fig.width=12, fig.height=5}
+cells.int <- SSW(cells.int, assay = "integrated", npcs = 30, dims = 1:30, verbose = FALSE)
+cells.int <- SSW(cells.int, assay = "RNA", npcs = 30, dims = 1:30, verbose = FALSE)
+
+# Make UMAP look prettier
+cells.int <- RunUMAP(cells.int, reduction = "pca", dims = 1:30, umap.method = 'umap-learn', metric = 'correlation', n.epochs = 400, reduction.key = "UMAP_", reduction.name = "umap", verbose = FALSE)
+cells.int <- RunTSNE(cells.int, reduction = "pca", dims = 1:30, seed.use = 2, tsne.method = "Rtsne", reduction.key = "TSNE_", reduction.name = "tsne", verbose = FALSE)
+
+DimPlot(cells.int, group.by = "RNA_snn_res.0.3", reduction = "tsne", label = TRUE) | DimPlot(cells.int, group.by = "treat", reduction = "tsne")
+```
+
+Multi-gene feature plot.
+```{r}
+genes_to_plot <- c("Gfap",  # Astrocyte
+                   "Pecam1",  # Endothelia
+                   "Mobp", "Bcas1", "C1ql1", "Enpp2",  # Oligodendrocytes
+                   "Map2", "Rbfox3", "Nrgn", "Wfs1", "Spock1", "Reln", "Gad2",  # Neurons
+                   "Aif1", "Cx3cr1",  # Microglia
+                   "Mrc1"  # Macrophage
+                   )
+FeaturePlot(cells.int, features = genes_to_plot, reduction = "tsne")
+```
+
+The cell identities were annotated by referencing the original paper (Duan et al. 2018), and cross-validating with online resources and databases (mousebrain.org).
+
+```{r fig.width=12, fig.height=5}
+# Save/Load manually identified cells
+save(opcs,rbcs,peri,miscellaneous,endo.keep, file = file.path(wd,"LPS Treatment", "Duan 2018", "aux_ids.dat"))
+load(file.path(wd,"LPS Treatment", "Duan 2018", "aux_ids.dat"))
+# Detailed identity with gene markers
+Idents(cells.int) <- "RNA_snn_res.0.3"
+cells.int <- RenameIdents(cells.int, `0` = "Astrocytes", `1` = "Nrgn Neurons", `2` = "Immature Neurons", `3` = "Endothelial cells", 
+                          `4` = "Mobp Oligodendrocytes", `5` = "Endothelial cells", `6` = "C1ql1 Oligodendrocytes", 
+                          `7` = "Neuronal intermediate progenitor cells", `8` = "Choiroid plexus epithelial cells", `9` = "Bcas1 Oligodendrocytes",
+                          `10` = "Wfs1 Neurons", `11` = "Cajal-Retzius cells", `12` = "Microglia", `13` = "Pericytes", `14` = "Interneurons", 
+                          `15` = "Tfap2c Astrocytes", `16` = "Astrocytes", `17` = "Vascular Leptomeningeal cells", `18` = "Spock1 Neurons", 
+                          `19` = "Spock1 Neurons", `20` = "Ependymal cells", `21` = "Macrophages", `22` = "Neurons", `23` = "Neurons")
+
+cells.int <- SetIdent(cells.int, cells = opcs, value = "Oligodendrocytes precursor cells")
+cells.int <- SetIdent(cells.int, cells = rbcs, value = "Red Blood Cells")
+cells.int <- SetIdent(cells.int, cells = peri, value = "Pericytes")
+cells.int$cell_type_detailed <- Idents(cells.int)
+
+# General identity
+Idents(cells.int) <- "RNA_snn_res.0.3"
+cells.int <- RenameIdents(cells.int, `0` = "Astrocytes", `1` = "Neurons", `2` = "Neurons", `3` = "Endothelial cells", 
+                          `4` = "Oligodendrocytes", `5` = "Endothelial cells", `6` = "Oligodendrocytes", `7` = "Neurons", 
+                          `8` = "Choiroid plexus epithelial cells", `9` = "Oligodendrocytes", `10` = "Neurons", `11` = "Cajal-Retzius cells", 
+                          `12` = "Microglia", `13` = "Pericytes", `14` = "Interneurons", `15` = "Astrocytes", `16` = "Astrocytes",
+                          `17` = "Vascular Leptomeningeal cells", `18` = "Neurons", `19` = "Neurons", `20` = "Ependymal cells", 
+                          `21` = "Macrophages", `22` = "Neurons", `23` = "Neurons")
+cells.int <- SetIdent(cells.int, cells = opcs, value = "Oligodendrocytes precursor cells")
+cells.int <- SetIdent(cells.int, cells = rbcs, value = "Red Blood Cells")
+cells.int <- SetIdent(cells.int, cells = peri, value = "Pericytes")
+cells.int$cell_type <- Idents(cells.int)
+
+# Abbreviated identity
+Idents(cells.int) <- "RNA_snn_res.0.3"
+cells.int <- RenameIdents(cells.int, `0` = "Astro", `1` = "Neurons", `2` = "Neurons", `3` = "Endo", 
+                          `4` = "OL", `5` = "Endo", `6` = "OL", `7` = "Neurons", 
+                          `8` = "CPEpiC", `9` = "OL", `10` = "Neurons", `11` = "CR", 
+                          `12` = "MG", `13` = "Peri", `14` = "Interneurons", `15` = "Astro", `16` = "Astro",
+                          `17` = "VLMC", `18` = "Neurons", `19` = "Neurons", `20` = "Epen", 
+                          `21` = "MΦ", `22` = "Neurons", `23` = "Neurons")
+cells.int <- SetIdent(cells.int, cells = opcs, value = "OPCs")
+cells.int <- SetIdent(cells.int, cells = rbcs, value = "RBCs")
+cells.int <- SetIdent(cells.int, cells = peri, value = "Peri")
+cells.int$cell_type_brief <- Idents(cells.int)
+
+# library(colorspace)
+# pal <- choose_palette()
+display.brewer.pal(n = 12, name = "Paired")
+cols <- brewer.pal(n = 12, name = "Paired")
+DimPlot(cells.int, group.by = "cell_type_brief", reduction = "tsne", label = TRUE) | DimPlot(cells.int, group.by = "treat", reduction = "tsne", cols = cols[c(10,7)])
+```
+
+Backup.
+```{r}
+saveRDS(cells.int, file = file.path(wd, "LPS Treatment", "Duan 2018", "cells.int.annotated.rds"))
+```
+
+#### FigX.A
+
+```{r}
+dA1_left <- DimPlot(cells.int, group.by = "cell_type_brief", reduction = "tsne.int") + 
+  NoLegend() +
+  NoAxes()
+ggsave(filename = "Fig_A_int.eps", plot = dA1_left, device = "eps", path = "~/Documents/Work/scRNAseq/EC & Single-Cell Sequencing/LPS Treatment/Duan 2018/figs/A/", dpi = "print", width = 6, height = 5)
+
+dA1_right <- DimPlot(cells.int, group.by = "treat", reduction = "tsne.int", cols = cols[c(10,7)]) + 
+  NoLegend() +
+  NoAxes()
+ggsave(filename = "Fig_A_right.eps", plot = dA1_right, device = "eps", path = "~/Documents/Work/scRNAseq/EC & Single-Cell Sequencing/LPS Treatment/Duan 2018/figs/A/", dpi = "print", width = 6, height = 5)
+```
+```{r}
+f_gd <- FeaturePlot(cells.int, features = "Gsdmd", reduction = "tsne.int") + NoAxes()
+```
+
+Subsetting out Endothelial cells for closer examination.
+```{r}
+if (READ_CACHE){
+  cells.endo <- readRDS(file.path(wd, "LPS Treatment", "Duan 2018", "cells.endo.rds"))
+} else {
+  cells.endo <- subset(cells.int, cells = endo.keep)
+}
+# Some Astrocytes and Neurons were erroneously mixed into this group, and were removed by manually curating cell ids.
+```
+
+```{r}
+cells.endo <- SSW(cells.endo, assay = "RNA", npcs = 30, dims = 1:30, verbose = FALSE)
+for(i in seq(400,800, by = 10)){
+  cells.endo <- RunUMAP(cells.endo, dims = 1:30, n.epochs = i, umap.method = "umap-learn")
+  dplot <- DimPlot(cells.endo, group.by = "treat") + NoLegend() + NoAxes()
+  ggsave(filename = paste0("dplot_",i,"_epochs.jpeg"), plot = dplot, device = "jpeg", path = "LPS Treatment/Duan 2018/figs/test_epoch/", width = 4, height = 4)
+}
+
+for(i in seq(1,30)){
+  cells.endo <- RunTSNE(cells.endo, dims = 1:30, seed.use = i)
+  dplot <- DimPlot(cells.endo, reduction = "tsne", group.by = "treat") + NoLegend() + NoAxes()
+  ggsave(filename = paste0("dplot_seed_",i,".jpeg"), plot = dplot, device = "jpeg", path = "LPS Treatment/Duan 2018/figs/test_epoch/", width = 4, height = 4)
+}  # t-SNE with seed = 20 seems to give best look figure
+
+cells.endo <- RunTSNE(cells.endo, dims = 1:30, seed.use = 20)
+d_plot_use <- DimPlot(cells.endo, group.by = "treat", reduction = "tsne", cols = cols[c(10,7)]) + NoLegend() + NoAxes(); d_plot_use
+out_dir <- '~/Documents/Work/scRNAseq/EC & Single-Cell Sequencing/LPS Treatment/Duan 2018/figs/'
+ggsave(filename = "dplot_endo.eps", device = "eps", path = out_dir, width = 4, height = 4, dpi = 300, plot = d_plot_use)
+```
+
+```{r}
+out_dir <- '~/Documents/Work/scRNAseq/EC & Single-Cell Sequencing/LPS Treatment/Duan 2018/figs/goi_featureplots'
+if(!dir.exists(out_dir)){dir.create(out_dir)}
+genes_of_interest <- c("Casp1","Casp4","Gsdmd","Tlr4","Tlr3","Cd14","Lbp","Nlrp3","Pycard","Il1b","Tnf","Il6")
+
+iter_feature_plot_save <- function(object, features_plot, reduction = "umap.int", brewer.use = "RdPu", out_dir){
+  for (feature in features_plot){
+    # Original FeaturePlot
+    p <- FeaturePlot(object, features = feature, reduction = reduction) +
+      scale_colour_gradientn(colours = brewer.pal(n = 5, name = brewer.use))
+    # FeaturePlot without legend, title, axes.
+    p_clean <- FeaturePlot(object, features = feature, reduction = reduction) +
+      ggtitle("") + 
+      NoAxes() + 
+      NoLegend() +
+      theme(panel.border = element_rect(colour = "black", fill=NA, size=.5)) + 
+      scale_colour_gradientn(colours = brewer.pal(n = 5, name = brewer.use))
+    ggsave(filename = paste0("featureplot_",feature,"_",reduction,".eps"), plot = p, device = "eps", path = out_dir, width = 4, height = 4)
+    ggsave(filename = paste0("featureplot_",feature,"_",reduction,"_clean.eps"), plot = p_clean, device = "eps", path = out_dir,
+           width = 4, height = 4)
+  }
+}
+
+iter_feature_plot_save(cells.endo, features_plot = genes_of_interest, reduction = "tsne", out_dir = out_dir)
+```
+
+```{r}
+FeaturePlot(cells.int, features = c("Gsdmd"), reduction = "tsne") + NoAxes()
+```
+
+Attempting to annotate cell identities using Garnett. **DO NOT RUN.**
+```{r}
+# library(garnett)
+# classifier <- readRDS("/Users/Ray/Documents/Work/scRNAseq/renjing/Injection Data/reanalyze2/mmBrain_20191017.rds")
+# 
+# # Construct CellDataSet object
+# pd <- AnnotatedDataFrame(cells.int@meta.data)
+# fd <- AnnotatedDataFrame(data.frame(row.names = rownames(cells.int),
+#                                     gene_short_name = rownames(cells.int)))
+# cds <- newCellDataSet(cellData = as.matrix(cells.int@assays$RNA@counts),
+#                       phenoData = pd, 
+#                       featureData = fd)
+# cds <- estimateSizeFactors(cds)
+# 
+# # Predict cell-type using pre-trained classifier
+# cds <- classify_cells(cds, classifier,
+#                       db = org.Mm.eg.db,
+#                       cluster_extend = TRUE,
+#                       cds_gene_id_type = "SYMBOL")  # The results produced by Garnett has reproducibility issues
+# 
+# table(pData(cds)$cluster_ext_type)
+# cells.int <- AddMetaData(object = cells.int, metadata = pData(cds))
+# Idents(cells.int) <- "cluster_ext_type"
+# cells.int[["cluster_ext_type_brief"]] <- Idents(cells.int)
+```
+
+
+
+
+
+
+
+
+
+
