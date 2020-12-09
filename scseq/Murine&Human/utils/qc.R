@@ -20,46 +20,92 @@ QC.PARAMS <- list(
 )
 
 # def qc func
-qc <- function(raw.df, qc.params = QC.PARAMS) {
+qc <- function(cells, qc.params = QC.PARAMS) {
     # wrap data
-    sce <- wrap_data(raw.df = raw.df)
+    print("INFO: start wraping data...")
+    sce <- wrap_data(cells); print(sce)
+    print("INFO: wraping data complete.")
 
     ## qc
     # complete qc.params
+    print("INFO: start completing qc.parmas...")
     for (param.name in names(QC.PARAMS)) if (is.null(qc.params[[param.name]])) {
         # if is null, use default value(ignore this param)
         qc.params[[param.name]] <- QC.PARAMS[[param.name]]
     }
+    print("INFO: completing qc.parmas complete.")
     # exe qc
+    print("INFO: start qc...")
     sce.unfiltered <- quality_control(
         sce.unfiltered = sce,
         qc.params = qc.params
-    )
+    ); print(sce.unfiltered)
+    print("INFO: qc complete.")
     # perform discard
     sce.filtered <- perform_discard(sce.unfiltered = sce.unfiltered)
     return(sce.filtered)
 }
 
 # def wrap_data func
-wrap_data <- function(raw.df) {
-    # gen matrix
-    counts_matrix <- as.matrix(raw.df)
-    # gen sce
-    sce <- SingleCellExperiment(
-        assays = list(counts = counts_matrix)
-    )
+wrap_data <- function(cells) {
+    # init sce
+    sce <- NULL
+    # check cells class
+    if (class(cells) == "data.frame") {
+        # gen matrix
+        counts_matrix <- as.matrix(cells)
+        # gen sce
+        sce <- SingleCellExperiment(
+            assays = list(counts = counts_matrix)
+        )
+    } else if (class(cells) == "Seurat") {
+        # as SingleCellExperiment
+        sce <- as.SingleCellExperiment(
+            x = cells,
+            assay = NULL
+        )
+    } else {
+        # TODO
+    }
     return(sce)
 }
 
 # def quality_control func
-quality_control <- function(sce.unfiltered, qc.params) {
+quality_control <- function(sce.unfiltered, qc.params, max.cells = 50000) {
     # get mito
     is.mito <- grepl(qc.params$mito.pattern, rownames(sce.unfiltered))
     # add qc metrics
-    sce.unfiltered <- addPerCellQC(sce.unfiltered, subsets=list(Mito=is.mito))
+    # sce.unfiltered <- addPerCellQC(sce.unfiltered, subsets=list(Mito=is.mito))
+    # qc.metrics <- colData(sce.unfiltered)
     # get qc metrics
-    # qc.metrics <- perCellQCMetrics(sce.unfiltered, subsets=list(Mito=is.mito))
-    qc.metrics <- colData(sce.unfiltered)
+    if (dim(sce.unfiltered)[2] <= max.cells) {
+        qc.metrics <- perCellQCMetrics(
+            x = sce.unfiltered,
+            subsets=list(Mito=is.mito)
+        )
+    } else {
+        # init qc.metrics
+        qc.metrics <- NULL
+        index = 0
+        while ((index+1) * max.cells < dim(sce.unfiltered)[2]) {
+            print(paste0("INFO: calculating QC metrics of cells[", index*max.cells+1, ",", (index+1)*max.cells, "]..."))
+            # get partial qc.metrics
+            qc.metrics <- rbind(qc.metrics,
+                perCellQCMetrics(
+                    x = sce.unfiltered[,(index*max.cells+1):((index+1)*max.cells)],
+                    subsets=list(Mito=is.mito)
+                )
+            )
+            # update index
+            index = index + 1
+        }
+        qc.metrics <- rbind(qc.metrics,
+            perCellQCMetrics(
+                x = sce.unfiltered[,(index*max.cells+1):(dim(sce.unfiltered)[2])],
+                subsets=list(Mito=is.mito)
+            )
+        )
+    }; print(dim(qc.metrics))
     # reset nan as 0
     qc.metrics$subsets_Mito_percent[is.na(qc.metrics$subsets_Mito_percent)] <- 0
 
