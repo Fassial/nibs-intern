@@ -1,0 +1,14 @@
+###################################
+# Created on 11:26, Dec. 15th, 2020
+# Author: fassial
+# Filename: scseq.Rh
+###################################
+# dep
+# local dep
+
+# macro
+DIR.ROOT <- file.path(getwd())
+DIR.SRC <- file.path(DIR.ROOT, "src")
+DIR.DATA <- file.path(DIR.ROOT, "data")
+DIR.FIG <- file.path(DIR.ROOT, "figs")
+DIR.OUTPUT <- file.path(DIR.ROOT, "outputs")
