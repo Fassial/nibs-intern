@@ -11,7 +11,7 @@ from model import *
 from data import *
 
 # macro
-EXPR_CURR = "mouse"
+EXPR_CURR = ["mouse", "sleep-mouse"][1]
 DATASET = os.path.join("..", "data")
 DATA_GEN_ARGS = dict(
     rotation_range=0.2,
@@ -32,7 +32,8 @@ def run_expr(expr_name = "mouse"):
     model_hdf5 = (MODEL_HDF5 % expr_name)
 
     # init unet-model
-    model = unet()
+    # use lr = 1e-5(not 1e-4), loss < 0.02, more stable
+    model = unet(lr = 1e-5)
 
     # mkdir trainset dirs
     train_aug_dir = os.path.join(dataset_train, "aug")
@@ -48,7 +49,7 @@ def run_expr(expr_name = "mouse"):
         save_to_dir = train_aug_dir
     )
     # load model_hdf5
-    model.load_weights(model_hdf5)
+    if (os.path.exists(model_hdf5)): model.load_weights(model_hdf5)
     # start train
     model_checkpoint = ModelCheckpoint(model_hdf5,
         monitor = 'loss',
