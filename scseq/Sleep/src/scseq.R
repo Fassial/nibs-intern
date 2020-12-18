@@ -4,6 +4,7 @@
 # Filenames: scseq.R
 ###################################
 # dep
+library(Seurat)
 # local dep
 DIR.ROOT <- file.path(getwd())
 source(file.path(DIR.ROOT, "scseq.Rh"))
@@ -24,25 +25,25 @@ scseq.standard <- function(cells, params = list(
     DefaultAssay(cells.stand) <- params$default.assay
     if (params$default.assay == "RNA") {
         # only for RNA
-        cells.stand <- NormalizeData(cells.stand)
-        cells.stand <- FindVariableFeatures(cells.stand,
+        cells.stand <- Seurat::NormalizeData(cells.stand)
+        cells.stand <- Seurat::FindVariableFeatures(cells.stand,
             selection.method = "vst",
             nfeatures = params$nfeatures
         )
     }
-    cells.stand <- ScaleData(cells.stand,
+    cells.stand <- Seurat::ScaleData(cells.stand,
         features = rownames(cells.stand)
     )
-    cells.stand <- RunPCA(cells.stand,
+    cells.stand <- Seurat::RunPCA(cells.stand,
         features = VariableFeatures(object = cells.stand)
     )
-    cells.stand <- FindNeighbors(cells.stand,
+    cells.stand <- Seurat::FindNeighbors(cells.stand,
         dims = params$dims
     )
-    cells.stand <- FindClusters(cells.stand,
+    cells.stand <- Seurat::FindClusters(cells.stand,
         resolution = params$resolution
     )
-    cells.stand <- RunUMAP(cells.stand,
+    cells.stand <- Seurat::RunUMAP(cells.stand,
         dims = params$dims
     )
 
@@ -51,26 +52,27 @@ scseq.standard <- function(cells, params = list(
 
 # def scseq.integrate func
 scseq.integrate <- function(cells, params = list(
+    split.by = "group",
     nfeatures = 2000,
     dims = 1:50,
     resolution = 0.5
 )) {
     # setup integration object
-    cells.list <- SplitObject(cells, split.by = "group")
+    cells.list <- Seurat::SplitObject(cells, split.by = params$split.by)
     cells.list <- lapply(X = cells.list, FUN = function(x) {
-        x <- NormalizeData(x)
-        x <- FindVariableFeatures(x,
+        x <- Seurat::NormalizeData(x)
+        x <- Seurat::FindVariableFeatures(x,
             selection.method = "vst",
             nfeatures = params$nfeatures
         )
     })
 
     # perform integration
-    cells.anchors <- FindIntegrationAnchors(
+    cells.anchors <- Seurat::FindIntegrationAnchors(
         object.list = cells.list,
         dims = params$dims
     )
-    cells.int <- IntegrateData(
+    cells.int <- Seurat::IntegrateData(
         anchorset = cells.anchors,
         dims = params$dims
     )
