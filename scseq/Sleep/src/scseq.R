@@ -82,7 +82,7 @@ scseq.integrate <- function(cells, params = list(
     cells.int <- scseq.standard(
         cells = cells.int,
         params = list(
-            default.assay = "RNA",
+            default.assay = "integrated",
             nfeatures = params$nfeatures,
             dims = params$dims,
             resolution = params$resolution

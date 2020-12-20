@@ -5,6 +5,8 @@
 ###################################
 # dep
 library(Seurat)
+library(ggplot2)
+library(reshape2)
 # local dep
 DIR.ROOT <- file.path(getwd())
 source(file.path(DIR.ROOT, "scseq.Rh"))
@@ -78,7 +80,7 @@ fig1 <- fig1 + Seurat::FeaturePlot(cells.purge, features = "Hexb"); fig1
 # get cells.purge.cel.4 & cells.purge.cel.20
 if (file.exists(FILE.OUTPUT.CELLS.PURGE.CEL.4)) {
     # read output.cells.purge.cel.4
-    cells.purge.cel.4 <- readRDS(FILEOUTPUT.CELLS.PURGE.CEL.4)
+    cells.purge.cel.4 <- readRDS(FILE.OUTPUT.CELLS.PURGE.CEL.4)
 } else {
     # get cells.purge.cel.4
     cells.purge.cel.4 <- cells.purge[,(cells.purge@meta.data$celsius=="4")]
@@ -102,7 +104,7 @@ fig2 <- Seurat::DimPlot(cells.purge.cel.4, label = TRUE)
 fig2 <- fig2 + Seurat::FeaturePlot(cells.purge.cel.4, features = "Hexb"); fig2
 if (file.exists(FILE.OUTPUT.CELLS.PURGE.CEL.20)) {
     # read output.cells.purge.cel.20
-    cells.purge.cel.20 <- readRDS(FILEOUTPUT.CELLS.PURGE.CEL.20)
+    cells.purge.cel.20 <- readRDS(FILE.OUTPUT.CELLS.PURGE.CEL.20)
 } else {
     # get cells.purge.cel.20
     cells.purge.cel.20 <- cells.purge[,(cells.purge@meta.data$celsius=="20")]
@@ -128,7 +130,7 @@ fig3 <- fig3 + Seurat::FeaturePlot(cells.purge.cel.20, features = "Hexb"); fig3
 # get cells.purge.cel.4.mgla & cells.purge.cel.20.mgla
 if (file.exists(FILE.OUTPUT.CELLS.PURGE.CEL.4.MGLA)) {
     # read output.cells.purge.cel.4.mgla
-    cells.purge.cel.4.mgla <- readRDS(FILEOUTPUT.CELLS.PURGE.CEL.4.MGLA)
+    cells.purge.cel.4.mgla <- readRDS(FILE.OUTPUT.CELLS.PURGE.CEL.4.MGLA)
 } else {
     # get cells.purge.cel.4.mgla
     cells.purge.cel.4.mgla.names <- Seurat::CellSelector(Seurat::DimPlot(cells.purge.cel.4, label = TRUE))
@@ -153,7 +155,7 @@ fig4 <- Seurat::DimPlot(cells.purge.cel.4.mgla, label = TRUE)
 fig4 <- fig4 + Seurat::FeaturePlot(cells.purge.cel.4.mgla, features = "Hexb"); fig4
 if (file.exists(FILE.OUTPUT.CELLS.PURGE.CEL.20.MGLA)) {
     # read output.cells.purge.cel.20.mgla
-    cells.purge.cel.20.mgla <- readRDS(FILEOUTPUT.CELLS.PURGE.CEL.20.MGLA)
+    cells.purge.cel.20.mgla <- readRDS(FILE.OUTPUT.CELLS.PURGE.CEL.20.MGLA)
 } else {
     # get cells.purge.cel.20.mgla
     cells.purge.cel.20.mgla.names <- Seurat::CellSelector(Seurat::DimPlot(cells.purge.cel.20, label = TRUE))
@@ -180,7 +182,7 @@ fig5 <- fig5 + Seurat::FeaturePlot(cells.purge.cel.20.mgla, features = "Hexb"); 
 # get cells.purge.cel.4.mgla.int & cells.purge.cel.20.mgla.int
 if (file.exists(FILE.OUTPUT.CELLS.PURGE.CEL.4.MGLA.INT)) {
     # read output.cells.purge.cel.4.mgla.int
-    cells.purge.cel.4.mgla.int <- readRDS(FILEOUTPUT.CELLS.PURGE.CEL.4.MGLA.INT)
+    cells.purge.cel.4.mgla.int <- readRDS(FILE.OUTPUT.CELLS.PURGE.CEL.4.MGLA.INT)
 } else {
     # scseq integrate workflow
     cells.purge.cel.4.mgla.int <- scseq.integrate(
@@ -200,9 +202,34 @@ if (file.exists(FILE.OUTPUT.CELLS.PURGE.CEL.4.MGLA.INT)) {
 # gen fig6
 fig6 <- Seurat::DimPlot(cells.purge.cel.4.mgla.int, label = TRUE)
 fig6 <- fig6 + Seurat::FeaturePlot(cells.purge.cel.4.mgla.int, features = "Hexb"); fig6
+# analysis group ratio in clusters
+cells.purge.cel.4.mgla.int.prop.table <- prop.table(
+    x = table(
+        cells.purge.cel.4.mgla.int@meta.data$group,
+        cells.purge.cel.4.mgla.int@meta.data$integrated_snn_res.0.5
+    ),
+    margin = 2
+) * 100
+cells.purge.cel.4.mgla.int.prop.table <- reshape2::melt(
+    data = cells.purge.cel.4.mgla.int.prop.table,
+    varnames = c("group", "int_louvain_clusters")
+)
+cells.purge.cel.4.mgla.int.prop.table$int_louvain_clusters <- as.factor(cells.purge.cel.4.mgla.int.prop.table$int_louvain_clusters)
+ggplot2::ggplot(
+    data = cells.purge.cel.4.mgla.int.prop.table,
+    mapping = ggplot2::aes(
+        x = int_louvain_clusters,
+        y = value,
+        fill = group
+    )
+) + ggplot2::geom_bar(
+    stat = "identity"
+) + ylab("Proportion(%)") + xlab("Integrated Louvain clusters") + scale_y_continuous(
+    expand = c(0, 0)
+) + theme_classic() + theme(text = element_text(size = 15))
 if (file.exists(FILE.OUTPUT.CELLS.PURGE.CEL.20.MGLA.INT)) {
     # read output.cells.purge.cel.20.mgla.int
-    cells.purge.cel.20.mgla.int <- readRDS(FILEOUTPUT.CELLS.PURGE.CEL.20.MGLA.INT)
+    cells.purge.cel.20.mgla.int <- readRDS(FILE.OUTPUT.CELLS.PURGE.CEL.20.MGLA.INT)
 } else {
     # scseq integrate workflow
     cells.purge.cel.20.mgla.int <- scseq.integrate(
@@ -222,6 +249,31 @@ if (file.exists(FILE.OUTPUT.CELLS.PURGE.CEL.20.MGLA.INT)) {
 # gen fig7
 fig7 <- Seurat::DimPlot(cells.purge.cel.20.mgla.int, label = TRUE)
 fig7 <- fig7 + Seurat::FeaturePlot(cells.purge.cel.20.mgla.int, features = "Hexb"); fig7
+# analysis group ratio in clusters
+cells.purge.cel.20.mgla.int.prop.table <- prop.table(
+    x = table(
+        cells.purge.cel.20.mgla.int@meta.data$group,
+        cells.purge.cel.20.mgla.int@meta.data$integrated_snn_res.0.5
+    ),
+    margin = 2
+) * 100
+cells.purge.cel.20.mgla.int.prop.table <- reshape2::melt(
+    data = cells.purge.cel.20.mgla.int.prop.table,
+    varnames = c("group", "int_louvain_clusters")
+)
+cells.purge.cel.20.mgla.int.prop.table$int_louvain_clusters <- as.factor(cells.purge.cel.20.mgla.int.prop.table$int_louvain_clusters)
+ggplot2::ggplot(
+    data = cells.purge.cel.20.mgla.int.prop.table,
+    mapping = ggplot2::aes(
+        x = int_louvain_clusters,
+        y = value,
+        fill = group
+    )
+) + ggplot2::geom_bar(
+    stat = "identity"
+) + ylab("Proportion(%)") + xlab("Integrated Louvain clusters") + scale_y_continuous(
+    expand = c(0, 0)
+) + theme_classic() + theme(text = element_text(size = 15))
 
 ## Lab 2: integrate all data with celsius(2)
 # get cells.purge.int
