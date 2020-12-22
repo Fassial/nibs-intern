@@ -46,7 +46,10 @@ def cal_centroid(img):
     _, img = cv2.threshold(img, img.max()/2, 255, cv2.THRESH_BINARY)
     # cal contours
     _, thresh = cv2.threshold(img, 127, 255, 0, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)
-    img_cnts, contours, _ = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+    if int(cv2.__version__.split(sep=".")[0]) <= 3:
+        img_cnts, contours, _ = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+    else:
+        contours, _ = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
     # get img_cnts
     img_cnts = cv2.drawContours(img, contours[0], -1, (0, 255, 0), 1)
     # get moments
