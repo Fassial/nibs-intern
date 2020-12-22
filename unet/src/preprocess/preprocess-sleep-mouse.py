@@ -60,8 +60,7 @@ def gen_frame(src_path = DIR_DATA_RAW, frame_params = {
     videos = get_videos(src_path = src_path); print("INFO: Find %d videos." % (len(videos)))
     # mkdir split_data & gray_data
     for subdir in res_path.keys():
-        if (os.path.exists(res_path[subdir])): shutil.rmtree(res_path[subdir])
-        os.mkdir(res_path[subdir])
+        if (not os.path.exists(res_path[subdir])): os.mkdir(res_path[subdir])
 
     # gen frame
     for i in range(len(videos)):
@@ -78,7 +77,8 @@ def gen_frame(src_path = DIR_DATA_RAW, frame_params = {
         gray_path = os.path.join(res_path["gray_data"], video[0])
         if (not os.path.exists(gray_path)): os.mkdir(gray_path)
         gray_path = os.path.join(gray_path, video[1])
-        if (not os.path.exists(gray_path)): os.mkdir(gray_path)
+        if os.path.exists(gray_path): continue
+        os.mkdir(gray_path)
         # cap video
         video_cap = cv2.VideoCapture(video_path)
         # get fps(cv2 error)
@@ -225,29 +225,29 @@ def gen_dataset(src_path = {
 #      |-img
 
 if __name__ == "__main__":
-    # # gen frame
-    # gen_frame(src_path = DIR_DATA_RAW, frame_params = {
-    #     "video_fps": 20,
-    #     "target_fps": 5,
-    #     "max_sec": 15*60
-    # }, res_path = {
-    #     "frame_data": DIR_DATA_FRAME,
-    #     "gray_data": DIR_DATA_GRAY
-    # })
+    # gen frame
+    gen_frame(src_path = DIR_DATA_RAW, frame_params = {
+        "video_fps": 20,
+        "target_fps": 5,
+        "max_sec": 15*60
+    }, res_path = {
+        "frame_data": DIR_DATA_FRAME,
+        "gray_data": DIR_DATA_GRAY
+    })
     # # sample labelset
     # sample_labelset(src_path = DIR_DATA_GRAY, sample_params = {
     #     "sample_ratio": 0.005
     # }, res_path = {
     #     "label_data": DIR_DATA_LABEL
     # })
-    # gen dataset
-    gen_dataset(src_path = {
-        "gray_data": DIR_DATA_GRAY,
-        "label_data": DIR_DATA_LABEL
-    }, sample_params = {
-        "test_ratio": 0.005
-    }, res_path = {
-        "train": DIR_DATA_TRAIN,
-        "test": DIR_DATA_TEST
-    })
+    # # gen dataset
+    # gen_dataset(src_path = {
+    #     "gray_data": DIR_DATA_GRAY,
+    #     "label_data": DIR_DATA_LABEL
+    # }, sample_params = {
+    #     "test_ratio": 0.005
+    # }, res_path = {
+    #     "train": DIR_DATA_TRAIN,
+    #     "test": DIR_DATA_TEST
+    # })
 

@@ -77,6 +77,7 @@ def gen_centroids(src_path = DIR_DATA_GRAY, res_path = DIR_OUTPUT):
         csv_path = os.path.join(DIR_OUTPUT, pic_type)
         if (not os.path.exists(csv_path)): os.mkdir(csv_path)
         csv_path = os.path.join(csv_path, pic_name+CSV_POSTFIX)
+        if (os.path.exists(csv_path)): continue
         # get pic_fnames
         pic_fnames = os.listdir(pic_path); pic_fnames.sort(key = cmp)
 
