@@ -6,7 +6,6 @@ Filename: postprocess-sleep-mouse.py
 # dep
 import os
 import cv2
-import shutil
 import numpy as np
 import pandas as pd
 import skimage.io as io
@@ -27,8 +26,7 @@ DIR_DATA_GRAY = os.path.join(DIR_DATA, "gray_data")
 DIR_OUTPUT = os.path.join(DIR_ROOT, "outputs")
 if (not os.path.exists(DIR_OUTPUT)): os.mkdir(DIR_OUTPUT)
 DIR_OUTPUT = os.path.join(DIR_OUTPUT, EXPR_CURR)
-if (os.path.exists(DIR_OUTPUT)): shutil.rmtree(DIR_OUTPUT)
-os.mkdir(DIR_OUTPUT)
+if (not os.path.exists(DIR_OUTPUT)): os.mkdir(DIR_OUTPUT)
 
 # def get_pics func
 def get_pics(src_path = DIR_DATA_GRAY):
