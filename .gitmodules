@@ -1,0 +1,3 @@
+[submodule "grad-proj/whu-thesis"]
+	path = grad-proj/whu-thesis
+	url = https://github.com/mtobeiyf/whu-thesis.git
