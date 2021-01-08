@@ -131,7 +131,7 @@
   {
     \tl_set:Nn \c__whu_heading_tl
       { 武汉大学本科毕业论文（设计）\\ 开　题　报　告 }
-    \tl_set:Nn \refname { 论文的主要参考文献 }
+    \tl_set:Nn \refname { 毕业论文的主要参考文献 }
     \RequirePackage [ numbib ] { tocbibind }
   }
 
