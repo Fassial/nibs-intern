@@ -16,6 +16,6 @@ DIR_SRC=${DIR_ROOT}/src
 # <<< module load complete <<<
 
 # >>> excute cmd >>>
-python ${DIR_SRC}/scgrn.py
+python ${DIR_SRC}/scgrn.py $1
 # <<< excute cmd complete <<<
 

@@ -28,14 +28,14 @@ DIR_OUTPUT = os.path.join(DIR_ROOT, "output")
 if not os.path.exists(DIR_OUTPUT): os.mkdir(DIR_OUTPUT)
 
 # def expr func
-def expr(seed = 1):
+def expr(sce_fname, seed = 1):
     ## Phase 0: Set random seed
     # random.seed(seed)
     # set fnames
     DIR_OUTPUT_SEED = os.path.join(DIR_OUTPUT, ("seed-%d" % (seed)))
     if not os.path.exists(DIR_OUTPUT_SEED): os.mkdir(DIR_OUTPUT_SEED)
     # set input fnames
-    sce_fname = os.path.join(DIR_DATA, "pituitary_filtered.loom")
+    sce_fname = os.path.join(DIR_DATA, sce_fname)
     tf_fname = os.path.join(DIR_RESOURCE, "mm_mgi_tfs.txt")
     db_fnames = glob.glob(os.path.join(DIR_RESOURCE, "mm10_*.mc9nr.feather"))
     ma_fname = os.path.join(DIR_RESOURCE, "motifs-v9-nr.mgi-m0.001-o0.0.tbl")
@@ -45,7 +45,7 @@ def expr(seed = 1):
     regulons_fname = os.path.join(DIR_OUTPUT_SEED, "regulons.csv")
     auc_fname = os.path.join(DIR_OUTPUT_SEED, "auc-mtx.csv")
     # get sce & tf_names & dbs
-    sce = utils.get_data_lm(
+    sce = utils.get_data(
         sce_fname = sce_fname
     )
     tf_names = load_tf_names(tf_fname); print(f"Loaded {len(tf_names)} TFs...", file = sys.stdout)
@@ -66,8 +66,11 @@ def expr(seed = 1):
 
 # def main func
 def main():
+    # get sce_fname
+    sce_fname = sys.argv[1]
+    # set seed
     seeds = range(0, 10, 1)
-    for i in seeds: expr(seed = i)
+    for i in seeds: expr(sce_fname = sce_fname, seed = i)
 
 if __name__ == "__main__":
     main()

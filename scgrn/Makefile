@@ -1,4 +1,7 @@
 ## macro
+# macro for expr
+EXPR_CURR=cells.lps.mgla.csv
+# EXPR_CURR=cells.pituitary.loom
 # macro for dir
 DIR_ROOT=$(shell pwd)
 DIR_SCRIPT=$(DIR_ROOT)/script
@@ -15,16 +18,16 @@ contact:
 	ssh $(HPC_USER)@$(HPC_IP)
 
 scgrn: $(DIR_SCRIPT)/scgrn.sh
-	cd $(DIR_SCRIPT) && sh ./scgrn.sh
+	cd $(DIR_SCRIPT) && sh ./scgrn.sh $(EXPR_CURR)
 
 scgrn-hpc: $(DIR_SCRIPT)/scgrn.sh
-	cd $(DIR_SCRIPT) && sbatch ./scgrn.sh
+	cd $(DIR_SCRIPT) && sbatch ./scgrn.sh $(EXPR_CURR)
 
 update:
 	scp -r $(HPC_USER)@$(HPC_IP):$(HPC_OUTPUT) $(DIR_ROOT)
 
 docker: $(DIR_SCRIPT)/docker.sh
-	sh $(DIR_SCRIPT)/docker.sh
+	sh $(DIR_SCRIPT)/docker.sh $(EXPR_CURR)
 
 clean:
 	rm -rf *.out

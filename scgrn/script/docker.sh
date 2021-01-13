@@ -26,7 +26,7 @@ for seeddir in ${DIR_OUTPUT}/*; do
         ${DIR_RESOURCE}/mm10__refseq-r80__10kb_up_and_down_tss.mc9nr.feather \
         ${DIR_RESOURCE}/mm10__refseq-r80__500bp_up_and_100bp_down_tss.mc9nr.feather \
         --annotations_fname ${DIR_RESOURCE}/motifs-v9-nr.mgi-m0.001-o0.0.tbl \
-        --expression_mtx_fname ${DIR_DATA}/pituitary_filtered.loom \
+        --expression_mtx_fname ${DIR_DATA}/$1 \
         --mode "dask_multiprocessing" \
         --output ${seeddir}/${REGULONS_FNAME} \
         --num_workers 16
@@ -34,7 +34,7 @@ for seeddir in ${DIR_OUTPUT}/*; do
     echo "Phase III: Cellular regulon enrichment matrix (aka AUCell)"
     docker run -it -v $PWD:$PWD aertslab/pyscenic:0.9.18 \
         pyscenic aucell \
-        ${DIR_DATA}/pituitary_filtered.loom \
+        ${DIR_DATA}/$1 \
         ${seeddir}/${REGULONS_FNAME} \
         --output ${seeddir}/${AUC_FNAME} \
         --num_workers 16
