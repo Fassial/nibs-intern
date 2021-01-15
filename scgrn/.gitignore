@@ -1,7 +1,7 @@
 # dir
 /data
 /resource
-/output
+/output*
 
 # file
 *.out
