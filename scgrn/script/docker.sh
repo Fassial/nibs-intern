@@ -10,6 +10,7 @@ DIR_OUTPUT=${DIR_ROOT}/output
 ADJ_FNAME=adjacencies.tsv
 REGULONS_FNAME=regulons.csv
 AUC_FNAME=auc-mtx.csv
+SCENIC_FNAME=cells.scenic.loom
 
 # >>> module load >>>
 # load nothing, use local env
@@ -36,7 +37,7 @@ for seeddir in ${DIR_OUTPUT}/*; do
         pyscenic aucell \
         ${DIR_DATA}/$1 \
         ${seeddir}/${REGULONS_FNAME} \
-        --output ${seeddir}/${AUC_FNAME} \
+        --output ${seeddir}/${SCENIC_FNAME} \
         --num_workers 16
     echo "Phase III complete!"
 done
