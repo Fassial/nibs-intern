@@ -1,6 +1,7 @@
 # dir
 /__pycache__
 /dask-worker-space
+/.ipynb_checkpoints
 
 # file
 *.bak
