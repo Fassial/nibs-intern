@@ -2,6 +2,7 @@
 /__pycache__
 /dask-worker-space
 /.ipynb_checkpoints
+/figures
 
 # file
 *.bak
