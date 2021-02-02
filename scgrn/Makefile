@@ -1,6 +1,7 @@
 ## macro
 # macro for expr
-EXPR_CURR=cells.pituitary.loom
+# EXPR_CURR=cells.pituitary.loom
+EXPR_CURR=cells.sleep.loom
 # EXPR_CURR=cells.lps.mgla.loom
 # macro for dir
 DIR_ROOT=$(shell pwd)

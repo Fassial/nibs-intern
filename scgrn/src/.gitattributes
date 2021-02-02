@@ -1,5 +1,5 @@
 # dir
+gen_figs/* linguist-vendored
 
 # file
-*.ipynb linguist-vendored
 

@@ -69,7 +69,7 @@ def main():
     # get sce_fname
     sce_fname = sys.argv[1]
     # set seed
-    seeds = range(0, 10, 1)
+    seeds = range(0, 1, 1)
     for i in seeds: expr(sce_fname = sce_fname, seed = i)
 
 if __name__ == "__main__":
