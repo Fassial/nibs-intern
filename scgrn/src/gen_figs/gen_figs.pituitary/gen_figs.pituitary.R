@@ -18,7 +18,9 @@ DIR.DATA <- file.path(DIR.ROOT, "data")
 FILE.DATA.METADATA <- file.path(DIR.DATA, paste0("cells.", EXPR.CURR, ".metadata.csv"))
 DIR.OUTPUT <- file.path(DIR.ROOT, paste0("output.", EXPR.CURR))
 DIR.OUTPUT.SEED <- file.path(DIR.OUTPUT, paste0("seed-", SEED.CURR))
-DIR.FIGS <- file.path(DIR.SRC, "gen_figs", paste0("gen_figs.", EXPR_CURR), "figures")
+DIR.EXPR.FIGS <- file.path(DIR.SRC, "gen_figs", paste0("gen_figs.", EXPR.CURR), "figures")
+DIR.EXPR.OUTPUTS <- file.path(DIR.SRC, "gen_figs", paste0("gen_figs.", EXPR.CURR), "outputs")
+if (!dir.exists(DIR.EXPR.OUTPUTS)) dir.create(DIR.EXPR.OUTPUTS)
 # macro for data
 FILE.AUCMTX <- file.path(DIR.OUTPUT.SEED, "auc-mtx.csv")
 FILE.AUCBIN <- file.path(DIR.OUTPUT.SEED, "auc-bin.csv")
@@ -64,8 +66,8 @@ auc.standard <- function(cells, params = list(
     return(cells.stand)
 }
 
-# def _gen_figs func
-_gen_figs <- function(auc.seurat, fig.prefix, params = list(
+# def gen_figs func
+gen_figs <- function(auc.seurat, mtx.prefix, params = list(
     resolution.som = 0.5,
     resolution.cort = 0.5,
     resolution.lac = 0.5,
@@ -123,10 +125,20 @@ _gen_figs <- function(auc.seurat, fig.prefix, params = list(
     )); Seurat::DimPlot(auc.thyro)
     # gen figs for subsets
     # TODO
+    # gen outputs for subsets
+    clusters <- NULL
+    clusters <- rbind(clusters, as.matrix(Idents(auc.som)))
+    clusters <- rbind(clusters, as.matrix(Idents(auc.cort)))
+    clusters <- rbind(clusters, as.matrix(Idents(auc.lac)))
+    clusters <- rbind(clusters, as.matrix(Idents(auc.gonad)))
+    clusters <- rbind(clusters, as.matrix(Idents(auc.thyro)))
+    write.csv(clusters,
+        file = file.path(DIR.EXPR.OUTPUTS, paste0(mtx.prefix, ".clusters.csv"))
+    )
 }
 
-# def gen_figs func
-gen_figs <- function() {
+# def main func
+main <- function() {
     # read auc.mtx & auc.bin
     auc.mtx <- read.csv(FILE.AUCMTX,
         sep = ",",
@@ -154,7 +166,7 @@ gen_figs <- function() {
         metadata = metadata
     )
     # gen figs for auc.mtx & auc.bin
-    _gen_figs(auc.seurat = auc.mtx.seurat, fig.prefix = "auc.mtx", params = list(
+    gen_figs(auc.seurat = auc.mtx.seurat, mtx.prefix = "auc.mtx", params = list(
         resolution.som = 0.1,
         resolution.cort = 0.5,
         resolution.lac = 0.5,
@@ -166,7 +178,7 @@ gen_figs <- function() {
         n.epochs.gonad = 1500,
         n.epochs.thyro = 800
     ))
-    _gen_figs(auc.seurat = auc.bin.seurat, fig.prefix = "auc.bin", params = list(
+    gen_figs(auc.seurat = auc.bin.seurat, mtx.prefix = "auc.bin", params = list(
         resolution.som = 0.05,
         resolution.cort = 0.5,
         resolution.lac = 0.2,
@@ -181,5 +193,5 @@ gen_figs <- function() {
 }
 
 # gen figs
-gen_figs()
+main()
 
