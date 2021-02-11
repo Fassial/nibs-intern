@@ -1,6 +1,6 @@
 # Amira Script
 remove -all
-remove physics.icol brain.surf 190117_3_reg.am 190117_5_reg.am 190117_VTA_candidate1_reg.am 190117_hyx_01_reg.am 190117_hyx_02_reg.am 190117_hyx_04_reg.am 190117_pab_1_reg.am 190117_yzw_01_adjusted_reg.am 190117_yzw_05_reg.am 190117_yzw_07_2_reg.am 190117_yzw_candidate2_reg.am 194160_20200425_ipsilateral_BLA_01_reg.am 194160_20200508_ventral_02_reg.am 194160_20200508_ventral_03_reg.am 194160_BLA_01_reg.am 194160_BLA_02_reg.am 194160_CIBR_01_reg.am 194160_CIBR_04_reg.am 194160_CIBR_05_reg.am 194160_CIBR_06_reg.am 194161_20200430_CLA_reg.am 194161_20200501_right_ventral_layer2_reg.am 194161_20200522_BLA_right_layer2_reg.am 194161_20200526_right_layer2_anterior_reg.am 194161_BLA_01_merge_reg.am 194161_TH_001_reg.am 194161_right_wgl_003_02_reg.am 194161_yzw20200420_left_03_reg.am 194161_yzw20200421_right_02_reg.am 194161_yzw20200421_right_BLA_01_reg.am 194161_yzw20200421_right_BLA_01_related_03_reg.am 194161_yzw20200519_MS_01_reg.am 194161_yzw20200528_left_layer3_reg.am 194161_yzw20200603_right_ventral_01_reg.am 200002_20200623_left_01_reg.am 200003_20200602_right_layer6_reg.am 200003_20200609_OFC_reg.am 200003_20200609_left_03_reg.am 200003_20200614_01_reg.am 200003_20200618_right_01_reg.am CameraPath.civ SurfaceView Light-Back Light-Front Light-Top Light-Bottom Light-Right Light-Left Class1.1-190117_3_reg Class1.1-190117_5_reg Class1.1-190117_hyx_04_reg Class1.1-190117_pab_1_reg Class1.1-190117_VTA_candidate1_reg Class1.1-190117_yzw_07_2_reg Class1.1-194160_20200508_ventral_02_reg Class1.1-194160_20200508_ventral_03_reg Class1.1-194160_CIBR_01_reg Class1.1-194160_CIBR_04_reg Class1.1-194160_CIBR_05_reg Class1.1-194160_CIBR_06_reg Class1.1-194161_20200501_right_ventral_layer2_reg Class1.1-194161_right_wgl_003_02_reg Class1.1-194161_TH_001_reg Class1.1-194161_yzw20200421_right_02_reg Class1.1-194161_yzw20200421_right_BLA_01_related_03_reg Class1.1-194161_yzw20200603_right_ventral_01_reg Class1.1-200002_20200623_left_01_reg Class1.1-200003_20200609_left_03_reg Class1.1-200003_20200614_01_reg Class1.1-200003_20200618_right_01_reg Class1.2-194160_20200425_ipsilateral_BLA_01_reg Class1.2-194160_BLA_01_reg Class1.2-194161_BLA_01_merge_reg Class1.2-194161_yzw20200421_right_BLA_01_reg Class1.3-194161_20200526_right_layer2_anterior_reg Class2-190117_yzw_01_adjusted_reg Class1.2-194161_20200522_BLA_right_layer2_reg Class2-194161_yzw20200420_left_03_reg Class2-194161_yzw20200519_MS_01_reg Class2-200003_20200602_right_layer6_reg Class3-190117_hyx_01_reg Class3-190117_hyx_02_reg Class3-190117_yzw_05_reg Class3-190117_yzw_candidate2_reg Class3-194160_BLA_02_reg Class3-194161_20200430_CLA_reg Class3-194161_yzw20200528_left_layer3_reg Class3-200003_20200609_OFC_reg
+remove physics.icol brain.surf 190117_3_reg.am 190117_5_reg.am 190117_VTA_candidate1_reg.am 190117_hyx_01_reg.am 190117_hyx_02_reg.am 190117_hyx_04_reg.am 190117_pab_1_reg.am 190117_yzw_01_adjusted_reg.am 190117_yzw_05_reg.am 190117_yzw_07_2_reg.am 190117_yzw_candidate2_reg.am 194160_20200425_ipsilateral_BLA_01_reg.am 194160_20200508_ventral_02_reg.am 194160_20200508_ventral_03_reg.am 194160_BLA_01_reg.am 194160_BLA_02_reg.am 194160_CIBR_01_reg.am 194160_CIBR_04_reg.am 194160_CIBR_05_reg.am 194160_CIBR_06_reg.am 194161_20200430_CLA_reg.am 194161_20200501_right_ventral_layer2_reg.am 194161_20200522_BLA_right_layer2_reg.am 194161_20200526_right_layer2_anterior_reg.am 194161_BLA_01_merge_reg.am 194161_TH_001_reg.am 194161_right_wgl_003_02_reg.am 194161_yzw20200420_left_03_reg.am 194161_yzw20200421_right_02_reg.am 194161_yzw20200421_right_BLA_01_reg.am 194161_yzw20200421_right_BLA_01_related_03_reg.am 194161_yzw20200519_MS_01_reg.am 194161_yzw20200528_left_layer3_reg.am 194161_yzw20200603_right_ventral_01_reg.am 200002_20200623_left_01_reg.am 200003_20200602_right_layer6_reg.am 200003_20200609_OFC_reg.am 200003_20200609_left_03_reg.am 200003_20200614_01_reg.am 200003_20200618_right_01_reg.am CameraPath.civ all.amov SurfaceView Light-Back Light-Front Light-Top Light-Bottom Light-Right Light-Left Class1.1-190117_3_reg Class1.1-190117_5_reg Class1.1-190117_hyx_04_reg Class1.1-190117_pab_1_reg Class1.1-190117_VTA_candidate1_reg Class1.1-190117_yzw_07_2_reg Class1.1-194160_20200508_ventral_02_reg Class1.1-194160_20200508_ventral_03_reg Class1.1-194160_CIBR_01_reg Class1.1-194160_CIBR_04_reg Class1.1-194160_CIBR_05_reg Class1.1-194160_CIBR_06_reg Class1.1-194161_20200501_right_ventral_layer2_reg Class1.1-194161_right_wgl_003_02_reg Class1.1-194161_TH_001_reg Class1.1-194161_yzw20200421_right_02_reg Class1.1-194161_yzw20200421_right_BLA_01_related_03_reg Class1.1-194161_yzw20200603_right_ventral_01_reg Class1.1-200002_20200623_left_01_reg Class1.1-200003_20200609_left_03_reg Class1.1-200003_20200614_01_reg Class1.1-200003_20200618_right_01_reg Class1.2-194160_20200425_ipsilateral_BLA_01_reg Class1.2-194160_BLA_01_reg Class1.2-194161_BLA_01_merge_reg Class1.2-194161_yzw20200421_right_BLA_01_reg Class1.3-194161_20200526_right_layer2_anterior_reg Class2-190117_yzw_01_adjusted_reg Class1.2-194161_20200522_BLA_right_layer2_reg Class2-194161_yzw20200420_left_03_reg Class2-194161_yzw20200519_MS_01_reg Class2-200003_20200602_right_layer6_reg Class3-190117_hyx_01_reg Class3-190117_hyx_02_reg Class3-190117_yzw_05_reg Class3-190117_yzw_candidate2_reg Class3-194160_BLA_02_reg Class3-194161_20200430_CLA_reg Class3-194161_yzw20200528_left_layer3_reg Class3-200003_20200609_OFC_reg MovieMaker
 
 # Create viewers
 viewer setVertical 0
@@ -41,7 +41,7 @@ physics.icol setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/brain.surf ] setLabel brain.surf
-brain.surf setIconPosition 20 18456
+brain.surf setIconPosition 20 20734
 brain.surf fire
 brain.surf LevelOfDetail setMinMax -1 -1
 brain.surf LevelOfDetail setButtons 1
@@ -53,260 +53,259 @@ brain.surf setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/190117_3_reg.am ] setLabel 190117_3_reg.am
-190117_3_reg.am setIconPosition 20 18486
+190117_3_reg.am setIconPosition 20 20764
 190117_3_reg.am fire
 190117_3_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/190117_5_reg.am ] setLabel 190117_5_reg.am
-190117_5_reg.am setIconPosition 20 18516
+190117_5_reg.am setIconPosition 20 20794
 190117_5_reg.am fire
 190117_5_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/190117_VTA_candidate1_reg.am ] setLabel 190117_VTA_candidate1_reg.am
-190117_VTA_candidate1_reg.am setIconPosition 20 18606
+190117_VTA_candidate1_reg.am setIconPosition 20 20884
 190117_VTA_candidate1_reg.am fire
 190117_VTA_candidate1_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/190117_hyx_01_reg.am ] setLabel 190117_hyx_01_reg.am
-190117_hyx_01_reg.am setIconPosition 20 19236
+190117_hyx_01_reg.am setIconPosition 20 21514
 190117_hyx_01_reg.am fire
 190117_hyx_01_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/190117_hyx_02_reg.am ] setLabel 190117_hyx_02_reg.am
-190117_hyx_02_reg.am setIconPosition 20 19326
+190117_hyx_02_reg.am setIconPosition 20 21604
 190117_hyx_02_reg.am fire
 190117_hyx_02_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/190117_hyx_04_reg.am ] setLabel 190117_hyx_04_reg.am
-190117_hyx_04_reg.am setIconPosition 20 18546
+190117_hyx_04_reg.am setIconPosition 20 20824
 190117_hyx_04_reg.am fire
 190117_hyx_04_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/190117_pab_1_reg.am ] setLabel 190117_pab_1_reg.am
-190117_pab_1_reg.am setIconPosition 20 18576
+190117_pab_1_reg.am setIconPosition 20 20854
 190117_pab_1_reg.am fire
 190117_pab_1_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/190117_yzw_01_adjusted_reg.am ] setLabel 190117_yzw_01_adjusted_reg.am
-190117_yzw_01_adjusted_reg.am setIconPosition 20 19386
+190117_yzw_01_adjusted_reg.am setIconPosition 20 21754
 190117_yzw_01_adjusted_reg.am fire
 190117_yzw_01_adjusted_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/190117_yzw_05_reg.am ] setLabel 190117_yzw_05_reg.am
-190117_yzw_05_reg.am setIconPosition 20 19446
+190117_yzw_05_reg.am setIconPosition 20 21694
 190117_yzw_05_reg.am fire
 190117_yzw_05_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/190117_yzw_07_2_reg.am ] setLabel 190117_yzw_07_2_reg.am
-190117_yzw_07_2_reg.am setIconPosition 20 18636
+190117_yzw_07_2_reg.am setIconPosition 20 20914
 190117_yzw_07_2_reg.am fire
 190117_yzw_07_2_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/190117_yzw_candidate2_reg.am ] setLabel 190117_yzw_candidate2_reg.am
-190117_yzw_candidate2_reg.am setIconPosition 20 19566
+190117_yzw_candidate2_reg.am setIconPosition 20 21934
 190117_yzw_candidate2_reg.am fire
 190117_yzw_candidate2_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194160_20200425_ipsilateral_BLA_01_reg.am ] setLabel 194160_20200425_ipsilateral_BLA_01_reg.am
-194160_20200425_ipsilateral_BLA_01_reg.am setIconPosition 20 19176
+194160_20200425_ipsilateral_BLA_01_reg.am setIconPosition 20 21544
 194160_20200425_ipsilateral_BLA_01_reg.am fire
 194160_20200425_ipsilateral_BLA_01_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194160_20200508_ventral_02_reg.am ] setLabel 194160_20200508_ventral_02_reg.am
-194160_20200508_ventral_02_reg.am setIconPosition 20 18666
+194160_20200508_ventral_02_reg.am setIconPosition 20 20944
 194160_20200508_ventral_02_reg.am fire
 194160_20200508_ventral_02_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194160_20200508_ventral_03_reg.am ] setLabel 194160_20200508_ventral_03_reg.am
-194160_20200508_ventral_03_reg.am setIconPosition 20 18726
+194160_20200508_ventral_03_reg.am setIconPosition 20 21004
 194160_20200508_ventral_03_reg.am fire
 194160_20200508_ventral_03_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194160_BLA_01_reg.am ] setLabel 194160_BLA_01_reg.am
-194160_BLA_01_reg.am setIconPosition 20 19146
+194160_BLA_01_reg.am setIconPosition 20 21454
 194160_BLA_01_reg.am fire
 194160_BLA_01_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194160_BLA_02_reg.am ] setLabel 194160_BLA_02_reg.am
-194160_BLA_02_reg.am setIconPosition 20 19536
+194160_BLA_02_reg.am setIconPosition 20 21814
 194160_BLA_02_reg.am fire
 194160_BLA_02_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194160_CIBR_01_reg.am ] setLabel 194160_CIBR_01_reg.am
-194160_CIBR_01_reg.am setIconPosition 20 18696
+194160_CIBR_01_reg.am setIconPosition 20 20974
 194160_CIBR_01_reg.am fire
 194160_CIBR_01_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194160_CIBR_04_reg.am ] setLabel 194160_CIBR_04_reg.am
-194160_CIBR_04_reg.am setIconPosition 20 18756
+194160_CIBR_04_reg.am setIconPosition 20 21034
 194160_CIBR_04_reg.am fire
 194160_CIBR_04_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194160_CIBR_05_reg.am ] setLabel 194160_CIBR_05_reg.am
-194160_CIBR_05_reg.am setIconPosition 20 18786
+194160_CIBR_05_reg.am setIconPosition 20 21064
 194160_CIBR_05_reg.am fire
 194160_CIBR_05_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194160_CIBR_06_reg.am ] setLabel 194160_CIBR_06_reg.am
-194160_CIBR_06_reg.am setIconPosition 20 18816
+194160_CIBR_06_reg.am setIconPosition 20 21094
 194160_CIBR_06_reg.am fire
 194160_CIBR_06_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194161_20200430_CLA_reg.am ] setLabel 194161_20200430_CLA_reg.am
-194161_20200430_CLA_reg.am setIconPosition 20 19596
+194161_20200430_CLA_reg.am setIconPosition 20 21904
 194161_20200430_CLA_reg.am fire
 194161_20200430_CLA_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194161_20200501_right_ventral_layer2_reg.am ] setLabel 194161_20200501_right_ventral_layer2_reg.am
-194161_20200501_right_ventral_layer2_reg.am setIconPosition 20 18876
+194161_20200501_right_ventral_layer2_reg.am setIconPosition 20 21184
 194161_20200501_right_ventral_layer2_reg.am fire
 194161_20200501_right_ventral_layer2_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194161_20200522_BLA_right_layer2_reg.am ] setLabel 194161_20200522_BLA_right_layer2_reg.am
-194161_20200522_BLA_right_layer2_reg.am setIconPosition 20 19206
+194161_20200522_BLA_right_layer2_reg.am setIconPosition 20 21574
 194161_20200522_BLA_right_layer2_reg.am fire
 194161_20200522_BLA_right_layer2_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194161_20200526_right_layer2_anterior_reg.am ] setLabel 194161_20200526_right_layer2_anterior_reg.am
-194161_20200526_right_layer2_anterior_reg.am setIconPosition 20 19356
+194161_20200526_right_layer2_anterior_reg.am setIconPosition 20 21724
 194161_20200526_right_layer2_anterior_reg.am fire
 194161_20200526_right_layer2_anterior_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194161_BLA_01_merge_reg.am ] setLabel 194161_BLA_01_merge_reg.am
-194161_BLA_01_merge_reg.am setIconPosition 20 19266
+194161_BLA_01_merge_reg.am setIconPosition 20 21634
 194161_BLA_01_merge_reg.am fire
 194161_BLA_01_merge_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194161_TH_001_reg.am ] setLabel 194161_TH_001_reg.am
-194161_TH_001_reg.am setIconPosition 20 18906
+194161_TH_001_reg.am setIconPosition 20 21154
 194161_TH_001_reg.am fire
 194161_TH_001_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194161_right_wgl_003_02_reg.am ] setLabel 194161_right_wgl_003_02_reg.am
-194161_right_wgl_003_02_reg.am setIconPosition 20 18846
+194161_right_wgl_003_02_reg.am setIconPosition 20 21124
 194161_right_wgl_003_02_reg.am fire
 194161_right_wgl_003_02_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194161_yzw20200420_left_03_reg.am ] setLabel 194161_yzw20200420_left_03_reg.am
-194161_yzw20200420_left_03_reg.am setIconPosition 20 19416
+194161_yzw20200420_left_03_reg.am setIconPosition 20 21784
 194161_yzw20200420_left_03_reg.am fire
 194161_yzw20200420_left_03_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194161_yzw20200421_right_02_reg.am ] setLabel 194161_yzw20200421_right_02_reg.am
-194161_yzw20200421_right_02_reg.am setIconPosition 20 18936
+194161_yzw20200421_right_02_reg.am setIconPosition 20 21274
 194161_yzw20200421_right_02_reg.am fire
 194161_yzw20200421_right_02_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194161_yzw20200421_right_BLA_01_reg.am ] setLabel 194161_yzw20200421_right_BLA_01_reg.am
-194161_yzw20200421_right_BLA_01_reg.am setIconPosition 20 19296
+194161_yzw20200421_right_BLA_01_reg.am setIconPosition 20 21664
 194161_yzw20200421_right_BLA_01_reg.am fire
 194161_yzw20200421_right_BLA_01_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194161_yzw20200421_right_BLA_01_related_03_reg.am ] setLabel 194161_yzw20200421_right_BLA_01_related_03_reg.am
-194161_yzw20200421_right_BLA_01_related_03_reg.am setIconPosition 20 18996
+194161_yzw20200421_right_BLA_01_related_03_reg.am setIconPosition 20 21364
 194161_yzw20200421_right_BLA_01_related_03_reg.am fire
 194161_yzw20200421_right_BLA_01_related_03_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194161_yzw20200519_MS_01_reg.am ] setLabel 194161_yzw20200519_MS_01_reg.am
-194161_yzw20200519_MS_01_reg.am setIconPosition 20 19476
+194161_yzw20200519_MS_01_reg.am setIconPosition 20 21844
 194161_yzw20200519_MS_01_reg.am fire
 194161_yzw20200519_MS_01_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194161_yzw20200528_left_layer3_reg.am ] setLabel 194161_yzw20200528_left_layer3_reg.am
-194161_yzw20200528_left_layer3_reg.am setIconPosition 20 19656
+194161_yzw20200528_left_layer3_reg.am setIconPosition 20 21994
 194161_yzw20200528_left_layer3_reg.am fire
 194161_yzw20200528_left_layer3_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/194161_yzw20200603_right_ventral_01_reg.am ] setLabel 194161_yzw20200603_right_ventral_01_reg.am
-194161_yzw20200603_right_ventral_01_reg.am setIconPosition 20 19026
+194161_yzw20200603_right_ventral_01_reg.am setIconPosition 20 21394
 194161_yzw20200603_right_ventral_01_reg.am fire
 194161_yzw20200603_right_ventral_01_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/200002_20200623_left_01_reg.am ] setLabel 200002_20200623_left_01_reg.am
-200002_20200623_left_01_reg.am setIconPosition 20 19056
+200002_20200623_left_01_reg.am setIconPosition 20 21334
 200002_20200623_left_01_reg.am fire
 200002_20200623_left_01_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/200003_20200602_right_layer6_reg.am ] setLabel 200003_20200602_right_layer6_reg.am
-200003_20200602_right_layer6_reg.am setIconPosition 20 19506
+200003_20200602_right_layer6_reg.am setIconPosition 20 21874
 200003_20200602_right_layer6_reg.am fire
 200003_20200602_right_layer6_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/200003_20200609_OFC_reg.am ] setLabel 200003_20200609_OFC_reg.am
-200003_20200609_OFC_reg.am setIconPosition 20 19626
+200003_20200609_OFC_reg.am setIconPosition 20 21964
 200003_20200609_OFC_reg.am fire
 200003_20200609_OFC_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/200003_20200609_left_03_reg.am ] setLabel 200003_20200609_left_03_reg.am
-200003_20200609_left_03_reg.am setIconPosition 20 19086
+200003_20200609_left_03_reg.am setIconPosition 20 21424
 200003_20200609_left_03_reg.am fire
 200003_20200609_left_03_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/200003_20200614_01_reg.am ] setLabel 200003_20200614_01_reg.am
-200003_20200614_01_reg.am setIconPosition 20 18966
+200003_20200614_01_reg.am setIconPosition 20 21304
 200003_20200614_01_reg.am fire
 200003_20200614_01_reg.am setViewerMask 16383
 
 set hideNewModules 0
 [ load ${SCRIPTDIR}/../data/am/200003_20200618_right_01_reg.am ] setLabel 200003_20200618_right_01_reg.am
-200003_20200618_right_01_reg.am setIconPosition 20 19116
+200003_20200618_right_01_reg.am setIconPosition 20 21484
 200003_20200618_right_01_reg.am fire
 200003_20200618_right_01_reg.am setViewerMask 16383
 
 set hideNewModules 0
-[ load ${SCRIPTDIR}/CameraPath.civ ] setLabel CameraPath.civ
-CameraPath.civ setIconPosition 20 19686
-CameraPath.civ time setMinMax 0 100
-CameraPath.civ time setSubMinMax 0 100
-CameraPath.civ time setValue 0
+[ load ${SCRIPTDIR}/../CameraPath.civ ] setLabel CameraPath.civ
+CameraPath.civ setIconPosition 20 21214
+CameraPath.civ time setMinMax 0 109.416
+CameraPath.civ time setSubMinMax 0 109.416
+CameraPath.civ time setValue 109.416
 CameraPath.civ time setDiscrete 0
 CameraPath.civ time setIncrement 0.5
 CameraPath.civ time animationMode -once
 CameraPath.civ fire
 CameraPath.civ setViewerMask 65535
-CameraPath.civ select
 
 set hideNewModules 0
 create HxDisplaySurface {SurfaceView}
-SurfaceView setIconPosition 796 18456
+SurfaceView setIconPosition 727 20734
 SurfaceView data connect brain.surf
 SurfaceView colormap setDefaultColor 0.332998 0.332998 0.332998
 SurfaceView colormap setDefaultAlpha 1.000000
@@ -349,7 +348,7 @@ SurfaceView setPickable 1
 
 set hideNewModules 0
 create HxLight {Light-Back}
-Light-Back setIconPosition 802 19686
+Light-Back setIconPosition 733 21214
 Light-Back setNoRemoveAll 1
 Light-Back setType 2
 Light-Back setColor 1 1 1
@@ -365,7 +364,7 @@ Light-Back setViewerMask 16383
 
 set hideNewModules 0
 create HxLight {Light-Front}
-Light-Front setIconPosition 796 19716
+Light-Front setIconPosition 727 21244
 Light-Front setNoRemoveAll 1
 Light-Front setType 2
 Light-Front setColor 1 1 1
@@ -381,7 +380,7 @@ Light-Front setViewerMask 16383
 
 set hideNewModules 0
 create HxLight {Light-Top}
-Light-Top setIconPosition 808 19746
+Light-Top setIconPosition 739 22024
 Light-Top setNoRemoveAll 1
 Light-Top setType 2
 Light-Top setColor 1 1 1
@@ -397,7 +396,7 @@ Light-Top setViewerMask 16383
 
 set hideNewModules 0
 create HxLight {Light-Bottom}
-Light-Bottom setIconPosition 790 19776
+Light-Bottom setIconPosition 721 22054
 Light-Bottom setNoRemoveAll 1
 Light-Bottom setType 2
 Light-Bottom setColor 1 1 1
@@ -413,7 +412,7 @@ Light-Bottom setViewerMask 16383
 
 set hideNewModules 0
 create HxLight {Light-Right}
-Light-Right setIconPosition 796 19806
+Light-Right setIconPosition 727 22084
 Light-Right setNoRemoveAll 1
 Light-Right setType 2
 Light-Right setColor 1 1 1
@@ -429,7 +428,7 @@ Light-Right setViewerMask 16383
 
 set hideNewModules 0
 create HxLight {Light-Left}
-Light-Left setIconPosition 802 19836
+Light-Left setIconPosition 733 22114
 Light-Left setNoRemoveAll 1
 Light-Left setType 2
 Light-Left setColor 1 1 1
@@ -445,7 +444,7 @@ Light-Left setViewerMask 16383
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-190117_3_reg}
-Class1.1-190117_3_reg setIconPosition 735 18486
+Class1.1-190117_3_reg setIconPosition 666 20764
 Class1.1-190117_3_reg data connect 190117_3_reg.am
 Class1.1-190117_3_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-190117_3_reg nodeColormap setDefaultAlpha 0.500000
@@ -496,7 +495,7 @@ Class1.1-190117_3_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-190117_5_reg}
-Class1.1-190117_5_reg setIconPosition 735 18516
+Class1.1-190117_5_reg setIconPosition 666 20794
 Class1.1-190117_5_reg data connect 190117_5_reg.am
 Class1.1-190117_5_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-190117_5_reg nodeColormap setDefaultAlpha 0.500000
@@ -547,7 +546,7 @@ Class1.1-190117_5_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-190117_hyx_04_reg}
-Class1.1-190117_hyx_04_reg setIconPosition 705 18546
+Class1.1-190117_hyx_04_reg setIconPosition 636 20824
 Class1.1-190117_hyx_04_reg data connect 190117_hyx_04_reg.am
 Class1.1-190117_hyx_04_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-190117_hyx_04_reg nodeColormap setDefaultAlpha 0.500000
@@ -598,7 +597,7 @@ Class1.1-190117_hyx_04_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-190117_pab_1_reg}
-Class1.1-190117_pab_1_reg setIconPosition 711 18576
+Class1.1-190117_pab_1_reg setIconPosition 642 20854
 Class1.1-190117_pab_1_reg data connect 190117_pab_1_reg.am
 Class1.1-190117_pab_1_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-190117_pab_1_reg nodeColormap setDefaultAlpha 0.500000
@@ -649,7 +648,7 @@ Class1.1-190117_pab_1_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-190117_VTA_candidate1_reg}
-Class1.1-190117_VTA_candidate1_reg setIconPosition 657 18606
+Class1.1-190117_VTA_candidate1_reg setIconPosition 588 20884
 Class1.1-190117_VTA_candidate1_reg data connect 190117_VTA_candidate1_reg.am
 Class1.1-190117_VTA_candidate1_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-190117_VTA_candidate1_reg nodeColormap setDefaultAlpha 0.500000
@@ -700,7 +699,7 @@ Class1.1-190117_VTA_candidate1_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-190117_yzw_07_2_reg}
-Class1.1-190117_yzw_07_2_reg setIconPosition 693 18636
+Class1.1-190117_yzw_07_2_reg setIconPosition 624 20914
 Class1.1-190117_yzw_07_2_reg data connect 190117_yzw_07_2_reg.am
 Class1.1-190117_yzw_07_2_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-190117_yzw_07_2_reg nodeColormap setDefaultAlpha 0.500000
@@ -751,7 +750,7 @@ Class1.1-190117_yzw_07_2_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-194160_20200508_ventral_02_reg}
-Class1.1-194160_20200508_ventral_02_reg setIconPosition 627 18666
+Class1.1-194160_20200508_ventral_02_reg setIconPosition 558 20944
 Class1.1-194160_20200508_ventral_02_reg data connect 194160_20200508_ventral_02_reg.am
 Class1.1-194160_20200508_ventral_02_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-194160_20200508_ventral_02_reg nodeColormap setDefaultAlpha 0.500000
@@ -802,7 +801,7 @@ Class1.1-194160_20200508_ventral_02_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-194160_20200508_ventral_03_reg}
-Class1.1-194160_20200508_ventral_03_reg setIconPosition 627 18726
+Class1.1-194160_20200508_ventral_03_reg setIconPosition 558 21004
 Class1.1-194160_20200508_ventral_03_reg data connect 194160_20200508_ventral_03_reg.am
 Class1.1-194160_20200508_ventral_03_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-194160_20200508_ventral_03_reg nodeColormap setDefaultAlpha 0.500000
@@ -853,7 +852,7 @@ Class1.1-194160_20200508_ventral_03_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-194160_CIBR_01_reg}
-Class1.1-194160_CIBR_01_reg setIconPosition 699 18696
+Class1.1-194160_CIBR_01_reg setIconPosition 630 20974
 Class1.1-194160_CIBR_01_reg data connect 194160_CIBR_01_reg.am
 Class1.1-194160_CIBR_01_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-194160_CIBR_01_reg nodeColormap setDefaultAlpha 0.500000
@@ -904,7 +903,7 @@ Class1.1-194160_CIBR_01_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-194160_CIBR_04_reg}
-Class1.1-194160_CIBR_04_reg setIconPosition 699 18756
+Class1.1-194160_CIBR_04_reg setIconPosition 630 21034
 Class1.1-194160_CIBR_04_reg data connect 194160_CIBR_04_reg.am
 Class1.1-194160_CIBR_04_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-194160_CIBR_04_reg nodeColormap setDefaultAlpha 0.500000
@@ -955,7 +954,7 @@ Class1.1-194160_CIBR_04_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-194160_CIBR_05_reg}
-Class1.1-194160_CIBR_05_reg setIconPosition 699 18786
+Class1.1-194160_CIBR_05_reg setIconPosition 630 21064
 Class1.1-194160_CIBR_05_reg data connect 194160_CIBR_05_reg.am
 Class1.1-194160_CIBR_05_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-194160_CIBR_05_reg nodeColormap setDefaultAlpha 0.500000
@@ -1006,7 +1005,7 @@ Class1.1-194160_CIBR_05_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-194160_CIBR_06_reg}
-Class1.1-194160_CIBR_06_reg setIconPosition 699 18816
+Class1.1-194160_CIBR_06_reg setIconPosition 630 21094
 Class1.1-194160_CIBR_06_reg data connect 194160_CIBR_06_reg.am
 Class1.1-194160_CIBR_06_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-194160_CIBR_06_reg nodeColormap setDefaultAlpha 0.500000
@@ -1057,7 +1056,7 @@ Class1.1-194160_CIBR_06_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-194161_20200501_right_ventral_layer2_reg}
-Class1.1-194161_20200501_right_ventral_layer2_reg setIconPosition 567 18876
+Class1.1-194161_20200501_right_ventral_layer2_reg setIconPosition 498 21184
 Class1.1-194161_20200501_right_ventral_layer2_reg data connect 194161_20200501_right_ventral_layer2_reg.am
 Class1.1-194161_20200501_right_ventral_layer2_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-194161_20200501_right_ventral_layer2_reg nodeColormap setDefaultAlpha 0.500000
@@ -1108,7 +1107,7 @@ Class1.1-194161_20200501_right_ventral_layer2_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-194161_right_wgl_003_02_reg}
-Class1.1-194161_right_wgl_003_02_reg setIconPosition 645 18846
+Class1.1-194161_right_wgl_003_02_reg setIconPosition 576 21124
 Class1.1-194161_right_wgl_003_02_reg data connect 194161_right_wgl_003_02_reg.am
 Class1.1-194161_right_wgl_003_02_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-194161_right_wgl_003_02_reg nodeColormap setDefaultAlpha 0.500000
@@ -1159,7 +1158,7 @@ Class1.1-194161_right_wgl_003_02_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-194161_TH_001_reg}
-Class1.1-194161_TH_001_reg setIconPosition 705 18906
+Class1.1-194161_TH_001_reg setIconPosition 636 21154
 Class1.1-194161_TH_001_reg data connect 194161_TH_001_reg.am
 Class1.1-194161_TH_001_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-194161_TH_001_reg nodeColormap setDefaultAlpha 0.500000
@@ -1210,7 +1209,7 @@ Class1.1-194161_TH_001_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-194161_yzw20200421_right_02_reg}
-Class1.1-194161_yzw20200421_right_02_reg setIconPosition 621 18936
+Class1.1-194161_yzw20200421_right_02_reg setIconPosition 552 21274
 Class1.1-194161_yzw20200421_right_02_reg data connect 194161_yzw20200421_right_02_reg.am
 Class1.1-194161_yzw20200421_right_02_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-194161_yzw20200421_right_02_reg nodeColormap setDefaultAlpha 0.500000
@@ -1261,7 +1260,7 @@ Class1.1-194161_yzw20200421_right_02_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-194161_yzw20200421_right_BLA_01_related_03_reg}
-Class1.1-194161_yzw20200421_right_BLA_01_related_03_reg setIconPosition 531 18996
+Class1.1-194161_yzw20200421_right_BLA_01_related_03_reg setIconPosition 462 21364
 Class1.1-194161_yzw20200421_right_BLA_01_related_03_reg data connect 194161_yzw20200421_right_BLA_01_related_03_reg.am
 Class1.1-194161_yzw20200421_right_BLA_01_related_03_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-194161_yzw20200421_right_BLA_01_related_03_reg nodeColormap setDefaultAlpha 0.500000
@@ -1312,7 +1311,7 @@ Class1.1-194161_yzw20200421_right_BLA_01_related_03_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-194161_yzw20200603_right_ventral_01_reg}
-Class1.1-194161_yzw20200603_right_ventral_01_reg setIconPosition 573 19026
+Class1.1-194161_yzw20200603_right_ventral_01_reg setIconPosition 504 21394
 Class1.1-194161_yzw20200603_right_ventral_01_reg data connect 194161_yzw20200603_right_ventral_01_reg.am
 Class1.1-194161_yzw20200603_right_ventral_01_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-194161_yzw20200603_right_ventral_01_reg nodeColormap setDefaultAlpha 0.500000
@@ -1363,7 +1362,7 @@ Class1.1-194161_yzw20200603_right_ventral_01_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-200002_20200623_left_01_reg}
-Class1.1-200002_20200623_left_01_reg setIconPosition 645 19056
+Class1.1-200002_20200623_left_01_reg setIconPosition 576 21334
 Class1.1-200002_20200623_left_01_reg data connect 200002_20200623_left_01_reg.am
 Class1.1-200002_20200623_left_01_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-200002_20200623_left_01_reg nodeColormap setDefaultAlpha 0.500000
@@ -1414,7 +1413,7 @@ Class1.1-200002_20200623_left_01_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-200003_20200609_left_03_reg}
-Class1.1-200003_20200609_left_03_reg setIconPosition 645 19086
+Class1.1-200003_20200609_left_03_reg setIconPosition 576 21424
 Class1.1-200003_20200609_left_03_reg data connect 200003_20200609_left_03_reg.am
 Class1.1-200003_20200609_left_03_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-200003_20200609_left_03_reg nodeColormap setDefaultAlpha 0.500000
@@ -1465,7 +1464,7 @@ Class1.1-200003_20200609_left_03_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-200003_20200614_01_reg}
-Class1.1-200003_20200614_01_reg setIconPosition 675 18966
+Class1.1-200003_20200614_01_reg setIconPosition 606 21304
 Class1.1-200003_20200614_01_reg data connect 200003_20200614_01_reg.am
 Class1.1-200003_20200614_01_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-200003_20200614_01_reg nodeColormap setDefaultAlpha 0.500000
@@ -1516,7 +1515,7 @@ Class1.1-200003_20200614_01_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.1-200003_20200618_right_01_reg}
-Class1.1-200003_20200618_right_01_reg setIconPosition 639 19116
+Class1.1-200003_20200618_right_01_reg setIconPosition 570 21484
 Class1.1-200003_20200618_right_01_reg data connect 200003_20200618_right_01_reg.am
 Class1.1-200003_20200618_right_01_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.1-200003_20200618_right_01_reg nodeColormap setDefaultAlpha 0.500000
@@ -1567,7 +1566,7 @@ Class1.1-200003_20200618_right_01_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.2-194160_20200425_ipsilateral_BLA_01_reg}
-Class1.2-194160_20200425_ipsilateral_BLA_01_reg setIconPosition 579 19176
+Class1.2-194160_20200425_ipsilateral_BLA_01_reg setIconPosition 510 21544
 Class1.2-194160_20200425_ipsilateral_BLA_01_reg data connect 194160_20200425_ipsilateral_BLA_01_reg.am
 Class1.2-194160_20200425_ipsilateral_BLA_01_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.2-194160_20200425_ipsilateral_BLA_01_reg nodeColormap setDefaultAlpha 0.500000
@@ -1618,7 +1617,7 @@ Class1.2-194160_20200425_ipsilateral_BLA_01_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.2-194160_BLA_01_reg}
-Class1.2-194160_BLA_01_reg setIconPosition 705 19146
+Class1.2-194160_BLA_01_reg setIconPosition 636 21454
 Class1.2-194160_BLA_01_reg data connect 194160_BLA_01_reg.am
 Class1.2-194160_BLA_01_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.2-194160_BLA_01_reg nodeColormap setDefaultAlpha 0.500000
@@ -1669,7 +1668,7 @@ Class1.2-194160_BLA_01_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.2-194161_BLA_01_merge_reg}
-Class1.2-194161_BLA_01_merge_reg setIconPosition 669 19266
+Class1.2-194161_BLA_01_merge_reg setIconPosition 600 21634
 Class1.2-194161_BLA_01_merge_reg data connect 194161_BLA_01_merge_reg.am
 Class1.2-194161_BLA_01_merge_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.2-194161_BLA_01_merge_reg nodeColormap setDefaultAlpha 0.500000
@@ -1720,7 +1719,7 @@ Class1.2-194161_BLA_01_merge_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.2-194161_yzw20200421_right_BLA_01_reg}
-Class1.2-194161_yzw20200421_right_BLA_01_reg setIconPosition 597 19296
+Class1.2-194161_yzw20200421_right_BLA_01_reg setIconPosition 528 21664
 Class1.2-194161_yzw20200421_right_BLA_01_reg data connect 194161_yzw20200421_right_BLA_01_reg.am
 Class1.2-194161_yzw20200421_right_BLA_01_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.2-194161_yzw20200421_right_BLA_01_reg nodeColormap setDefaultAlpha 0.500000
@@ -1771,7 +1770,7 @@ Class1.2-194161_yzw20200421_right_BLA_01_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.3-194161_20200526_right_layer2_anterior_reg}
-Class1.3-194161_20200526_right_layer2_anterior_reg setIconPosition 561 19356
+Class1.3-194161_20200526_right_layer2_anterior_reg setIconPosition 492 21724
 Class1.3-194161_20200526_right_layer2_anterior_reg data connect 194161_20200526_right_layer2_anterior_reg.am
 Class1.3-194161_20200526_right_layer2_anterior_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.3-194161_20200526_right_layer2_anterior_reg nodeColormap setDefaultAlpha 0.500000
@@ -1822,7 +1821,7 @@ Class1.3-194161_20200526_right_layer2_anterior_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class2-190117_yzw_01_adjusted_reg}
-Class2-190117_yzw_01_adjusted_reg setIconPosition 663 19386
+Class2-190117_yzw_01_adjusted_reg setIconPosition 594 21754
 Class2-190117_yzw_01_adjusted_reg data connect 190117_yzw_01_adjusted_reg.am
 Class2-190117_yzw_01_adjusted_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class2-190117_yzw_01_adjusted_reg nodeColormap setDefaultAlpha 0.500000
@@ -1873,7 +1872,7 @@ Class2-190117_yzw_01_adjusted_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class1.2-194161_20200522_BLA_right_layer2_reg}
-Class1.2-194161_20200522_BLA_right_layer2_reg setIconPosition 591 19206
+Class1.2-194161_20200522_BLA_right_layer2_reg setIconPosition 522 21574
 Class1.2-194161_20200522_BLA_right_layer2_reg data connect 194161_20200522_BLA_right_layer2_reg.am
 Class1.2-194161_20200522_BLA_right_layer2_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class1.2-194161_20200522_BLA_right_layer2_reg nodeColormap setDefaultAlpha 0.500000
@@ -1924,7 +1923,7 @@ Class1.2-194161_20200522_BLA_right_layer2_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class2-194161_yzw20200420_left_03_reg}
-Class2-194161_yzw20200420_left_03_reg setIconPosition 639 19416
+Class2-194161_yzw20200420_left_03_reg setIconPosition 570 21784
 Class2-194161_yzw20200420_left_03_reg data connect 194161_yzw20200420_left_03_reg.am
 Class2-194161_yzw20200420_left_03_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class2-194161_yzw20200420_left_03_reg nodeColormap setDefaultAlpha 0.500000
@@ -1975,7 +1974,7 @@ Class2-194161_yzw20200420_left_03_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class2-194161_yzw20200519_MS_01_reg}
-Class2-194161_yzw20200519_MS_01_reg setIconPosition 651 19476
+Class2-194161_yzw20200519_MS_01_reg setIconPosition 582 21844
 Class2-194161_yzw20200519_MS_01_reg data connect 194161_yzw20200519_MS_01_reg.am
 Class2-194161_yzw20200519_MS_01_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class2-194161_yzw20200519_MS_01_reg nodeColormap setDefaultAlpha 0.500000
@@ -2026,7 +2025,7 @@ Class2-194161_yzw20200519_MS_01_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class2-200003_20200602_right_layer6_reg}
-Class2-200003_20200602_right_layer6_reg setIconPosition 627 19506
+Class2-200003_20200602_right_layer6_reg setIconPosition 558 21874
 Class2-200003_20200602_right_layer6_reg data connect 200003_20200602_right_layer6_reg.am
 Class2-200003_20200602_right_layer6_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class2-200003_20200602_right_layer6_reg nodeColormap setDefaultAlpha 0.500000
@@ -2077,7 +2076,7 @@ Class2-200003_20200602_right_layer6_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class3-190117_hyx_01_reg}
-Class3-190117_hyx_01_reg setIconPosition 717 19236
+Class3-190117_hyx_01_reg setIconPosition 648 21514
 Class3-190117_hyx_01_reg data connect 190117_hyx_01_reg.am
 Class3-190117_hyx_01_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class3-190117_hyx_01_reg nodeColormap setDefaultAlpha 0.500000
@@ -2128,7 +2127,7 @@ Class3-190117_hyx_01_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class3-190117_hyx_02_reg}
-Class3-190117_hyx_02_reg setIconPosition 717 19326
+Class3-190117_hyx_02_reg setIconPosition 648 21604
 Class3-190117_hyx_02_reg data connect 190117_hyx_02_reg.am
 Class3-190117_hyx_02_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class3-190117_hyx_02_reg nodeColormap setDefaultAlpha 0.500000
@@ -2179,7 +2178,7 @@ Class3-190117_hyx_02_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class3-190117_yzw_05_reg}
-Class3-190117_yzw_05_reg setIconPosition 717 19446
+Class3-190117_yzw_05_reg setIconPosition 648 21694
 Class3-190117_yzw_05_reg data connect 190117_yzw_05_reg.am
 Class3-190117_yzw_05_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class3-190117_yzw_05_reg nodeColormap setDefaultAlpha 0.500000
@@ -2230,7 +2229,7 @@ Class3-190117_yzw_05_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class3-190117_yzw_candidate2_reg}
-Class3-190117_yzw_candidate2_reg setIconPosition 669 19566
+Class3-190117_yzw_candidate2_reg setIconPosition 600 21934
 Class3-190117_yzw_candidate2_reg data connect 190117_yzw_candidate2_reg.am
 Class3-190117_yzw_candidate2_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class3-190117_yzw_candidate2_reg nodeColormap setDefaultAlpha 0.500000
@@ -2281,7 +2280,7 @@ Class3-190117_yzw_candidate2_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class3-194160_BLA_02_reg}
-Class3-194160_BLA_02_reg setIconPosition 717 19536
+Class3-194160_BLA_02_reg setIconPosition 648 21814
 Class3-194160_BLA_02_reg data connect 194160_BLA_02_reg.am
 Class3-194160_BLA_02_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class3-194160_BLA_02_reg nodeColormap setDefaultAlpha 0.500000
@@ -2332,7 +2331,7 @@ Class3-194160_BLA_02_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class3-194161_20200430_CLA_reg}
-Class3-194161_20200430_CLA_reg setIconPosition 681 19596
+Class3-194161_20200430_CLA_reg setIconPosition 612 21904
 Class3-194161_20200430_CLA_reg data connect 194161_20200430_CLA_reg.am
 Class3-194161_20200430_CLA_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class3-194161_20200430_CLA_reg nodeColormap setDefaultAlpha 0.500000
@@ -2383,7 +2382,7 @@ Class3-194161_20200430_CLA_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class3-194161_yzw20200528_left_layer3_reg}
-Class3-194161_yzw20200528_left_layer3_reg setIconPosition 615 19656
+Class3-194161_yzw20200528_left_layer3_reg setIconPosition 546 21994
 Class3-194161_yzw20200528_left_layer3_reg data connect 194161_yzw20200528_left_layer3_reg.am
 Class3-194161_yzw20200528_left_layer3_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class3-194161_yzw20200528_left_layer3_reg nodeColormap setDefaultAlpha 0.500000
@@ -2434,7 +2433,7 @@ Class3-194161_yzw20200528_left_layer3_reg setPickable 1
 
 set hideNewModules 0
 create HxSpatialGraphView {Class3-200003_20200609_OFC_reg}
-Class3-200003_20200609_OFC_reg setIconPosition 681 19626
+Class3-200003_20200609_OFC_reg setIconPosition 612 21964
 Class3-200003_20200609_OFC_reg data connect 200003_20200609_OFC_reg.am
 Class3-200003_20200609_OFC_reg nodeColormap setDefaultColor 1 0.8 0.5
 Class3-200003_20200609_OFC_reg nodeColormap setDefaultAlpha 0.500000
@@ -2484,26 +2483,97 @@ Class3-200003_20200609_OFC_reg setViewerMask 16383
 Class3-200003_20200609_OFC_reg setPickable 1
 
 set hideNewModules 0
+create HxMovieMaker {MovieMaker}
+MovieMaker setIconPosition 160 21244
+MovieMaker time connect CameraPath.civ
+MovieMaker fire
+MovieMaker viewer setIndex 0 0
+MovieMaker viewer setIndex 1 0
+MovieMaker fileFormat setIndex 0 2
+MovieMaker filename setState {D:/Documents/Coding/nibs-intern/track-neuron/outputs/all/all.tif}
+MovieMaker frames setMinMax 0 2000
+MovieMaker frames setButtons 1
+MovieMaker frames setIncrement 1
+MovieMaker frames setValue 200
+MovieMaker frames setSubMinMax 0 2000
+MovieMaker frameRateSlider setMinMax 1 30
+MovieMaker frameRateSlider setButtons 1
+MovieMaker frameRateSlider setIncrement 1
+MovieMaker frameRateSlider setValue 24
+MovieMaker frameRateSlider setSubMinMax 1 30
+MovieMaker frameRate setIndex 0 -1
+MovieMaker aviEncoder setState item 0 0 
+MovieMaker compressionQuality setMinMax 0 1
+MovieMaker compressionQuality setButtons 0
+MovieMaker compressionQuality setIncrement 0.1
+MovieMaker compressionQuality setValue 1
+MovieMaker compressionQuality setSubMinMax 0 1
+MovieMaker type setIndex 0 0
+MovieMaker format setValue 0
+MovieMaker tiles setMinMax 0 1 100
+MovieMaker tiles setValue 0 1
+MovieMaker tiles setMinMax 1 1 100
+MovieMaker tiles setValue 1 1
+MovieMaker size setValue 0
+MovieMaker resolution setMinMax 0 0 2048
+MovieMaker resolution setValue 0 1034
+MovieMaker resolution setMinMax 1 0 2048
+MovieMaker resolution setValue 1 782
+MovieMaker fire
+MovieMaker setViewerMask 16383
+MovieMaker select
+MovieMaker setPickable 1
+
+set hideNewModules 0
+[ load ${SCRIPTDIR}/../outputs/all/all.amov ] setLabel all.amov
+all.amov setIconPosition 20 21244
+all.amov master connect MovieMaker
+all.amov fire
+all.amov numberOfStreams setIndex 0 0
+all.amov stream1 setState {D:/Documents/Coding/nibs-intern/track-neuron/outputs/all/all.????.tif}
+all.amov stream2 setState {}
+all.amov stream3 setState {}
+all.amov stream4 setState {}
+all.amov type setIndex 0 0
+all.amov renderMethod setValue 0
+all.amov aspectRatio setMinMax 0 0 100
+all.amov aspectRatio setValue 0 0
+all.amov swapStereo setValue 0 0
+all.amov swapStereo setToggleVisible 0 1
+all.amov flip setValue 0 0
+all.amov flip setToggleVisible 0 1
+all.amov flip setValue 1 0
+all.amov flip setToggleVisible 1 1
+all.amov maxFps setMinMax 0 0 100
+all.amov maxFps setValue 0 0
+all.amov maxThreads setMinMax 0 -2147483648 2147483648
+all.amov maxThreads setValue 0 0
+all.amov segmentsPerFrame setMinMax 0 1 1000
+all.amov segmentsPerFrame setValue 0 1
+all.amov fire
+all.amov setViewerMask 16383
+
+set hideNewModules 0
 
 
-viewer 0 setCameraOrientation -1 -7.54979e-008 -3.20336e-007 3.14159
-viewer 0 setCameraPosition 5695 4345 -2550.68
+viewer 0 setCameraOrientation -0.00341791 0.719114 -0.694884 3.13741
+viewer 0 setCameraPosition 5541.55 -4802.42 7079.56
 viewer 0 setCameraFocalDistance 9145.68
-viewer 0 setCameraNearDistance 2555.12
-viewer 0 setCameraFarDistance 15749.4
+viewer 0 setCameraNearDistance 5165.27
+viewer 0 setCameraFarDistance 13090.6
 viewer 0 setCameraType orthographic
 viewer 0 setCameraHeight 18291.4
 viewer 0 setAutoRedraw 1
 viewer 0 redraw
 
 
-viewer 5 setCameraOrientation 1 0 0 3.14159
-viewer 5 setCameraPosition 5695 4345 -10702.2
-viewer 5 setCameraFocalDistance 17297.2
-viewer 5 setCameraNearDistance 1682.85
-viewer 5 setCameraFarDistance 32942.8
+viewer 5 setCameraOrientation -0.00341791 0.719114 -0.694884 3.13741
+viewer 5 setCameraPosition 5541.55 -4802.42 7079.56
+viewer 5 setCameraFocalDistance 9145.68
+viewer 5 setCameraNearDistance -566.948
+viewer 5 setCameraFarDistance 13209.3
 viewer 5 setCameraType orthographic
-viewer 5 setCameraHeight 24065
+viewer 5 setCameraHeight 20148.4
 viewer 5 setAutoRedraw 1
 viewer 5 redraw
 
