@@ -37,91 +37,6 @@
  Group {
 
   Info {
-	 string "2.014362"
-  }
-  DEF +0 OrthographicCamera {
-	 viewportMapping ADJUST_CAMERA
-	 position 5331.61 -4794.54 6915.48
-	 orientation 0.00890348 -0.725406 0.688264  3.10375
-	 aspectRatio 1
-	 nearDistance 5002.9
-	 farDistance 13234.9
-	 focalDistance 9145.68
-	 height 18291.4
-  } 
-}
-
- Group {
-
-  Info {
-	 string "2.517414"
-  }
-  DEF +0 OrthographicCamera {
-	 viewportMapping ADJUST_CAMERA
-	 position 5308.61 -4806.12 7296.22
-	 orientation 0.0396362 -0.710681 0.702397  3.03835
-	 aspectRatio 1
-	 nearDistance 5293.02
-	 farDistance 13011.9
-	 focalDistance 9145.68
-	 height 18291.4
-  } 
-}
-
- Group {
-
-  Info {
-	 string "3.076968"
-  }
-  DEF +0 OrthographicCamera {
-	 viewportMapping ADJUST_CAMERA
-	 position 5478.94 -4803.25 7689.77
-	 orientation 0.0504049 -0.694631 0.717599  3.03886
-	 aspectRatio 1
-	 nearDistance 5266.91
-	 farDistance 13098.4
-	 focalDistance 9145.68
-	 height 18291.4
-  } 
-}
-
- Group {
-
-  Info {
-	 string "3.582785"
-  }
-  DEF +0 OrthographicCamera {
-	 viewportMapping ADJUST_CAMERA
-	 position 5748.2 -4786.46 7956.56
-	 orientation 0.0704093 -0.682303 0.727671  3.03612
-	 aspectRatio 1
-	 nearDistance 4946.56
-	 farDistance 13452.7
-	 focalDistance 9145.68
-	 height 18291.4
-  } 
-}
-
- Group {
-
-  Info {
-	 string "5.726744"
-  }
-  DEF +0 OrthographicCamera {
-	 viewportMapping ADJUST_CAMERA
-	 position 6457.52 -4526.07 9418.94
-	 orientation 0.113521 -0.614475 0.780726  3.02942
-	 aspectRatio 1
-	 nearDistance 3709.23
-	 farDistance 14912.7
-	 focalDistance 9145.68
-	 height 18291.4
-  } 
-}
-
- Group {
-
-  Info {
 	 string "8.514783"
   }
   DEF +0 OrthographicCamera {
@@ -184,7 +99,7 @@
   }
   DEF +0 PerspectiveCamera {
 	 position 12162 4345 13062
-	 orientation -0.382684 -2.88963e-008 -0.92388  3.14159
+	 orientation -0.382684 -2.88963e-008 -0.923879  3.14159
 	 focalDistance 9145.68
   } 
 }
@@ -280,7 +195,7 @@
   }
   DEF +0 PerspectiveCamera {
 	 position -771.979 4345 128.04
-	 orientation -0.92388 6.97618e-008 0.382684  3.14159
+	 orientation -0.923879 6.97618e-008 0.382684  3.14159
 	 focalDistance 9145.68
   } 
 }
