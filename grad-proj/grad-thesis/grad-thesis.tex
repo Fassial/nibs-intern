@@ -1,0 +1,44 @@
+\documentclass{whuthesis}
+
+\whusetup
+{
+    info               =
+    {
+        title          = {基于GRN的垂体基因表达差异分析},
+        student-number = {2017300030039},
+        school         = {弘毅学堂},
+        author         = {郑晖},
+        major          = {计算机科学与技术},
+        advisor        = {蔡朝晖, 副教授},
+        date           = {2021/04},
+        keywords       = {GRN, 系统性神经炎症, 垂体},
+        keywords*      = {GRN , systemic neuroinflammation, pituitary},
+    },
+    style              = 
+    {
+        bib-file       = {ref/refs},
+        graphics-path  = {figs/}
+    }
+}
+
+\begin{document}
+    %% preface
+    % abstract
+    \include{pages/abstract}
+
+    %% main body
+    \include{pages/chapter1}
+    \include{pages/chapter2}
+    \include{pages/chapter3}
+    \include{pages/chapter4}
+
+    %% end
+    % ref
+    \nocite{*}
+    \makebibliography
+    % thanks
+    \include{pages/thanks}
+    % appendix
+    \include{pages/appendix}
+\end{document}
+
