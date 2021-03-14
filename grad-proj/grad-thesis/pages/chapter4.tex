@@ -3,7 +3,7 @@
 \chapter{实验数据分析}
 
 \section{测序数据预处理}
-  通过图\ref{fig:expr-fig1}a所示的流程，我们获取了小鼠垂体细胞的单细胞测序数据。将测序得到的fastq文件利用CellRanger软件进行上游分析，序列回帖参考基因组选用Ensembl（GRCm38）。回帖得到的基因表达矩阵通过Scater\cite{mccarthy2017scater}进行质量控制，筛除低质量细胞，再用Seurat v3\cite{butler2018integrating,stuart2019comprehensive}进行基础下游分析。
+  通过图\ref{fig:expr-fig1}a所示的流程，我们获取了小鼠垂体细胞的单细胞测序数据。将测序得到的fastq文件利用CellRanger进行上游分析，序列回帖参考基因组选用Ensembl（GRCm38）。回帖得到的基因表达矩阵通过Scater\cite{mccarthy2017scater}进行质量控制，筛除低质量细胞，再用Seurat v3\cite{butler2018integrating,stuart2019comprehensive}进行基础下游分析。
 
 \begin{figure}[!htb]
   \centering
@@ -15,7 +15,7 @@
 \subsection{Scater质控}
   将测序数据读入R工作环境中，将表达矩阵转换为SingleCellExperiment（SCE）对象，对该SCE对象依次在细胞水平（Cell-level QC）、基因水平（Feature-level QC）以及变量水平（Variable-level QC）执行质控。在细胞水平质控中，去除文库含量小（low library size）、基因含量少（low features）和线粒体基因含量高（high mitochondrial percentage）的细胞；在基因水平质控中，去除表达量为0的基因以及线粒体基因、核糖体基因，以避免在PCA部分影响主成分判别；在变量水平中，对每个变量方差解释的贡献率（variance explained）做统计，查看是否有异常变量出现。
 
-  通过CellRanger上游管线处理后，我们共收集到6727个细胞，平均每个细胞检测到3546个基因。在经过Scater质控后，保留了5506个细胞。
+  通过STAR-featureCounts上游管线处理后，我们共收集到6727个细胞，平均每个细胞检测到3546个基因。在经过Scater质控后，保留了5506个细胞。
 \subsection{Seurat初步分析}
   经过质控处理后的数据转换为Seurat对象，执行Seurat基础分析流程：归一化、特征选择、放缩、线性降维、构建最短临近图、Louvain聚类以及UMAP可视化。
 
@@ -84,7 +84,7 @@
   \label{fig:expr-fig3}
 \end{figure}
 
-\subsection{讨论和未来工作}
+\section{讨论和未来工作}
   我们在实验中发现，在给以小鼠$TNF-\alpha$刺激之后，其部分垂体细胞在经历UMAP可视化降维之后，呈现出与其他炎症状态细胞相分离的现象。这似乎意味着垂体细胞在参与中枢神经内分泌炎症调节过程中，会因免疫刺激不同而进入不同的调节状态。
 
   我们初步推断是$TNF-\alpha$作为一种较强的免疫刺激剂，使垂体细胞进入一种不可逆转的免疫状态。在实验设计上，针对LPS、saline与Ploy I:C，我们都设计了长短恢复时程的对比试验，但$TNF-\alpha$只有短时程恢复处理。其原因在于$TNF-\alpha$相比LPS、Ploy I:C产生的免疫反应过于剧烈，小鼠在被腹腔注射500ug$TNF-\alpha$之后无法恢复，6h内便会死亡。
