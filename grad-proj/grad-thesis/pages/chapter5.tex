@@ -17,7 +17,7 @@
 
   通过STAR-featureCounts上游管线处理后，我们共收集到6727个细胞，平均每个细胞检测到3546个基因。在经过Scater质控后，保留了5506个细胞。
 \subsection{Seurat初步分析}
-  经过质控处理后的数据转换为Seurat对象，执行Seurat基础分析流程：归一化、特征选择、放缩、线性降维、构建最短临近图、Louvain聚类以及UMAP可视化。
+  经过质控处理后的数据转换为Seurat对象，执行Seurat基础分析流程：归一化、特征选择、放缩、线性降维、构建最短临近图、Leiden聚类以及UMAP可视化。
 
   在此基础上，结合聚类信息以及中枢神经系统各细胞类型已知的基因marker（表\ref{tab:gene-marker}），对数据进行细胞类型注释。我们在垂体腺中鉴定了6个主要细胞簇（Somatotropes，Corticotropes，Melanotropes，Lactotropes，Thyrotropes，Gonadotropes），这与先前的知识是一致的。详见图\ref{fig:expr-fig1}。
 \begin{table}[ht]

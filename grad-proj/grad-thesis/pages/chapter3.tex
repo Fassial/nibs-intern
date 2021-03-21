@@ -1,80 +1,61 @@
 %% chapter 3
 
-\chapter{基于SCENIC的GRN推断}
-  SCENIC是一种利用单细胞RNA-seq数据同时进行基因调节网络重建和细胞状态识别的计算方法。SCNEIC能够帮助我们从基因表达矩阵中鉴定转录因子和细胞状态，提供驱动细胞异质性机制的重要生物学见解。
+\chapter{单细胞RNA测序数据处理流程}
 
-  SCENIC的工作流程主要有3步：GRNBoost2，基于共表达确定潜在的TF靶标；RcisTarget，进行TF基序富集分析并确定直接的靶标（调节子）；AUCell，用于对单个细胞上调节子（或其他基因集）的活性进行评分。下面我们将对每一步算法原理进行介绍。
+\section{将原始测序数据转化为基因表达矩阵}
+  在将生物样品进行测序后，我们会得到内含测序数据的fastq文件。但fastq文件是由高通量测序产生的输出文件，我们不能直接使用它进行数据挖掘。在这项研究中我们使用CellRanger将其转化为基因表达矩阵，并基于此开展下游分析。
+
+  CellRanger是一组分析管道，用于处理Chromium单细胞数据以对齐读取、生成Feature-Barcode矩阵、执行聚类和其他辅助分析等。CellRanger有四个处理管线与3'单细胞基因表达解决方案及其相关产品有关，我们在这里只关注常用的cellranger mkfastq与cellranger count，其对应流程如图\ref{fig:cellranger-workflow}所示。cellranger mkfastq的主要作用是将Illumina测序生成的原始碱基检出（BCL）文件转化为fastq文件。cellranger count对cellranger mkfastq获取的fastq文件执行对齐、过滤、Barcode计数以及UMI计数，我们使用其产生的计数矩阵进行下游分析。
 
 \begin{figure}[!htb]
   \centering
-  \includegraphics[width=0.8\textwidth]{figs/scenic-workflow.pdf}
-  \caption{SCENIC算法流程}
-  \label{fig:scenic-workflow}
+  \includegraphics[width=0.8\textwidth]{figs/cellranger-workflow.png}
+  \caption{CellRanger工作流程}
+  \label{fig:cellranger-workflow}
 \end{figure}
 
-\section{GRNBoost2}
-  像GENIE3\cite{huynh2010inferring}一样，GRNBoost2属于基于回归的GRN推理方法\cite{sanguinetti2019gene}。对于数据集中的每个基因，使用一组候选转录因子（TF）的表达值对基于树的回归模型进行训练，以预测其表达谱。每个模型都会产生部分GRN，并具有从最佳预测TF到目标基因的调控关联。将所有调控关联组合在一起，并按重要性排序，以最终确定GRN的输出。
+\section{对基因表达矩阵进行质量控制}
+  对基因表达矩阵进行质控的主要目的是去除制备生物样品和单细胞RNA测序过程中引入的噪音。例如，在进行单细胞RNA测序的过程中，受限于测序芯片的技术条件，会有一定比例将两个细胞吹到同一个测序单位中，又或是使细胞破损等。为了保证下游分析结果的正确性，我们必须将这些离群点检测出来并将其去除。
 
-\subsection{Gradient-Boosting Machine}
-  Gradient-Boosting Machines（GBM）\cite{friedman2001greedy}是GRNBoost2\cite{moerman2019grnboost2}部分的核心。GBM是一种用于回归和分类问题的机器学习技术，它以一组弱预测模型（通常为决策树）的形式生成预测模型。当决策树是弱学习者时，结果算法称为梯度提升树，通常胜过随机森林。
+  目前进行质量控制的主流方法还是阈值法，即对基因表达矩阵在细胞水平（Cell-level QC）、基因水平（Feature-level QC）以及变量水平（Variable-level QC）依据所处理生物数据特性人为设置生物合理的阈值。正常情况下，所检测到的线粒体RNA占所检测到RNA总量的5\%以下，如果高于这个值便可能是在测序的过程中出现细胞破损，导致细胞质RNA外流。但是这种情况也不是绝对的，比如在肌肉细胞中代谢旺盛，所检测到的线粒体RNA占比便会高于此值，因此我们需要针对组织的特异性设定不同的阈值。
 
-  GBM的算法原理与梯度下降类似：梯度下降是在参数空间中寻找一个最优点，而GBM则是在函数空间（或者说我们设定的函数集合）寻找一个最优函数。在最优化函数的过程中，我们需要一个优化目标，这通常通过设定损失函数来实现。
+  在质量控制之后，我们还可以去除一些已知功能且与研究不相关的RNA（比如核糖体RNA、线粒体RNA），以避免其对下游分析的影响。
 
-  在许多有监督的学习问题中，一个输出变量$y$和一个输入向量$x$通过联合概率分布$P(x,y)$来描述。使用已知$x$和对应$y$所构成的训练集$\{(x_{1},y_{1}),...,(x_{n},y_{n})\}$，目标是找到函数$F(x)$的近似值$\hat{F}(x)$。该近似值应最小化某些指定损失函数$L(y,F(x))$的期望值：
+\section{依据基因表达矩阵进行聚类}
+  在对基因表达矩阵进行质量控制之后，为探求单细胞层级的异质性，我们可以依照其基因表达的差异将其聚类为不同的簇，并鉴定不同簇上的基因marker，为之后的分析提供基础的生物见解。Seurat v3\cite{butler2018integrating,stuart2019comprehensive}建议的初步处理流程是：归一化、特征选择、放缩、线性降维、构建最短近邻图、Leiden聚类和UMAP可视化。
+\subsection{特征选取}
+  特征选取是在Feature-Barcode矩阵（或者说Gene-Cell矩阵）中计算每个基因的方差，并对其进行排序，选取其中具有较高方差的基因集合（即，它们在某些细胞中高表达，而在其他细胞中低表达）用于下游线性降维。这里使用一些方差较大基因的原因在于，从信息学的角度来看，方差越大的变量蕴含的信息越多。同时，Brennecke等人在2013年的一项研究\cite{brennecke2013accounting}表明在下游分析中关注这些基因有助于去除技术噪声，以在单细胞数据集中突出显示生物信息。线性降维也是基于此原理，对数据进行进一步的筛选，去除方差较低成分的噪声影响。
+\subsection{Leiden聚类算法}
+  Leiden聚类\cite{traag2019louvain}是整个初步处理流程的关键一步，其依据线性降维结果构建的最短近邻图挖掘其中的群落结构，其原型是Louvain聚类算法\cite{blondel2008fast}。我们下面会详细介绍Louvain算法的局限以及Leiden算法的改进。
+
+  Louvain算法和Leiden算法都是基于图数据的群落发现算法，其灵感源于modularity的优化。其中，modularity是一个定义在$[-1/2,1]$的比例值，用于度量群落内部边缘相对于群落外部边缘的相对密度。对于加权图，modularity由公式（\ref{equ:graph-modularity}）定义：
 \begin{equation}
-  \hat{F} = \mathop{\arg\min}_{F}\mathbb{E}_{x,y}[L(y,F(x))]
+  \label{equ:graph-modularity}
+  Q = \frac{1}{2m}\sum_{ij}\left[A_{ij} - \frac{k_{i}k_{j}}{2m}\right]\delta(c_{i},c_{j})
 \end{equation}
+其中，$A_{ij}$表示节点$i$和$j$之间边的权重，$k_{i}$和$k_{j}$分别是连接到节点$i$和$j$的边的权重之和，$m$是图中所有边缘权重的总和，$c_{i}$和$c_{j}$是节点的群落，$\delta$是Kronecker函数（如果$x=y$，$\delta(x,y)=1$，否则为0）。从理论上优化此值会导致给定网络节点的最佳分组，但这在计算上并不可行。因此使用启发式算法，通过迭代来近似modularity的最大值，Louvain算法和Leiden算法都是属于这种形式。
 
-  GBM假设真实值为$y$，并在某些类$\mathcal{H}$中利用函数$h_{i}(x)$的加权和寻求其的近似值$\hat{F}(x)$，这被称为基学习器：
+   在Traag等人2019年的一项工作\cite{traag2019louvain}中，实验证据表明Louvain算法得到的分区中会存在连接不良的群落，甚至内部断开的群落。而且他们证明在使用Louvain算法时，该问题在实践中经常发生。在Louvain算法中存在这样一种情况：一个节点在其旧群落中充当不同部分连接的桥梁，但是却可能在群落更新过程中被移动到另一个群落，从其旧群落中删除这样的节点会断开旧群落的连接。Louvain算法可能假设旧群落的其他节点也会移动到该新群落，但事实并非如此，尽管旧群落已经断开连接，但其他节点仍可以与其群落保持牢固的联系，如图\ref{fig:louvain-prob}所示。
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figs/louvain-prob.png}
+  \caption{Louvain算法存在的问题}
+  \label{fig:louvain-prob}
+\end{figure}
+
+  Leiden算法的改进主要在于利用了加快节点局部移动\cite{ozaki2016simple,bae2017scalable}以及将节点移动到随机邻居\cite{traag2015faster}的思想。Leiden算法由三个阶段组成：（1）节点的局部移动；（2）分区的细化；（3）基于细化的分区进行网络聚合。
+
+  在算法的第一阶段，首先将网络中每个节点分配给其自己对应的群落。然后，对每个节点$i$，计算将其从自身的群落移除并将其移至每个邻居节点$j$对应群落所带来的modularity变化。这两步的公式比较相似，其中将节点$i$移至其邻居节点$j$对应群落所带来modularity的变化由公式（\ref{equ:modularity-change}）定义：
 \begin{equation}
-  \hat{F}(x) = \sum^{M}_{i=1}\gamma_{i}h_{i}(x) + const
+  \label{equ:modularity-change}
+  \Delta{Q} = \left[\frac{{\Sigma}_{in} + 2k_{i,in}}{2m} - \left(\frac{{\Sigma}_{tot} + k_{i}}{2m}\right)^{2}\right] - \left[\frac{{\Sigma}_{in}}{2m} - \left(\frac{{\Sigma}_{tot}}{2m}\right)^{2} - \left(\frac{k_{i}}{2m}\right)^{2}\right]
 \end{equation}
+其中，${\Sigma}_{in}$是节点$i$将要移入群落中所有连接的权重之和，${\Sigma}_{tot}$是节点$i$将要移入群落中所有连接到节点的权重之和，$k_{i}$是节点$i$的加权度，$k_{in}$是节点$i$与其将要移入群落中所有节点的连接权重之和，$m$是网络中所有连接权重之和。利用加快节点局部移动\cite{ozaki2016simple,bae2017scalable}的思想，仅计算与节点$i$相连所有群落中刚修改群落的modularity，其余沿用以前的计算值。
 
-  根据经验风险最小化原理，该方法尝试找到一个近似值$\hat{F}(x)$，该函数将在训练集计算的损失函数平均值最小化，即最小化经验风险。这一过程是从一个由常数函数$F_{0}(x)$组成的模型开始的，然后以贪心算法的过程逐步扩展它：
-\begin{equation}
-  F_{0}(x) = \mathop{\arg\min}_{\gamma}\sum^{n}_{i=1}L(y_{i},\gamma)
-\end{equation}
-\begin{equation}
-  F_{m}(x) = F_{m-1}(x) + \mathop{\arg\min}_{h_{m}\in{\mathcal{H}}}\left[\sum^{n}_{i=1}L(y_{i},F_{m-1}(x_{i}) + h_{m}(x_{i}))\right]
-\end{equation}
-这里，$h_{m}\in{\mathcal{H}}$是一个基学习器函数。
+  在算法的第二阶段产生的分区$\mathcal{P}_{refined}$是Louvain算法对应阶段生成分区$\mathcal{P}$的细分。分区$\mathcal{P}$中的群落可以分为分区$\mathcal{P}_{refined}$中的多个群落。在进行合并的过程中，节点$i$并没有像Louvain算法中那样贪婪地与最大化modularity的群落合并，而是随机选择任何可以增加modularity的群落进行合并。modularity的增加越大，选择该群落的可能性就越大\cite{traag2015faster}。选择群落的随机性允许更广泛的探索分区空间。此外，仅当节点$i$与分区$\mathcal{P}$中的群落充分良好地连接时，才将其与分区$\mathcal{P}_{refined}$中的群落合并，从而避免分区存在连接不良的群落。
 
-  但上面这个过程是在计算上不可行的优化问题，GBM便将其进一步简化。这个想法便是对这个最小化问题（功能梯度下降）应用最陡峭的下降步骤。如果我们考虑连续的情况，也就是说，$\mathcal{H}$在$\mathbb{R}$上是任意微分函数的集合，我们将根据以下方程式更新模型：
-\begin{equation}
-  F_{m}(x) = F_{m-1}(x) - \gamma\sum^{n}_{i=1}{\nabla}_{F_{m-1}}L(y_{i},F_{m-1}(x_{i}))
-\end{equation}
-\begin{equation}
-  {\gamma}_{m} = \mathop{\arg\min}_{\gamma}\sum^{n}_{i=1}L(y_{i},F_{m-1}(x_{i}) - \gamma{\nabla}_{F_{m-1}}L(y_{i},F_{m-1}(x_{i})))
-\end{equation}
-这里，微分是对函数$F_{i}(i\in\{1,...,m\}$所计算的来的，$\gamma$是步长。但是，在离散情况下，即当集合$\mathcal{H}$只有有限个元素时，我们选择最接近$L$梯度的候选函数$h$，然后可以根据上述等式通过线搜索来为其计算系数$\gamma$。但这种方法是一种启发式的方法，无法给出给定问题的精确解决方案，只能提供一个近似的解，其伪代码如算法\ref{alg:gbm}所示。
+  在算法的第三阶段，将第二阶段得到的每一个群落折叠为单个节点，并在此基础上建立新的网络。这时，新群落节点上的自环表示同一群落节点之间的所有连接，而群落节点之间的加权边表示同一群落多个节点到不同群落节点的连接。在新网络创建完毕后，其结果可以重新用于算法的第一阶段，进行迭代，最终得到聚类结果。
 
-\begin{algorithm}[H]
-  \caption{Gradient-Boosting Machine}
-  \SetAlgoLined
-  \KwIn{training set $\{(x_{i},y_{i})\}^{n}_{i=1}$, a differentiable loss function $L(y,F(x))$, number of iterations $M$}
-  \KwOut{$F_{M}(x)$}
-  Initialize model with a constant value: $$F_{0}(x) = \mathop{\arg\min}_{\gamma}\sum^{n}_{i=1}L(y_{i},\gamma)$$\\
-  \For{$m\leftarrow 1$ \KwTo $M$}{
-    Compute so-called pseudo-residuals: $$r_{im} = -\left[\frac{\partial L(y_{i},F(x_{i}))}{\partial F(x_{i})}\right] for i=1,...,n$$\\
-    Fit a base learner(e.g. tree) $h_{m}(x)$ to pseudo-residuals, i.e. train it using the training set $\{(x_{i},r_{im})\}^{n}_{i=1}$.\\
-    Compute multiplier ${\gamma}_{m}$ by solving the following one-dimensional optimization problem: $${\gamma}_{m} = \mathop{\arg\min}_{\gamma}\sum^{n}_{i=1}L(y_{i},F_{m-1}(x_{i}) + {\gamma}h_{m}(x_{i}))$$\\
-    Update the model: $$F_{m}(x) = F_{m-1}(x) + {\gamma}_{m}h_{m}(x)$$\\
-  }
-  Return $F_{M}(x)$.\\
-  \label{alg:gbm}
-\end{algorithm}
-
-\subsection{GRNBoost2相比GENIE3的改进}
-  GENIE3\cite{huynh2010inferring}训练预测数据集中每个基因表达的随机森林模型，并将TF的表达用作输入。 然后使用不同的模型来得出TF的权重，并测量它们各自的相关性以预测每个靶基因的表达。 权重最高可以转化为TF目标监管链接。
-
-  GRNBoost2基于与GENIE3相同的概念：纯粹从基因表达矩阵中推断每个靶基因的调节子。但是，GRNBoost2使用Gradient-Boosting Machines（GBM）\cite{friedman2001greedy}实现。 GBM是一种集成学习算法，它使用boosting\cite{freund1999short}作为一种策略，将浅树等多个弱学习者组合成一个强者。 这与GENIE3使用的随机森林相反，该方法使用装袋（bootstrap聚合）进行模型平均以提高回归准确性。 GRNBoost2使用gradient-boosted stumps（深度为1的回归树）\cite{slawek2013ennet}作为基础学习器。
-
-  GRNBoost2的主要贡献是将这种多元回归方法转换为基于Apache Spark\cite{zaharia2012fast}的Map/Reduce\cite{dean2008mapreduce}框架。在GRNBoost2中，核心数据条目是基因名称的元组和基因表达值的载体。使用Spark RDD，GRNBoost2首先在计算集群中可用的节点上划分基因表达载体。随后，它构建了一个预测矩阵，其中包含所有候选调节基因的表达值。使用Spark广播变量，将预测变量矩阵广播到不同的计算分区。在框架的映射阶段，GRNBoost2遍历基因元组（表达向量），并使用预测变量矩阵来训练XGBoost回归模型，并将表达向量作为各自的训练标签。从训练有素的模型中，可以得出监管者与目标之间的关系强度，并将其作为一组网络边缘发出。在缩减阶段，所有边缘集合都组合到最终的监管网络中。
-
-\section{RcisTarget}
-  RcisTarget可为基因列表识别富集的TF结合基序和候选转录因子。简而言之，RcisTarget基于两个步骤。首先，它选择在基因组中的基因转录起始位点（TSS）的周围环境中显着过量表达的DNA基序。这是通过在数据库中应用基于恢复的方法来实现的，该数据库包含每个基序的全基因组跨物种排名。保留了注释为相应TF并获得归一化富集得分（NES）> 3.0的基序。接下来，对于每个基序和基因组，RcisTarget预测候选目标基因（即，基因组中排在最前沿的基因）。该方法基于Aerts等人\cite{aerts2010robust}描述的方法，该方法也可以在i-cisTarget（网络界面）\cite{herrmann2012cistarget}和iRegulon（Cytoscape插件）\cite{verfaillie2014iregulon}中实现。因此，当使用相同的参数和数据库时，RcisTarget可提供与i-cisTarget或iRegulon相同的结果，并以Janky等人\cite{verfaillie2014iregulon}中的其他TFBS富集工具为基准。
-\section{AUCell}
-  AUCell可帮助研究人员在单细胞RNA-seq数据中鉴定具有活跃基因调控网络的细胞。 AUCell的输入是一个基因集，输出是每个单元格中“活动”的基因集。 在SCENIC中，这些基因集是调控因子，由TF及其推定的靶标组成。
-
-  AUCell会计算特定细胞中所有基因的排名，将其作为恢复曲线下的面积（在恢复曲线下的面积）来计算调节子的富集程度，从而根据基因的表达值对其进行排名。然后，AUCell使用AUC来计算输入基因集的关键子集是否在每个细胞的排名顶部都得到了富集。通过这种方式，AUC代表了基因签名中表达基因的比例及其与细胞内其他基因相比的相对表达值。
+  总之，Leiden算法可以保证产生的分区中不会存在连接不良的群落。在Leiden算法被迭代使用时，它会收敛到一个分区，在该分区中，可以确保所有群落的所有子集都属于局部最优分配。因此，Leiden算法可以提供准确的聚类见解，供下游分析使用。
 
