@@ -3,27 +3,7 @@
 \chapter{相关工作}
 
 \section{单细胞RNA测序}
-  生物体内各种组织之间存在巨大的差异，甚至同一块组织也会有在形态、功能上差异巨大的细胞。Bulk-RNA测序技术可以很好地用来探究组织异质性，但其无法很好地解决后面一个问题，其原因便在于Bulk-RNA测序技术无法提供单细胞层级的转录信息。相较之下，单细胞RNA测序（scRNA-seq）技术提供了在单细胞水平观测基因表达的方法，可以更好地研究组织内的细胞异质性\cite{hammond2019single,keren2017unique,li2019developmental,masuda2019spatial,masuda2020novel,matcovitch2016microglia}。
-
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.8\textwidth]{figs/scseq-development.jpeg}
-  \caption{单细胞RNA测序技术近年来的发展}
-  \label{fig:scseq-development}
-\end{figure}
-
-  单细胞RNA测序技术最初起始于Kurimoto等人在2006年的一项工作\cite{kurimoto2006improved}，这项工作对于后来单细胞转录组测序的原理发展有很大的影响。该研究主要特点在于加入了T7启动子，这样便把cDNA为期29个循环的扩增切分为两段，减少PCR扩增的偏差。汤富酬等人在2009年所做的一项工作\cite{tang2009mrna}，延用了Kurimoto等人在2006年工作\cite{kurimoto2006improved}中在末端加A的思路。但是在最后读取cDNA信息的时候，汤等人使用了Applied Biosystem的二代测序SOLiD system平台，也就是取代了芯片的读取方式。
-
-  目前应用最广泛的是模板转换法，主要代表技术便是SMART-seq\cite{ramskold2012full,picelli2013smart}，这也是我们在本课题中主要使用的测序技术。其实，在2011年的START-seq\cite{islam2011characterization}，就已经用到模板转换法，同时运用Barcode标记的思路来达到相对高通量的单细胞转录组测序。稍微改进这种方法，将Barcode加在3'端，便可以富集3'端测序，同时在一开始就将测序接头设计到引物里去，以后不用再引入，便可以做高通量。如若再不加Barcode，一个细胞的cDNA建立一个库，这样就可以获得全长的cDNA信息，也就是有了后来的SMART-seq1\&2。
-
-\begin{figure}[!htb]
-  \centering
-  \includegraphics[width=0.8\textwidth]{figs/scseq-smart.png}
-  \caption{SMART-seq流程}
-  \label{fig:scseq-smart}
-\end{figure}
-
-  目前，单细胞RNA测序技术可解决的常见问题\cite{liu2016single,junker2014every}包括：
+  生物体内各种组织之间存在巨大的差异，甚至同一块组织也会有在形态、功能上差异巨大的细胞。Bulk-RNA测序技术可以很好地用来探究组织异质性，但其无法很好地解决后面一个问题，其原因便在于Bulk-RNA测序技术无法提供单细胞层级的转录信息。相较之下，单细胞RNA测序（scRNA-seq）技术提供了在单细胞水平观测基因表达的方法，可以更好地研究组织内的细胞异质性\cite{hammond2019single,keren2017unique,li2019developmental,masuda2019spatial,masuda2020novel,matcovitch2016microglia}。单细胞RNA测序技术可解决的常见问题\cite{liu2016single,junker2014every}包括：
 \begin{itemize}
     \item 探究异质性（Studying heterogeneity）
     \item 谱系路径分析（Lineage tracing study）
@@ -37,12 +17,25 @@
   \label{fig:scseq-purpose}
 \end{figure}
 
-\section{垂体在单细胞转录水平的研究}
-  以往探究垂体在中枢神经内分泌炎症调节过程中作用的研究\cite{chrousos1995hypothalamic,shanks2000early}，表明HPA轴是体内的压力反应中心，垂体积极参与中枢神经内分泌炎症调节过程。但这些研究都没有涉及到单细胞转录层级，没有揭示垂体内部各类细胞在中枢神经内分泌炎症调解过程中的角色以及内在调控因子。近几年，也有一些使用单细胞RNA测序技术研究垂体的工作\cite{chen2020single,cheung2018single,ho2020single,fletcher2019cell}，但这些工作主要关注于某个发育过程中的静态分类问题，很少有研究使用单细胞转录组测序来进行动态功能研究。
+  单细胞RNA测序技术最初起始于Kurimoto等人在2006年的一项工作\cite{kurimoto2006improved}，这项工作对于后来单细胞转录组测序的原理发展有很大的影响。该研究主要特点在于加入了T7启动子，这样便把cDNA为期29个循环的扩增切分为两段，减少PCR扩增的偏差。汤富酬等人在2009年所做的一项工作\cite{tang2009mrna}，延用了Kurimoto等人在2006年工作\cite{kurimoto2006improved}中在末端加A的思路。但是在最后读取cDNA信息的时候，汤等人使用了Applied Biosystem的二代测序SOLiD system平台，也就是取代了芯片的读取方式。
 
-  这项研究中，我们主要关注不同的垂体细胞如何响应炎症刺激。我们将基于病毒或细菌感染建立炎症小鼠模型，并主要使用单细胞转录组测序以及数据分析和数据挖掘来找出炎症、垂体和激素之间的关系，动态炎症研究将成为我们实验中最重要的部分。
+  目前应用最广泛的是模板转换法，主要代表技术便是SMART-seq\cite{ramskold2012full,picelli2013smart}。其实，在2011年的START-seq\cite{islam2011characterization}，就已经用到模板转换法，同时运用Barcode标记的思路来达到相对高通量的单细胞转录组测序。稍微改进这种方法，将Barcode加在3'端，便可以富集3'端测序，同时在一开始就将测序接头设计到引物里去，以后不用再引入，便可以做高通量。如若再不加Barcode，一个细胞的cDNA建立一个库，这样就可以获得全长的cDNA信息，也就是有了后来的SMART-seq1\&2。
 
-  这项研究可以使我们对人体对病毒或细菌感染的免疫防御具有更清晰的认识。更重要的是，它具有非常重要的临床意义，我们希望获得用于免疫诊断的特定标记。此外，这项研究也可以为我们提供关于单细胞转录组测序技术应用的新思路。
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figs/scseq-development.jpeg}
+  \caption{单细胞RNA测序技术近年来的发展}
+  \label{fig:scseq-development}
+\end{figure}
+
+  对于这项研究而言，重要的是选择一种基于高通量和高度自动化的适当单细胞测序方法，以确保我们可以获得高灵敏度和准确性的测序数据。我们从Tang Lab（FuChou Tang博士）那里获得了一种新的改进的Smart-seq2方法，其过程如图\ref{fig:scseq-smart}所示，该方法可最大程度地减少操作并利用单管反应来避免部分材料的损失。反转录时，它将为每个细胞提供特定的细胞条形码，除了为每个mRNA提供不同的独特分子标识符（UMI）外，我们还可以将细胞集中在一起以进行测序文库的构建，并使用UMI进行质量控制，以便获得高质量的单细胞基因表达数据。
+
+\begin{figure}[!htb]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figs/scseq-smart.png}
+  \caption{改进的Smart-seq2流程}
+  \label{fig:scseq-smart}
+\end{figure}
 
 \section{基因调控网络}
   基因调控网络（GRN）定义并维持特定于细胞类型的转录状态，这反过来又是细胞形态和功能的基础。每种细胞类型或稳定状态均由活性转录因子（TF）的特定组合定义，这些转录因子与基因组中的一组顺式调节区域相互作用（与染色质结构相互作用），以产生特定的基因表达谱\cite{fiers2018mapping,arendt2016origin}。活性TF及其靶基因的组合通常表示为GRN。
