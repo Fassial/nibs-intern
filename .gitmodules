@@ -1,3 +1,6 @@
 [submodule "grad-proj/whu-thesis"]
 	path = grad-proj/whu-thesis
 	url = https://github.com/mtobeiyf/whu-thesis.git
+[submodule "grad-proj/WHU-Beamer-Theme"]
+	path = grad-proj/WHU-Beamer-Theme
+	url = https://github.com/fassial/WHU-Beamer-Theme
