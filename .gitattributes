@@ -1,6 +1,6 @@
 # dir
 grad-proj/* linguist-vendored
-scgrn/src/gen_figs/* linguist-vendored
 
 # file
+*.ipynb linguist-language=python
 
