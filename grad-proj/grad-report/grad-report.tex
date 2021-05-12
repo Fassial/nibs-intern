@@ -7,10 +7,10 @@
 \usepackage{graphicx,pstricks,listings,stackengine}
 
 \author{郑晖}
-\title{WHU Beamer Theme}
-\subtitle{毕业设计开题报告}
+\title{基于 GRN 的垂体基因表达差异分析}
+\subtitle{2021武汉大学本科毕业答辩}
 \institute{武汉大学弘毅学堂}
-\date{2020年12月21日}
+\date{2021年5月13日}
 \usepackage{WHU}
 
 % defs
@@ -22,14 +22,14 @@
 \definecolor{halfgray}{gray}{0.55}
 
 \lstset{
-    basicstyle=\ttfamily\small,
-    keywordstyle=\bfseries\color{deepblue},
-    emphstyle=\ttfamily\color{deepred},    % Custom highlighting style
-    stringstyle=\color{deepgreen},
-    numbers=left,
-    numberstyle=\small\color{halfgray},
-    rulesepcolor=\color{red!20!green!20!blue!20},
-    frame=shadowbox,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\bfseries\color{deepblue},
+  emphstyle=\ttfamily\color{deepred},    % Custom highlighting style
+  stringstyle=\color{deepgreen},
+  numbers=left,
+  numberstyle=\small\color{halfgray},
+  rulesepcolor=\color{red!20!green!20!blue!20},
+  frame=shadowbox,
 }
 
 
@@ -37,337 +37,217 @@
 
 \kaishu
 \begin{frame}
-    \titlepage
-    \begin{figure}[htpb]
-        \begin{center}
-            \includegraphics[width=0.2\linewidth]{logo/whu.eps}
-        \end{center}
-    \end{figure}
-\end{frame}
-
-\begin{frame}
-    \tableofcontents[sectionstyle=show,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
-\end{frame}
-
-
-\section{课题背景}
-
-\begin{frame}{用Beamer很高大上？}
-    \begin{itemize}[<+-| alert@+>] % 当然，除了alert，手动在里面插 \pause 也行
-        \item 大家都会\LaTeX{}，好多学校都有自己的Beamer主题
-        \item 中文支持请选择 Xe\LaTeX{} 编译选项
-        \item Overleaf项目地址位于 \url{https://www.overleaf.com/latex/templates/thu-beamer-theme/vwnqmzndvwyb}，可以直接使用
-        \item GitHub项目地址位于 \url{https://github.com/Trinkle23897/THU-Beamer-Theme}，如果有bug或者feature request可以去里面提issue
-    \end{itemize}
-\end{frame}
-
-
-\section{研究现状}
-
-\subsection{Beamer主题分类}
-
-\begin{frame}
-    \begin{itemize}
-        \item 有一些 \LaTeX{} 自带的
-        \item 有一些Tsinghua的
-        \item 本模板来源自 \newline \url{https://www.latexstudio.net/archives/4051.html}
-        \item 但是最初的 \href{http://far.tooold.cn/post/latex/beamertsinghua}{\color{purple}{link}} \cite{origin}已经失效了
-        \item 这是我在16-17年做的一些ppt：\href{https://github.com/Trinkle23897/oi_slides}{\color{purple}{戳我}}
-    \end{itemize}
-\end{frame}
-
-
-\section{研究内容}
-
-\subsection{美化主题}
-
-\begin{frame}{这一份主题与原始的THU Beamer Theme区别在于}
-    \begin{itemize}
-        \item 顶栏的小点变成一行而不是多行
-        \item 中文采用楷书
-        \item 剩下我改了啥我也忘了……我16年魔改的，都四年过去了（x
-        \item 更多该模板的功能可以参考 \url{https://www.latexstudio.net/archives/4051.html}
-        \item 下面列举出了一些Beamer的用法，部分节选自 \url{https://tuna.moe/event/2018/latex/}
-    \end{itemize}
-\end{frame}
-
-\subsection{如何更好地做Beamer}
-
-\begin{frame}{Why Beamer}
-    \begin{itemize}
-        \item \LaTeX 广泛用于学术界，期刊会议论文模板
-    \end{itemize}
-    \begin{table}[h]
-        \centering
-        \begin{tabular}{c|c}
-            Microsoft\textsuperscript{\textregistered}  Word & \LaTeX \\
-            \hline
-            文字处理工具 & 专业排版软件 \\
-            容易上手，简单直观 & 容易上手 \\
-            所见即所得 & 所见即所想，所想即所得 \\
-            高级功能不易掌握 & 进阶难，但一般用不到 \\
-            处理长文档需要丰富经验 & 和短文档处理基本无异 \\
-            花费大量时间调格式 & 无需担心格式，专心作者内容 \\
-            公式排版差强人意 & 尤其擅长公式排版 \\
-            二进制格式，兼容性差 & 文本文件，易读、稳定 \\
-            付费商业许可 & 自由免费使用 \\
-        \end{tabular}
-    \end{table}
-\end{frame}
-
-\begin{frame}{排版举例}
-    \begin{exampleblock}{无编号公式} % 加 * 
-        \begin{equation*}
-            J(\theta) = \mathbb{E}_{\pi_\theta}[G_t] = \sum_{s\in\mathcal{S}} d^\pi (s)V^\pi(s)=\sum_{s\in\mathcal{S}} d^\pi(s)\sum_{a\in\mathcal{A}}\pi_\theta(a|s)Q^\pi(s,a)
-        \end{equation*}
-    \end{exampleblock}
-    \begin{exampleblock}{多行多列公式\footnote{如果公式中有文字出现，请用 $\backslash$mathrm\{\} 或者 $\backslash$text\{\} 包含，不然就会变成 $clip$，在公式里看起来比 $\mathrm{clip}$ 丑非常多。}}
-        % 使用 & 分隔
-        \begin{align}
-            Q_\mathrm{target}&=r+\gamma Q^\pi(s^\prime, \pi_\theta(s^\prime)+\epsilon)\\
-            \epsilon&\sim\mathrm{clip}(\mathcal{N}(0, \sigma), -c, c)\nonumber
-        \end{align}
-    \end{exampleblock}
-\end{frame}
-
-\begin{frame}
-    \begin{exampleblock}{编号多行公式}
-        % Taken from Mathmode.tex
-        \begin{multline}
-            A=\lim_{n\rightarrow\infty}\Delta x\left(a^{2}+\left(a^{2}+2a\Delta x+\left(\Delta x\right)^{2}\right)\right.\label{eq:reset}\\
-            +\left(a^{2}+2\cdot2a\Delta x+2^{2}\left(\Delta x\right)^{2}\right)\\
-            +\left(a^{2}+2\cdot3a\Delta x+3^{2}\left(\Delta x\right)^{2}\right)\\
-            +\ldots\\
-            \left.+\left(a^{2}+2\cdot(n-1)a\Delta x+(n-1)^{2}\left(\Delta x\right)^{2}\right)\right)\\
-            =\frac{1}{3}\left(b^{3}-a^{3}\right)
-        \end{multline}
-    \end{exampleblock}
-\end{frame}
-
-\begin{frame}{图形与分栏}
-    % From thuthesis user guide.
-    \begin{minipage}[c]{0.3\linewidth}
-        \psset{unit=0.8cm}
-        \begin{pspicture}(-1.75,-3)(3.25,4)
-            \psline[linewidth=0.25pt](0,0)(0,4)
-            \rput[tl]{0}(0.2,2){$\vec e_z$}
-            \rput[tr]{0}(-0.9,1.4){$\vec e$}
-            \rput[tl]{0}(2.8,-1.1){$\vec C_{ptm{ext}}$}
-            \rput[br]{0}(-0.3,2.1){$\theta$}
-            \rput{25}(0,0){%
-            \psframe[fillstyle=solid,fillcolor=lightgray,linewidth=.8pt](-0.1,-3.2)(0.1,0)}
-            \rput{25}(0,0){%
-            \psellipse[fillstyle=solid,fillcolor=yellow,linewidth=3pt](0,0)(1.5,0.5)}
-            \rput{25}(0,0){%
-            \psframe[fillstyle=solid,fillcolor=lightgray,linewidth=.8pt](-0.1,0)(0.1,3.2)}
-            \rput{25}(0,0){\psline[linecolor=red,linewidth=1.5pt]{->}(0,0)(0.,2)}
-%           \psRotation{0}(0,3.5){$\dot\phi$}
-%           \psRotation{25}(-1.2,2.6){$\dot\psi$}
-            \psline[linecolor=red,linewidth=1.25pt]{->}(0,0)(0,2)
-            \psline[linecolor=red,linewidth=1.25pt]{->}(0,0)(3,-1)
-            \psline[linecolor=red,linewidth=1.25pt]{->}(0,0)(2.85,-0.95)
-            \psarc{->}{2.1}{90}{112.5}
-            \rput[bl](.1,.01){C}
-        \end{pspicture}
-    \end{minipage}\hspace{1cm}
-    \begin{minipage}{0.5\linewidth}
-        \medskip
-        %\hspace{2cm}
-        \begin{figure}[h]
-            \centering
-            \includegraphics[height=.4\textheight]{img/dtmf.pdf}
-        \end{figure}
-    \end{minipage}
-\end{frame}
-
-\begin{frame}[fragile]{\LaTeX{} 常用命令}
-    \begin{exampleblock}{命令}
-        \centering
-        \footnotesize
-        \begin{tabular}{llll}
-            \cmd{chapter} & \cmd{section} & \cmd{subsection} & \cmd{paragraph} \\
-            章 & 节 & 小节 & 带题头段落 \\\hline
-            \cmd{centering} & \cmd{emph} & \cmd{verb} & \cmd{url} \\
-            居中对齐 & 强调 & 原样输出 & 超链接 \\\hline
-            \cmd{footnote} & \cmd{item} & \cmd{caption} & \cmd{includegraphics} \\
-            脚注 & 列表条目 & 标题 & 插入图片 \\\hline
-            \cmd{label} & \cmd{cite} & \cmd{ref} \\
-            标号 & 引用参考文献 & 引用图表公式等\\\hline
-        \end{tabular}
-    \end{exampleblock}
-    \begin{exampleblock}{环境}
-        \centering
-        \footnotesize
-        \begin{tabular}{lll}
-            \env{table} & \env{figure} & \env{equation}\\
-            表格 & 图片 & 公式 \\\hline
-            \env{itemize} & \env{enumerate} & \env{description}\\
-            无编号列表 & 编号列表 & 描述 \\\hline
-        \end{tabular}
-    \end{exampleblock}
-\end{frame}
-
-\begin{frame}[fragile]{\LaTeX{} 环境命令举例}
-    \begin{minipage}{0.5\linewidth}
-\begin{lstlisting}[language=TeX]
-\begin{itemize}
-  \item A \item B
-  \item C
-  \begin{itemize}
-    \item C-1
-  \end{itemize}
-\end{itemize}
-\end{lstlisting}
-    \end{minipage}\hspace{1cm}
-    \begin{minipage}{0.3\linewidth}
-        \begin{itemize}
-            \item A
-            \item B
-            \item C
-            \begin{itemize}
-                \item C-1
-            \end{itemize}
-        \end{itemize}
-    \end{minipage}
-    \medskip
-    \pause
-    \begin{minipage}{0.5\linewidth}
-\begin{lstlisting}[language=TeX]
-\begin{enumerate}
-  \item 巨佬 \item 大佬
-  \item 萌新
-  \begin{itemize}
-    \item[n+e] 瑟瑟发抖
-  \end{itemize}
-\end{enumerate}
-\end{lstlisting}
-    \end{minipage}\hspace{1cm}
-    \begin{minipage}{0.3\linewidth}
-        \begin{enumerate}
-            \item 巨佬
-            \item 大佬
-            \item 萌新
-            \begin{itemize}
-                \item[n+e] 瑟瑟发抖
-            \end{itemize}
-        \end{enumerate}
-    \end{minipage}
-\end{frame}
-
-\begin{frame}[fragile]{\LaTeX{} 数学公式}
-    \begin{columns}
-        \begin{column}{.55\textwidth}
-\begin{lstlisting}[language=TeX]
-$V = \frac{4}{3}\pi r^3$
-
-\[
-  V = \frac{4}{3}\pi r^3
-\]
-
-\begin{equation}
-  \label{eq:vsphere}
-  V = \frac{4}{3}\pi r^3
-\end{equation}
-\end{lstlisting}
-        \end{column}
-        \begin{column}{.4\textwidth}
-            $V = \frac{4}{3}\pi r^3$
-            \[
-                V = \frac{4}{3}\pi r^3
-            \]
-            \begin{equation}
-                \label{eq:vsphere}
-                V = \frac{4}{3}\pi r^3
-            \end{equation}
-        \end{column}
-    \end{columns}
-    \begin{itemize}
-        \item 更多内容请看 \href{https://zh.wikipedia.org/wiki/Help:数学公式}{\color{purple}{这里}}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]
-    \begin{columns}
-        \column{.6\textwidth}
-\begin{lstlisting}[language=TeX]
-    \begin{table}[htbp]
-      \caption{编号与含义}
-      \label{tab:number}
-      \centering
-      \begin{tabular}{cl}
-        \toprule
-        编号 & 含义 \\
-        \midrule
-        1 & 4.0 \\
-        2 & 3.7 \\
-        \bottomrule
-      \end{tabular}
-    \end{table}
-    公式~(\ref{eq:vsphere}) 的
-    编号与含义请参见
-    表~\ref{tab:number}。
-\end{lstlisting}
-        \column{.4\textwidth}
-        \begin{table}[htpb]
-            \centering
-            \caption{编号与含义}
-            \label{tab:number}
-            \begin{tabular}{cl}\toprule
-                编号 & 含义 \\\midrule
-                1 & 4.0\\
-                2 & 3.7\\\bottomrule
-            \end{tabular}
-        \end{table}
-        \normalsize 公式~(\ref{eq:vsphere})的编号与含义请参见表~\ref{tab:number}。
-    \end{columns}
-\end{frame}
-
-\begin{frame}{作图}
-    \begin{itemize}
-        \item 矢量图 eps, ps, pdf
-        \begin{itemize}
-            \item METAPOST, pstricks, pgf $\ldots$
-            \item Xfig, Dia, Visio, Inkscape $\ldots$
-            \item Matlab / Excel 等保存为 pdf
-        \end{itemize}
-        \item 标量图 png, jpg, tiff $\ldots$
-        \begin{itemize}
-            \item 提高清晰度，避免发虚
-            \item 应尽量避免使用
-        \end{itemize}
-    \end{itemize}
-    \begin{figure}[htpb]
-        \centering
-        \includegraphics[width=0.2\linewidth]{logo/whu.eps}
-        \caption{这个校徽就是矢量图}
-    \end{figure}
-\end{frame}
-
-
-\section{计划进度}
-\begin{frame}
-    \begin{itemize}
-        \item 一月：完成文献调研
-        \item 二月：复现并评测各种Beamer主题美观程度
-        \item 三、四月：美化THU Beamer主题
-        \item 五月：论文撰写
-    \end{itemize}
-\end{frame}
-
-
-\section{参考文献}
-
-\begin{frame}[allowframebreaks]
-    \bibliography{ref}
-    \bibliographystyle{alpha}
-    % 如果参考文献太多的话，可以像下面这样调整字体：
-    % \tiny\bibliographystyle{alpha}
-\end{frame}
-
-\begin{frame}
+  \titlepage
+  \begin{figure}[htpb]
     \begin{center}
-        {\Huge\calligra Thanks!}
+      \includegraphics[width=0.2\linewidth]{logo/whu.eps}
     \end{center}
+  \end{figure}
+\end{frame}
+
+\begin{frame}
+  \tableofcontents[sectionstyle=show,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
+\end{frame}
+
+
+\section{研究背景与内容}
+
+\begin{frame}{研究背景}
+  \begin{columns}
+    \begin{column}{.5\linewidth}
+      \begin{itemize}
+        \item HPA 轴是体内的压力反应中心，连接中枢神经系统（CNS）和内分泌系统。
+        \item 作为 HPA 轴组成部分的垂体，在炎症事件调节过程中起到重要的作用。
+        \item 以往探究垂体在中枢神经内分泌炎症调节过程中作用的研究都没有涉及到单细胞转录层级。
+      \end{itemize}
+    \end{column}
+ 
+    \begin{column}{.5\linewidth}
+      \includegraphics<1>[width=\linewidth]{figs/HPA.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{研究内容}
+  \begin{itemize}
+    \item 我们主要关注不同的垂体细胞如何响应炎症刺激，动态炎症研究将成为我们实验中最重要的部分。
+    \item 我们将基于病毒或细菌感染建立炎症小鼠模型，并主要使用单细胞转录组测序以及数据分析和数据挖掘来找出炎症、垂体和激素之间的关系。
+  \end{itemize}
+\end{frame}
+
+\section{相关工作}
+
+\subsection{单细胞 RNA 测序}
+
+\begin{frame}{单细胞 RNA 测序}
+  \begin{columns}
+    \begin{column}{.5\linewidth}
+    单细胞 RNA 测序（scRNA­seq）技术提供了在单细胞水平观测基因表达的方法，可以更好地研究以下问题：
+      \begin{itemize}
+        \item 探究异质性
+        \item 谱系路径分析
+        \item 随机基因表达研究
+      \end{itemize}
+    \end{column}
+ 
+    \begin{column}{.5\linewidth}
+      \includegraphics<1>[width=\linewidth]{figs/scseq-purpose.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{单细胞 RNA 测序数据处理流程}
+  \begin{columns}
+    \begin{column}{.5\linewidth}
+      \setbeamercolor{alerted text}{fg=red}
+      \begin{itemize}
+        \item<1-|alert@1> 将原始测序数据转化为基因表达矩阵。
+        \item<2-|alert@2> 对基因表达矩阵进行质量控制。
+        \item<3-|alert@3> 依据基因表达矩阵进行聚类。
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{.5\linewidth}
+      \includegraphics<1>[width=\linewidth]{figs/cellranger-workflow.png}
+      \includegraphics<2>[width=\linewidth]{figs/qc-workflow.png}
+      \includegraphics<3>[width=\linewidth]{figs/cluster-workflow.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{基因调控网络}
+
+\begin{frame}{基因调控网络}
+  \begin{itemize}
+    \item 基因调控网络（GRN）定义并维持特定于细胞类型的转录状态，这反过来又是细胞形态和功能的基础。
+    \item 基于大规模转录组和表观基因组数据来计算预测 GRN 是一个广泛研究的领域。相关算法包括GENIE3、GRNBoost2和BEELINE等，在这项研究中我们主要使用基于GRNBoost2的SCENIC，进行基因调控网络推断。
+  \end{itemize}
+  \center
+  \includegraphics[width=0.8\linewidth]{figs/scenic-workflow.pdf}
+\end{frame}
+
+\section{实验设计流程}
+
+\begin{frame}{实验设计流程}
+  \begin{columns}
+    \begin{column}{.5\linewidth}
+      \setbeamercolor{alerted text}{fg=red}
+      \begin{itemize}
+        \item 建立一个涉及多种免疫刺激剂、多尺度给药剂量与恢复时程的小鼠炎症模型。
+        \item 组织解离、梯度离心分离。
+        \item 使用改进的Smart-seq2方法获得垂体单细胞转录组。
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{.5\linewidth}
+      \includegraphics[width=\linewidth]{figs/expr-design.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{实验数据分析}
+
+\subsection{测序数据预处理}
+
+\begin{frame}{测序数据预处理}
+  \begin{columns}
+    \begin{column}{.5\linewidth}
+      \setbeamercolor{alerted text}{fg=red}
+      \begin{itemize}
+        \item 对基因-细胞矩阵进行质量控制、降维可视化。
+        \item 依据各细胞类型已知的基因marker对数据进行标注。
+        \item 留下Som、Cort、Lac、Thyro以及Gonad五类细胞，进行进一步分析。
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{.5\linewidth}
+      \includegraphics[width=\linewidth]{figs/expr-res1.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\subsection{测序数据SCENIC分析}
+
+\begin{frame}{测序数据SCENIC分析}
+  我们对筛选出来的测序数据进行 SCENIC 分析，以推断其潜在转录因子及对应目的基因。对输出的AUC-score矩阵进行降维聚类，并用其聚类结果作为细胞是否处于炎症状态的判别标准。
+  \center
+  \includegraphics[width=0.8\linewidth]{figs/expr-res2.png}
+\end{frame}
+
+\begin{frame}{分析处理条件与垂体细胞状态之间的关系}
+  \begin{columns}
+    \begin{column}{.5\linewidth}
+      \begin{itemize}
+        \item 所有注射saline的处理组，基本都处于健康状态。
+        \item 注射低剂量LPS或者经历了长时程的恢复的处理组，仅有少部分处于炎症状态。
+        \item 注射高剂量LPS且仅经历短时程恢复的处理组则大多处于炎症状态。
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{.5\linewidth}
+      \includegraphics[width=\linewidth]{figs/expr-res3.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{分析不同细胞在炎症状态下的基因表达差异}
+  \begin{columns}
+    \begin{column}{.5\linewidth}
+      \begin{itemize}
+        \item 我们进一步分析了垂体中不同细胞在两种状态下的差异表达基因集合。
+        \item 同处于炎症状态，垂体中不同细胞应对炎症所做出的基因表达调整并不一致。
+        \item 在中枢神经内分泌系统处于炎症状态时，垂体内各类细胞会采取不同的应激方式，组成一个调节炎症反应的复杂系统。
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{.5\linewidth}
+      \includegraphics[width=\linewidth]{figs/expr-res4.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{分析导致炎症状态的转录因子}
+  \begin{columns}
+    \begin{column}{.5\linewidth}
+      \begin{itemize}
+        \item 寻找具备双峰分布或者重尾分布的转录因子，对其自适应二值化后可以很好地与SCENIC标签匹配起来。
+        \item Stat、Irf以及Nfkb等转录因子家族没有展现出细胞种类的特异性，是垂体参与中枢神经内分泌炎症调节过程中的Master Regulator Genes（MRs）。
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{.5\linewidth}
+      \includegraphics[width=\linewidth]{figs/expr-res5.pdf}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{总结与展望}
+
+\begin{frame}{主要贡献}
+  \begin{itemize}
+    \item 建立了一个涉及多种免疫刺激剂、多尺度给药剂量与恢复时程的小鼠炎症模型，并在单细胞水平上提供了其垂体细胞测序数据。
+    \item 揭示了不同种类垂体细胞在参与中枢神经内分泌炎症调节的过程中的转录水平差异，表明其在炎症调节过程中扮演不同的角色。
+    \item 发现了一类在不同种类垂体细胞中统一表达的转录因子，表明其在垂体参与中枢神经内分泌炎症调节过程中的重要地位。
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{未来工作}
+  \begin{itemize}
+    \item 在给以小鼠$TNF-\alpha$刺激之后，其部分垂体细胞在经历UMAP可视化降维之后，呈现出与其他炎症状态细胞相分离的现象。
+    \item 进一步探讨面对不可恢复炎症刺激与可恢复炎症刺激时垂体细胞在转录水平上的差异，揭示由健康（healthy）状态向这两种炎症（inflammation）状态转变的关键转录因子。
+  \end{itemize}
+\end{frame}
+
+\section{致谢}
+
+\begin{frame}{Thanks}
+  \begin{center}
+    {\Huge Thanks!}
+  \end{center}
+  \begin{itemize}
+    \item 指导老师：蔡朝晖、罗敏敏
+    \item 答辩学生：郑晖（2017300030039）
+  \end{itemize}
 \end{frame}
 
 \end{document}
