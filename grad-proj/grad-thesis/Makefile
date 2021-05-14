@@ -14,6 +14,7 @@ clean:
 	rm -rf *.nav
 	rm -rf *.out
 	rm -rf *.snm
+	rm -rf *."synctex(busy)"
 	rm -rf *.synctex.gz
 	rm -rf *.toc
 	rm -rf *.vrb
