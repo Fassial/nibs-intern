@@ -2,23 +2,23 @@
 
 % abstract-cn
 \begin{abstract}
-  诸如病毒或细菌感染之类的免疫挑战会引起组织炎症，并对下丘脑-垂体-肾上腺（HPA）轴产生深远影响。其中，垂体是大脑的内分泌中心，并积极参与炎症事件的调节。然而，我们对免疫攻击过程中垂体细胞的转录反应知之甚少。
+  诸如病毒或细菌感染之类的免疫挑战会引起组织炎症，垂体在炎症事件的调节过程中扮演着重要角色。然而，我们对免疫攻击过程中垂体细胞的转录反应知之甚少。使用基于机器学习与统计学习的生信算法，处理单细胞RNA测序数据，将为我们提供细胞转录反应层级的生物学见解。现在希望运用GRN推断、聚类、基因表达差异分析等算法，对实验科学家收集到的垂体单细胞RNA测序数据进行分析，揭示垂体内部各类细胞在中枢神经内分泌炎症调节过程中的角色以及在该过程中起关键作用的调控因子。
 
-  在这项研究中，我使用基因组学家标注的调控子-目标基因集合训练了一个GRN推断器。依据此模型，我对实验科学家在小鼠炎症模型上收集到的垂体单细胞转录组数据，进行基因调控网络推断。对得到的基因调控网络，通过聚类等分析手段，探寻免疫攻击过程中垂体细胞的转录反应。
+  在这项研究中，我使用基因组学家标注的调控子-目标基因集合训练了一个GRN推断器。依据此模型，我对实验科学家在小鼠炎症模型上收集到的垂体单细胞转录组数据，进行基因调控网络推断。使用聚类等分析手段对得到的基因调控网络进行处理，推断其细胞种类及状态。然后，统计该聚类标签与处理组标签的匹配度，验证刺激的有效性。最后，依据得到的细胞标签，对不同状态的同一种类垂体细胞分别进行基因表达差异分析，并对不同状态的所有细胞进行GRN矩阵差异分析，探寻免疫攻击过程中垂体细胞的转录反应变化以及驱动这种变化的关键转录因子。
 
-  我在垂体数据集中鉴定出6个主要细胞簇，并带有相应的标记物，这与先前的知识是一致的。在这些细胞中，对照组与实验组之间的转录反应都有巨大差异，不同种类垂体细胞都积极参与到炎症调节过程中。但是，不同种类垂体细胞转录变化并不相同，这便表明不同垂体细胞在炎症调节过程中的不同角色。除此之外，我还鉴定出一类在不同种类垂体细胞中共表达的基因调控子，如Stat、Irf和Nfkb等。
+  最终分析结果表明，在垂体各类细胞中，对照组与实验组之间的转录反应都有巨大差异，不同种类垂体细胞都积极参与到炎症调节过程中。但是，不同种类垂体细胞的上调、下调基因集合并不相同，即不同垂体细胞在炎症调节过程中的不同角色。除此之外，我还鉴定出一类在不同种类垂体细胞中共表达的基因调控子，如Stat、Irf和Nfkb等。
 
-  这项研究的结果扩展了我们对炎症激发过程中垂体单细胞转录反应的了解，并提供了有关炎症反应过程中HPA轴激素调节的有价值的信息。
+  这项研究的结果扩展了我们对炎症激发过程中垂体单细胞转录反应的了解，并提供了将单细胞RNA测序用于动态功能研究的新思路。
 \end{abstract}
 
 % abstract-en
 \begin{abstract*}
-  Immune challenges such as viral or bacterial infections cause tissue inflammations and have profound effects on the hypothalamic-pituitary-adrenal (HPA) axis. Pituitary gland is the endocrine center of the brain and is actively involved in the regulation of inflammatory events. However, very little is known about the transcriptional response of pituitary cells during immune challenge.
+  Immune challenges such as viral or bacterial infections can cause tissue inflammation, and the pituitary gland plays an important role in the regulation of inflammatory events. However, we know very little about the transcriptional response of pituitary cells during immune attack. Using biosynthesis algorithms based on machine learning and statistical learning to process single-cell RNA sequencing data will provide us with biological insights. Now I hope to use GRN inference, clustering, gene expression differential analysis and other algorithms to analyze the pituitary single-cell RNA sequencing data collected by experimental scientists, and reveal the role of various cells within the pituitary in the regulation of central neuroendocrine inflammation and the regulatory factors.
 
-  In this study, I trained a GRN inference machine using the regulator-target gene set annotated by genomicists. Based on this model, I performed gene regulatory network inferences on the pituitary single-cell transcriptome data collected by experimental scientists on mouse inflammation models. For the obtained gene regulatory network, clustering and other analysis methods are used to explore the transcriptional response of pituitary cells in the process of immune attack.
+  In this study, I trained a GRN inference machine using the regulator-target gene set annotated by genomicists. Based on this model, I performed gene regulatory network inferences on the pituitary single-cell transcriptome data. Then, I use analysis methods to process the obtained gene regulatory network and infer its cell type and state. Finally, according to the obtained cell label, the gene expression difference analysis of the same type of pituitary cells in different states is performed, and the GRN matrix difference analysis is performed on all cells in different states to explore the transcriptional response changes of pituitary cells during immune attack and the key transcription factors.
 
-  I identified 6 main cell clusters in the pituitary data set with corresponding markers, which is consistent with previous knowledge. Among these cells, the transcriptional response between the control group and the experimental group is greatly different, and different types of pituitary cells are actively involved in the process of inflammation regulation. However, the transcriptional changes of different types of pituitary cells are not the same, which indicates the different roles of different pituitary cells in the regulation of inflammation. In addition, I also identified a class of gene regulators that are co-expressed in different types of pituitary cells, such as Stat, Irf, and Nfkb.
+  The final analysis results showed that in various types of pituitary cells, there are huge differences in the transcriptional response between the control group and the experimental group, and different types of pituitary cells are actively involved in the process of inflammation regulation. However, different types of pituitary cells have different sets of up-regulated and down-regulated genes, that is, different pituitary cells have different roles in the regulation of inflammation. In addition, I also identified some gene regulators that are co-expressed in different types of pituitary cells, such as Stat, Irf, and Nfkb.
 
-  The results from this study extends our knowledge of the transcriptional response of pituitary single cell during inflammatory challenge, and provide valuable information regarding the hormonal regulation with HPA-axis during inflammatory responses.
+  The results of this study expand our understanding of the pituitary single-cell transcriptional response during inflammation stimulation.
 \end{abstract*}
 
